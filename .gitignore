@@ -1,7 +1,0 @@
-.DS_Store
-.mypy_cache
-.pylintrc
-*.pyc
-*.tmp
-venv
-stonk-alert/node_modules/
