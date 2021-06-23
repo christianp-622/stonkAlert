@@ -39,13 +39,6 @@
   }
 }
 
-.Sidebar {
-  height: 100%;
-  width: 250px;
-  padding-top: 30vh;
-  background-color: black;
-}
-
 .CDBSidebarMenuItem:hover {
   background-color: rgb(95, 95, 95);
 }
@@ -68,14 +61,122 @@ body {
 	}
 }
 
-.column {
-  float: left;
+#sidebar {
+  position:fixed;
 }
 
-.left {
-  width: 20%;
+.slotBig {
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2);
+  margin-left: 0%;
+  margin-right: 10%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  background-color: rgba(27, 33, 44, 0.4);
+  padding: 4px 8px 8px 4px;
 }
 
-.right {
-  width: 80%;
+.home .cards-container {
+	margin:25px auto;
+	display:grid;
+	width:100%;
+	grid-template-columns:repeat(3, minmax(300px, 1fr));
+	grid-gap:25px;
+	grid-template-rows:1fr;
+}
+
+.home .card-bg {
+  color: rgba(27, 33, 44, 0.4);
+  background-color: rgba(27, 33, 44, 0.4);
+	border:1px solid #f2f2f2;
+	box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.home .wide {
+	grid-column:span 2;
+}
+
+.home .c-p {
+	cursor:pointer;
+}
+
+.home .pane-image {
+	min-width:3rem;
+	height:3rem;
+	margin-right:1rem;
+}
+
+.home .card-section {
+	padding:0 1.5rem;
+	box-sizing: border-box;
+}
+
+.home .footer {
+	display:flex;
+	justify-content:space-between;
+	align-items:center;
+	padding:1.5rem 0;
+	width:80%;
+	margin:0 auto;
+}
+
+.home .footer-link {
+	display:flex;
+	align-items:center;
+	padding:0;
+	color:#333;
+}
+
+@media (max-width:1320px) {
+	.home .cards-container {
+		grid-gap: 15px;
+		grid-template-columns: repeat(2, minmax(270px, 1fr));
+	}
+	.home .wide {
+		grid-column:span 1;
+	}
+	.home .card-section {
+		padding:0 0.5rem;
+	}
+	.home .table-rem {
+		display:none !important;
+	}
+	.home .footer {
+		width:90%;
+	}
+}
+
+@media (max-width:920px) {
+	.home .cards-container {
+		max-width:500px;
+		width:90%;
+		font-size: 0.85rem;
+		grid-template-columns: repeat(1, minmax(220px, 100%));
+	}
+	.home .msg-rem {
+		display:none !important;
+	}
+	.home .p-4 {
+		padding:1rem !important;
+	}
+
+	.home .pane-image {
+		min-width:2rem;
+		height:2rem;
+		margin-right:0.5rem;
+	}
+	.home .footer-rem, .home .footer-link {
+		display:none !important;
+	}
+	.home .footer .d-flex{
+		margin:0 auto;
+		text-align: center;
+	}
+}
+@media (max-width:375px) {
+	.home .h5 {
+		font-size:1rem;
+	}
+	.home .cards-container {
+		margin:10px 0;
+	}
 }

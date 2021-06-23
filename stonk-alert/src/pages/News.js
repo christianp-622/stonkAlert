@@ -1,10 +1,15 @@
 import React from 'react';
+import Sidebar from '../components/Sidebar';
  
 const News = () => {
     return (
-       <div>
-          <p>test news</p>
-       </div>
+      <div>
+      <div>
+<Sidebar/>
+</div>
+<div><p>test news</p></div>
+
+</div>
     );
 }
  
