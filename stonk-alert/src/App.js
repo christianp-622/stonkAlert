@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import Sidebar from './components/Sidebar'
 import { BrowserRouter as Router } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Switch } from 'react-router-dom';
 import Home from './pages/Home';
 import About from './pages/About';
@@ -12,12 +13,6 @@ import Companies from './pages/Companies';
 function App() {
   return (
     <Router>
-      <body>
-      <div className="App">
-        <div class="column">
-          <Sidebar />
-        </div>
-        <div class="column">
           <Switch>
             <Route path="/" component={Home} exact/>
             <Route path="/about" component={About}/>
@@ -25,10 +20,6 @@ function App() {
             <Route path="/stocks" component={Stocks}/>
             <Route path="/news" component={News}/>
           </Switch>
-        </div>
-        
-      </div>
-      </body>
     </Router>
   );
 }

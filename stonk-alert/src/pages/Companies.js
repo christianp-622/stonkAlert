@@ -1,10 +1,15 @@
 import React from 'react';
+import Sidebar from '../components/Sidebar';
  
 const Companies = () => {
     return (
-       <div>
-          <p>test companies</p>
-       </div>
+      <div>
+      <div>
+<Sidebar/>
+</div>
+<div><p>test companies</p></div>
+
+</div>
     );
 }
  

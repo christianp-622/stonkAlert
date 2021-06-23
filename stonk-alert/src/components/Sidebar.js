@@ -26,7 +26,7 @@ const Sidebar = () => {
 
         <CDBSidebarContent className="sidebar-content">
           <CDBSidebarMenu>
-            <NavLink  exact to="/" activeClassName="activeClicked">
+            <NavLink exact to="/" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="home">Home</CDBSidebarMenuItem>
             </NavLink>
             <NavLink exact to="/stocks" activeClassName="activeClicked">
@@ -54,7 +54,7 @@ const Sidebar = () => {
               padding: '20px 5px',
             }}
           >
-            
+
           </div>
         </CDBSidebarFooter>
       </CDBSidebar>
