@@ -1,0 +1,50 @@
+
+h1{
+   display: flex;
+   justify-content: center;
+}
+
+.container {
+   margin-left: 50px;
+   margin-bottom: 10px;
+ }
+
+ .listgroup{
+   color: white;
+   font-weight: bold;
+   font-style:italic;
+   background-color: transparent;
+ }
+
+ .card {
+   margin-top: 10px;
+   margin-bottom: 10px;
+   text-align: center;
+   background-color: rgba(27, 33, 44, 0.4);
+   max-width: 350px;
+   min-width: 350px;
+   transition: none;
+}
+
+.description{
+   background-color: rgba(27, 33, 44, 0.4);
+   margin-top: 10px;
+   margin-bottom: 10px;
+   max-width: 1110px;
+   min-width: 1110px;
+   transition: none;
+}
+
+.deck {
+   display: flex;
+   justify-content: center;
+   flex-wrap: wrap;
+   flex-direction: row;
+   flex: 1;
+}
+
+.img{
+   object-fit: cover;
+   width: 100%;
+   height: 23vw;
+}
