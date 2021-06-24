@@ -1,0 +1,37 @@
+{
+   "size": 3,
+   "news":[
+       {
+           "id": "1",
+           "title": "GameStop stock jumps after the original meme stock cashes in again with $1 billion share sale",
+           "company": "GameStop",
+           "stock": "GME",
+           "date": "June 22, 2021",
+           "source": "CNBC",
+           "description": "The original Reddit-favorite meme stock jumped as much as 12.7% Tuesday after the company announced the completion of its at-the-market equity offering program that was initially disclosed on June 9.",
+           "link": "https://www.cnbc.com/2021/06/22/gamestop-jumps-9percent-after-the-original-meme-stock-cashes-in-again-with-1-billion-share-sale.html"
+       },
+       {
+           "id": "2",
+           "title": "AMC Retail Investors Want to Hold, Management Wants to Sell",
+           "company": "AMC Entertainment Holdings Inc",
+           "stock": "AMC",
+           "date": "June 22, 2021",
+           "source": "The Motley Fool",
+           "description": "AMC (NYSE:AMC) shareholders face an epic annual meeting that will have them vote on authorizing additional shares of AMC stock for sale. The company is in a tug of war between retail investors buying AMC stock and Wall Street hedge funds selling shares short.",
+           "link": "https://www.fool.com/investing/2021/06/22/amc-retail-investors-want-to-hold-management-wants/"
+       },
+       {
+           "id": "3",
+           "title": "BlackBerry Earnings Preview: Here’s What to Watch for",
+           "company": "BlackBerry Limited",
+           "stock": "BB",
+           "date": "June 22, 2021",
+           "source": "Yahoo Finance",
+           "description": "BlackBerry (BB), a provider of intelligent security software and services to businesses and governments, will report its Q1 earnings on June 24 after markets close. Strong earnings could boost BB shares, so let’s have a look at what analysts are expecting.",
+           "link": "https://finance.yahoo.com/news/blackberry-earnings-preview-watch-142146230.html"
+       }
+   ]
+
+
+}
