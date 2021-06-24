@@ -28,6 +28,7 @@ const data = require("../tempStockData.json");
 /*renders the stock cards for each stock in the Json*/
 function render_stock(stock){
    let logo = stock.ticker === "AMC" ? AMCLOGO : stock.ticker === "GME" ? GMELOGO : BBLOGO
+   let tempNewsID = stock.ticker === "AMC" ? "2" : stock.ticker === "GME" ? "1" : "3"
    return (
    <div className="card-bg w-100 border d-flex flex-column">
       <div className="p-4 d-flex flex-column h-100">
@@ -66,7 +67,7 @@ function render_stock(stock){
                </p>
             </NavLink>
 
-            <NavLink exact to={"/news/"+stock.ticker} activeClassName="activeClicked">
+            <NavLink exact to={"/news/"+tempNewsID} activeClassName="activeClicked">
                <p className="c-p mb-0 text-light font-weight-bold text-right mt-auto">
                                  News about the stock
                <i className="fas fa-arrow-right ml-1"></i>
@@ -138,6 +139,8 @@ const Stock_Page = () => {
    }
    /* temp code for the hard code. Find better way later :p */
    let graph = stock.ticker === "AMC" ? <Stock /> : stock.ticker === "GME" ? <Stock2 /> : <Stock3 />
+   let tempNewsID = stock.ticker === "AMC" ? "2" : stock.ticker === "GME" ? "1" : "3"
+
    /* */
    return (
       <div className="home d-flex">
@@ -203,7 +206,7 @@ const Stock_Page = () => {
                                  </p>
                               </NavLink>
 
-                              <NavLink exact to={"/news/"+stock.ticker} activeClassName="activeClicked">
+                              <NavLink exact to={"/news/"+tempNewsID} activeClassName="activeClicked">
                                  <p className="c-p mb-0 text-light font-weight-bold text-right mt-auto">
                                                       News about the stock
                                  <i className="fas fa-arrow-right ml-1"></i>
