@@ -53,7 +53,7 @@ const About = () => {
                                  </Card.Body>
                                  <ListGroup className="list-group-flush">
                                     <ListGroupItem>Commits: 14</ListGroupItem>
-                                    <ListGroupItem>Issues: 0</ListGroupItem>
+                                    <ListGroupItem>Issues: 7</ListGroupItem>
                                     <ListGroupItem>Tests: 0</ListGroupItem>
                                  </ListGroup>
                               </Card>
@@ -69,7 +69,7 @@ const About = () => {
                                  </Card.Body>
                                  <ListGroup className="list-group-flush">
                                     <ListGroupItem>Commits: 8</ListGroupItem>
-                                    <ListGroupItem>Issues: 0</ListGroupItem>
+                                    <ListGroupItem>Issues: 5</ListGroupItem>
                                     <ListGroupItem>Tests: 0</ListGroupItem>
                                  </ListGroup>
                               </Card>
@@ -85,7 +85,7 @@ const About = () => {
                                  </Card.Body>
                                  <ListGroup className="list-group-flush">
                                     <ListGroupItem>Commits: 5</ListGroupItem>
-                                    <ListGroupItem>Issues: 0</ListGroupItem>
+                                    <ListGroupItem>Issues: 4</ListGroupItem>
                                     <ListGroupItem>Tests: 0</ListGroupItem>
                                  </ListGroup>
                               </Card>
@@ -101,7 +101,7 @@ const About = () => {
                                  </Card.Body>
                                  <ListGroup className="list-group-flush">
                                        <ListGroupItem>Commits: 4</ListGroupItem>
-                                       <ListGroupItem>Issues: 0</ListGroupItem>
+                                       <ListGroupItem>Issues: 3</ListGroupItem>
                                        <ListGroupItem>Tests: 0</ListGroupItem>
                                  </ListGroup>
                               </Card>
@@ -117,7 +117,7 @@ const About = () => {
                                  </Card.Body>
                                  <ListGroup className="list-group-flush">
                                     <ListGroupItem>Commits: 4</ListGroupItem>
-                                    <ListGroupItem>Issues: 0</ListGroupItem>
+                                    <ListGroupItem>Issues: 3</ListGroupItem>
                                     <ListGroupItem>Tests: 0</ListGroupItem>
                                  </ListGroup>
                               </Card>
@@ -128,7 +128,7 @@ const About = () => {
                                     <Card.Title>Total Commits</Card.Title>
                                     <Card.Text>35</Card.Text>
                                     <Card.Title>Total Issues</Card.Title>
-                                    <Card.Text>0</Card.Text>
+                                    <Card.Text>22</Card.Text>
                                     <Card.Title>Total Tests</Card.Title>
                                     <Card.Text>0</Card.Text>
                                  </Card.Body>
