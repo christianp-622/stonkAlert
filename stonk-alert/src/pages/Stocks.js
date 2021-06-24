@@ -95,7 +95,7 @@ const Stocks = () => {
          </div>
          <div style={{ flex: "1 1 auto", display: "flex", flexFlow: "column", height: "100vh", overflowY: "hidden" }}>
             <div style={{ height: "100%" }}>
-               <div style={{ height: "calc(100% - 64px)", overflowY: "scroll" }}>
+               <div style={{ height: "calc(100%)", overflowY: "scroll" }}>
                   <div className="d-flex card-section">
                      <div className="cards-container">
                      {stockList}
