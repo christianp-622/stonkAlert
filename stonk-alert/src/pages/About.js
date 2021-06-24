@@ -138,6 +138,7 @@ const About = () => {
                                     <Card.Title>Tools</Card.Title>
                                  </Card.Body>
                                  <ListGroup text = "white" className="list-group-flush listgroup">
+                                       <ListGroupItem className = "listgroup" action href="https://cloud.google.com/gcp" rel="noopener noreferrer" target="_blank">Google Cloud Platform</ListGroupItem>
                                        <ListGroupItem className = "listgroup" action href="https://reactjs.org/" rel="noopener noreferrer" target="_blank">React</ListGroupItem>
                                        <ListGroupItem className = "listgroup" action href="https://www.postman.com/" rel="noopener noreferrer" target="_blank">Postman</ListGroupItem>
                                        <ListGroupItem className = "listgroup" action href="https://code.visualstudio.com/" rel="noopener noreferrer" target="_blank">Visual Studio Code</ListGroupItem>
@@ -159,10 +160,10 @@ const About = () => {
                                  </ListGroup>
                                  <Card.Body><Card.Title>APIs and Data Sources</Card.Title></Card.Body>
                                     <ListGroup text = "white" className="list-group-flush listgroup">
-                                       <ListGroupItem className = "listgroup" action href="https://www.themuse.com/developers" rel="noopener noreferrer" target="_blank">The Muse</ListGroupItem>
-                                       <ListGroupItem className = "listgroup" action href="https://www.alphavantage.co/documentation/" rel="noopener noreferrer" target="_blank">Alpha Vantage</ListGroupItem>
-                                       <ListGroupItem className = "listgroup" action href="https://newsapi.org/" rel="noopener noreferrer" target="_blank">News Api</ListGroupItem>
-                                       <ListGroupItem className = "listgroup" action href="https://www.styvio.com/" rel="noopener noreferrer" target="_blank">Styvio</ListGroupItem>
+                                       <ListGroupItem className = "listgroup" action href="https://www.themuse.com/developers" rel="noopener noreferrer" target="_blank">The Muse - Information on company profiles</ListGroupItem>
+                                       <ListGroupItem className = "listgroup" action href="https://www.alphavantage.co/documentation/" rel="noopener noreferrer" target="_blank">Alpha Vantage - Realtime and historical stock data</ListGroupItem>
+                                       <ListGroupItem className = "listgroup" action href="https://newsapi.org/" rel="noopener noreferrer" target="_blank">News Api - Current and historical news articles</ListGroupItem>
+                                       <ListGroupItem className = "listgroup" action href="https://www.styvio.com/" rel="noopener noreferrer" target="_blank">Styvio - Realtime and historical stock data and current stock sentiment</ListGroupItem>
                                     </ListGroup>
                               </Card>
                         </CardDeck>
