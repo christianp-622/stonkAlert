@@ -15,7 +15,7 @@ const Home = () => {
          </div>
          <div style={{ flex: "1 1 auto", display: "flex", flexFlow: "column", height: "100vh", overflowY: "hidden" }}>
             <div style={{ height: "100%" }}>
-               <div style={{ height: "calc(100% - 64px)", overflowY: "scroll" }}>
+               <div style={{ height: "calc(100%)", overflowY: "scroll" }}>
                   <div className="d-flex card-section">
                      <div className="cards-container">
                         <div className="card-bg w-100 border d-flex flex-column">
@@ -24,8 +24,8 @@ const Home = () => {
                                  <h4 className="m-0 h5 font-weight-bold text-light">What is Stonk Alert?</h4>
                                  <div className="py-1 px-2 bg-white rounded-circle"><i className="fas fa-users"></i></div>
                               </div>
-                              <img src={logo} />
-                              <p className="my-4 text-left text-light">Welcome to Stonk Alert! Stonk Alert tracks news, trends, provides information, and more on "meme stocks" and their companies.</p>
+                              <img src={logo} alt="logo"/>
+                              <p className="my-4 text-center text-light">Welcome to Stonk Alert! Stonk Alert tracks news, trends, provides information, and more on "meme stocks" and their companies.</p>
                               <NavLink exact to="/about" activeClassName="activeClicked">
                                  <p className="c-p mb-0 text-light font-weight-bold text-right mt-auto">
                                     More About Us
@@ -37,7 +37,7 @@ const Home = () => {
 
                         <div className="card-bg w-100 border d-flex flex-column p-4 wide border d-flex flex-column" style={{ gridRow: "span 2" }}>
                            <div className="d-flex">
-                              <h6 className="h5 font-weight-bold text-light">Stocks</h6>
+                              <h6 className="h5 font-weight-bold text-light">Top Meme Stocks</h6>
                               <div className="ml-auto rounded-circle bg-white py-1 px-2"><i className="fas fa-chart-line"></i></div>
                            </div>
                            <div className="d-flex mt-4">
@@ -83,23 +83,23 @@ const Home = () => {
                            </NavLink>
                         </div>
 
-                        <div className="card-bg w-100 border d-flex flex-column">
+                        <div className="card-bg-white w-100 border d-flex flex-column">
                            <div className="p-4 d-flex flex-column h-100">
                               <div className="d-flex align-items-center justify-content-between">
-                                 <h4 className="m-0 h5 font-weight-bold text-light">something</h4>
-                                 <div className="px-2 py-1 bg-white rounded-circle"><i className="fas fa-chart-line"></i></div>
+                                 <h4 className="m-0 h5 font-weight-bold">r/wallstreetbets</h4>
+                                 <div className="px-2 py-1 bg-white rounded-circle"><i className="fas fa-comment-dollar"></i></div>
                               </div>
                               <div className="mt-3 d-flex justify-content-between">
                                  <div className="text-right w-25">
 
                                  </div>
                               </div>
-                              <NavLink exact to="/" activeClassName="activeClicked">
-                                 <p className="c-p text-light mb-0 font-weight-bold text-right mt-auto">
-                                    More Details
+                              
+                                 <p className="c-p mb-0 font-weight-bold text-right mt-auto">
+                                    <a href="https://www.reddit.com/r/wallstreetbets/">View Subreddit</a>
                                     <i className="fas fa-arrow-right ml-1"></i>
                                  </p>
-                              </NavLink>
+                              
                            </div>
                         </div>
 
@@ -113,9 +113,10 @@ const Home = () => {
                                  <h4 className="m-0 h5 font-weight-bold text-light">Companies</h4>
                                  <div className="px-2 py-1 bg-white rounded-circle"><i className="fas fa-building"></i></div>
                               </div>
-                              <div className="mt-5 d-flex align-items-center justify-content-between">
+                              <div className="mt-5 d-flex align-items-center text-center justify-content-between">
                                  <div>
-                                    <h4 className="m-0 h1 font-weight-bold text-light">GME AMC BB</h4>
+                                    <h4 className="m-0 h1 font-weight-bold text-light text-center">GameStop AMC BlackBerry</h4>
+                                    <h4 className="text-success text-center"><i className="fas fa-arrow-up"></i> 21%</h4>
 
                                  </div>
                                  <div className="text-right d-flex flex-column justify-content-between">
@@ -142,12 +143,12 @@ const Home = () => {
                         <div className="card-bg w-100 border d-flex flex-column wide border d-flex flex-column" style={{ gridRow: "span 2" }}>
                            <div className="p-4 d-flex flex-column h-100">
                               <div className="d-flex align-items-center justify-content-between">
-                                 <h4 className="m-0 h5 font-weight-bold text-light">News</h4>
+                                 <h4 className="m-0 h5 font-weight-bold text-light">Related News</h4>
                                  <div className="px-2 py-1 bg-white rounded-circle"><i className="fas fa-newspaper"></i></div>
                               </div>
                               <div className="mt-5 d-flex align-items-center justify-content-between">
                                  <div>
-                                    <h4 className="m-0 h1 font-weight-bold text-light">GME AMC BB</h4>
+                                 <h4 className="my-4 text-left text-light"><strong>&emsp; GameStop stock jumps after the original meme stock cashes in again with $1 billion share sale... </strong></h4>
 
                                  </div>
                                  <div className="text-right d-flex flex-column justify-content-between">
