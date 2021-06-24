@@ -1,0 +1,222 @@
+commit 03d60c0c9574c8f5a5f4fbaa093846d68f19d50a
+Author: Christian Pichardo <ChristianP62200@gmail.com>
+Date:   Thu Jun 24 17:42:31 2021 -0600
+
+    Updated individual and total issues
+
+commit 04e8fcb0245db11d0e5f0cd14308d4cc5259cd69
+Author: Christian Pichardo <ChristianP62200@gmail.com>
+Date:   Thu Jun 24 17:12:57 2021 -0600
+
+    Updated individual and total commits
+
+commit 43bda9f656d5958c384a176a04f085710ff399b1
+Author: Albert Cho <albert.cho.kor@gmail.com>
+Date:   Thu Jun 24 15:15:27 2021 -0700
+
+    Updated makefile and requirements.txt
+
+commit 88154a6adbd546639089dff093ee00d69da7e180
+Author: Kevin Yang <kyang2001@yahoo.com>
+Date:   Thu Jun 24 15:37:53 2021 -0500
+
+    Added GCP to tools and descritpion for each API
+
+commit 1599f0c58d0159a91d7c9be31af7ff9ef03f4e45
+Author: Albert Cho <albert.cho.kor@gmail.com>
+Date:   Thu Jun 24 13:01:17 2021 -0700
+
+    Fixed some dead links/routing issues to news page.
+
+commit cac16ff87028f17775133aa54147e80340421f84
+Author: ashraydesai <ashray.v.desai@gmail.com>
+Date:   Thu Jun 24 11:13:46 2021 -0500
+
+    Completed news page with model pages linking to other models.
+
+commit 9d3f8a0a63b2d293fe20304c1e0966757fee289c
+Author: ashraydesai <ashray.v.desai@gmail.com>
+Date:   Thu Jun 24 10:51:13 2021 -0500
+
+    Added News data from News API in json format for use by News page (to be added soon)
+
+commit d8460ad680cccdbfe69b9eebc49334b2203e0f22
+Author: ashraydesai <ashray.v.desai@gmail.com>
+Date:   Thu Jun 24 10:31:16 2021 -0500
+
+    Tweaked the stylizing for the News page
+
+commit 0328f454e7326ffa9a64e49ed2a76546400b1b92
+Author: ashraydesai <ashray.v.desai@gmail.com>
+Date:   Thu Jun 24 10:29:30 2021 -0500
+
+    Added routing features and style information in preparation for News page addition
+
+commit f1343342ea7610c15edd84b5302403e07185e348
+Merge: a2da5fac 4c3bb5a6
+Author: Kevin Yang <kyang2001@yahoo.com>
+Date:   Thu Jun 24 03:48:07 2021 -0500
+
+    Merge branch 'dev' of https://gitlab.com/albertchokor/cs373-idb into dev
+
+commit a2da5fac874f50524cc996f2be217e9a6f9c2f94
+Author: Kevin Yang <kyang2001@yahoo.com>
+Date:   Thu Jun 24 03:47:34 2021 -0500
+
+    Added more pages that represent each model/company in the companies page
+
+commit 4c3bb5a6695bc195f664eab599b93b22cd7ae0b6
+Author: Albert Cho <albert.cho.kor@gmail.com>
+Date:   Thu Jun 24 00:38:38 2021 -0700
+
+    Cleared footer padding.
+
+commit ecb29440480289566d1f7936a26bd2a08e89cf29
+Author: Albert Cho <albert.cho.kor@gmail.com>
+Date:   Thu Jun 24 00:36:02 2021 -0700
+
+    Updated splash/home page and index.html, created placeholder Makefile.
+
+commit 6b02a23884bb8f18cceb6ccd940d23873bd922a4
+Author: Guan Lin Wee <guanlinwee01@gmail.com>
+Date:   Thu Jun 24 01:56:52 2021 -0500
+
+    Updated 'Stocks' webpage with necessary information
+
+commit 6df8eb1ad9cd5da4d1bfa6ff11fcf6808943982d
+Merge: 7b4c67dc 8352058b
+Author: Guan Lin Wee <guanlinwee01@gmail.com>
+Date:   Thu Jun 24 01:51:09 2021 -0500
+
+    Merge branch 'dev' of https://gitlab.com/albertchokor/cs373-idb into dev
+
+commit 8352058b4e550e0649b6644dc08f4a70b5e77f51
+Author: Christian Pichardo <ChristianP62200@gmail.com>
+Date:   Thu Jun 24 00:26:32 2021 -0600
+
+    Updated 'Companies' webpage with necessary information
+
+commit 6331edd0b626d6ed1a7b80da1055177800bd9b0f
+Author: Kevin Yang <kyang2001@yahoo.com>
+Date:   Thu Jun 24 00:55:06 2021 -0500
+
+    Adding all components of the About page: About.js, About.css, and everyone's images
+
+commit 7b4c67dcdf5dc3aeffa4049c410198814da308a4
+Merge: 0ad1a21a 971050be
+Author: Guan Lin Wee <guanlinwee01@gmail.com>
+Date:   Tue Jun 22 22:47:23 2021 -0500
+
+    Merge branch 'dev' of https://gitlab.com/albertchokor/cs373-idb into dev
+
+commit 971050be40ebf758e47d120fe1f4c73a195915c2
+Author: Albert Cho <albert.cho.kor@gmail.com>
+Date:   Tue Jun 22 20:30:53 2021 -0700
+
+    Created splash page with routing to other pages.
+
+commit 0ad1a21a96742bf6b906a5958798750a3edbb03c
+Merge: a7b48eea abafce72
+Author: Guan Lin Wee <guanlinwee01@gmail.com>
+Date:   Mon Jun 21 22:30:55 2021 -0500
+
+    Merge branch 'dev' of https://gitlab.com/albertchokor/cs373-idb into dev
+
+commit abafce72c4a2f2ec30d301adfb892412b29075ae
+Author: Albert Cho <albert.cho.kor@gmail.com>
+Date:   Tue Jun 22 03:17:13 2021 +0000
+
+    Update README.md
+
+commit a7b48eea52732dda100a09fd2756a7349c3bb722
+Merge: 7b26060d 82c17122
+Author: Guan Lin Wee <guanlinwee01@gmail.com>
+Date:   Mon Jun 21 22:11:56 2021 -0500
+
+    Merge branch 'dev' of https://gitlab.com/albertchokor/cs373-idb into dev
+
+commit 82c171229eda7c2da7ca838fbf91835c923dbe39
+Author: Albert Cho <albert.cho.kor@gmail.com>
+Date:   Mon Jun 21 19:58:08 2021 -0700
+
+    Created starter website with react-router-dom support to pages
+
+commit f4a450f32ac0adb756278a1dd02d1f8b3591c703
+Author: Kevin Yang <kyang2001@yahoo.com>
+Date:   Mon Jun 21 18:51:05 2021 -0500
+
+    Added in react-bootstrap libraries; update package jsons
+
+commit 10e2f51a2bac7214baf05c99d31b55a80add77ab
+Author: Albert Cho <albert.cho.kor@gmail.com>
+Date:   Mon Jun 21 23:15:49 2021 +0000
+
+    Update README.md
+
+commit 1b8055338798f86102649e79ec9b0258a85837ad
+Author: Albert Cho <albert.cho.kor@gmail.com>
+Date:   Mon Jun 21 16:08:49 2021 -0700
+
+    First commit, flask server + react app.
+
+commit 1e1e4fbe44b0830e7c6c7998b1dc3b603af84f92
+Merge: 0769cf5f 9ee8846f
+Author: Albert Cho <albert.cho.kor@gmail.com>
+Date:   Mon Jun 21 22:41:26 2021 +0000
+
+    Merge branch 'revert-0769cf5f' into 'main'
+    
+    Revert "First commit, basic create-react-app template."
+    
+    See merge request albertchokor/cs373-idb!2
+
+commit 9ee8846ff2e5e0e0ce5a8529cdeac82cacf74b20
+Author: Albert Cho <albert.cho.kor@gmail.com>
+Date:   Mon Jun 21 22:41:04 2021 +0000
+
+    Revert "First commit, basic create-react-app template."
+    
+    This reverts commit 0769cf5f83335ad32283985934a31e2e660c1548
+
+commit 0769cf5f83335ad32283985934a31e2e660c1548
+Author: Albert Cho <albert.cho.kor@gmail.com>
+Date:   Mon Jun 21 15:04:37 2021 -0700
+
+    First commit, basic create-react-app template.
+
+commit 185784d44b8cbbd299c339e33379e226852200f9
+Merge: 105f33b0 d2f1daf5
+Author: Kevin Yang <kyang2001@yahoo.com>
+Date:   Mon Jun 21 21:43:58 2021 +0000
+
+    Merge branch 'revert-105f33b0' into 'main'
+    
+    Revert "First commit with basic template given in class"
+    
+    See merge request albertchokor/cs373-idb!1
+
+commit d2f1daf5ff21d5d80ec08508cc2923131cb1f11a
+Author: Kevin Yang <kyang2001@yahoo.com>
+Date:   Mon Jun 21 21:40:44 2021 +0000
+
+    Revert "First commit with basic template given in class"
+    
+    This reverts commit 105f33b07648bd022c2fa0ebd70cbd14ce7615e7
+
+commit 7b26060de2a0d3b53a08352830166c8a94309526
+Author: Albert Cho <albert.cho.kor@gmail.com>
+Date:   Sun Jun 20 20:02:41 2021 -0700
+
+    GitLab CI YAML.
+
+commit 105f33b07648bd022c2fa0ebd70cbd14ce7615e7
+Author: Kevin Yang <kyang2001@yahoo.com>
+Date:   Sun Jun 20 21:52:49 2021 -0500
+
+    First commit with basic template given in class
+
+commit 177b4325adf28f0b22f2d0b1d15cf2a91459328d
+Author: Albert Cho <albert.cho.kor@gmail.com>
+Date:   Sun Jun 20 20:48:23 2021 +0000
+
+    Initial commit
