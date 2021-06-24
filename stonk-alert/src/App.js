@@ -7,7 +7,7 @@ import { Route, Switch } from 'react-router-dom';
 import Home from './pages/Home';
 import About from './pages/About';
 import {Stocks, Stock_Page, Stock_Table} from './pages/Stocks';
-import News from './pages/News';
+import {News, News_Page} from './pages/News';
 import {Companies, GME_Page, AMC_Page, BlackBerry_Page} from './pages/Companies';
 
 function App() {
@@ -22,7 +22,8 @@ function App() {
             <Route path="/companies/BB" component={BlackBerry_Page}/>
             <Route path="/stocks" component={Stocks} exact/>
             <Route path="/stocks/:id" component={Stock_Page}/>  brb remove after experiment with table
-            <Route path="/news" component={News}/>
+            <Route path="/news" component={News} exact/>
+            <Route path="/news/:id" component={News_Page}/>
           </Switch>
     </Router>
   );
