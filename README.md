@@ -12,10 +12,5 @@ $ pip install flask
 
 ##### Deploy
 ```
-$ cd stonk-alert
-$ npm install
-$ npm run build
-$ cd ..
-$ cd flask-server
-$ python main.py
+$ make host
 ```
