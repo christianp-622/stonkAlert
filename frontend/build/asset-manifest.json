@@ -1,0 +1,39 @@
+{
+  "files": {
+    "main.css": "/static/css/main.b34a8a7d.chunk.css",
+    "main.js": "/static/js/main.07ee3fa7.chunk.js",
+    "main.js.map": "/static/js/main.07ee3fa7.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.0ff9da02.js",
+    "runtime-main.js.map": "/static/js/runtime-main.0ff9da02.js.map",
+    "static/css/2.6c447f29.chunk.css": "/static/css/2.6c447f29.chunk.css",
+    "static/js/2.4ea9b620.chunk.js": "/static/js/2.4ea9b620.chunk.js",
+    "static/js/2.4ea9b620.chunk.js.map": "/static/js/2.4ea9b620.chunk.js.map",
+    "static/js/3.f1b9db00.chunk.js": "/static/js/3.f1b9db00.chunk.js",
+    "static/js/3.f1b9db00.chunk.js.map": "/static/js/3.f1b9db00.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.6c447f29.chunk.css.map": "/static/css/2.6c447f29.chunk.css.map",
+    "static/css/main.b34a8a7d.chunk.css.map": "/static/css/main.b34a8a7d.chunk.css.map",
+    "static/js/2.4ea9b620.chunk.js.LICENSE.txt": "/static/js/2.4ea9b620.chunk.js.LICENSE.txt",
+    "static/media/AMC.7c576a3e.png": "/static/media/AMC.7c576a3e.png",
+    "static/media/Albert_Image.1ed2ca8d.jpg": "/static/media/Albert_Image.1ed2ca8d.jpg",
+    "static/media/Ashray_Image.2ab21f4c.jpg": "/static/media/Ashray_Image.2ab21f4c.jpg",
+    "static/media/BB.6c13b7bd.png": "/static/media/BB.6c13b7bd.png",
+    "static/media/Christian_Image.50ff9fe3.jpg": "/static/media/Christian_Image.50ff9fe3.jpg",
+    "static/media/GME.28b343bd.png": "/static/media/GME.28b343bd.png",
+    "static/media/Guan_Image.b66f1e73.jpg": "/static/media/Guan_Image.b66f1e73.jpg",
+    "static/media/Kevin_Image.552c1649.jpg": "/static/media/Kevin_Image.552c1649.jpg",
+    "static/media/amc_logo.eab78488.png": "/static/media/amc_logo.eab78488.png",
+    "static/media/bb-transparent.6c13b7bd.png": "/static/media/bb-transparent.6c13b7bd.png",
+    "static/media/all.min.css": "/static/media/fa-solid-900.efbd5d20.eot",
+    "static/media/gme2_transparent.f22b0f6e.png": "/static/media/gme2_transparent.f22b0f6e.png",
+    "static/media/logo.6ce24c58.svg": "/static/media/logo.6ce24c58.svg",
+    "static/media/stonkalertwebsite.0581444a.png": "/static/media/stonkalertwebsite.0581444a.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.0ff9da02.js",
+    "static/css/2.6c447f29.chunk.css",
+    "static/js/2.4ea9b620.chunk.js",
+    "static/css/main.b34a8a7d.chunk.css",
+    "static/js/main.07ee3fa7.chunk.js"
+  ]
+}

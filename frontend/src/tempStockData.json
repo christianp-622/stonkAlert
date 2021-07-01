@@ -1,0 +1,34 @@
+{
+    "size": 3,
+    "stocks":[
+        {
+            "ticker": "GME",
+            "name":"GameStop Corp",
+            "price": 211.21,
+            "sector": "TRADE & SERVICES",
+            "exchange": "NYSE",
+            "tradescore": "A-",
+            "invscore": "B"
+        },
+        {
+            "ticker": "AMC",
+            "name":"AMC Entertainment Holdings, Inc",
+            "price": 58.59,
+            "sector": "TRADE & SERVICES",
+            "exchange": "NYSE",
+            "tradescore": "B",
+            "invscore": "B"
+        },
+        {
+            "ticker": "BB",
+            "name":"BlackBerry Limited",
+            "price": 13.02,
+            "sector": "TECHNOLOGY",
+            "exchange": "NYSE",    
+            "tradescore": "A",
+            "invscore": "A-"
+        }
+    ]
+
+
+}

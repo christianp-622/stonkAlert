@@ -1,0 +1,22 @@
+
+.ticker-title{
+	font-weight:bold; 
+	margin: auto;
+	text-align: center;
+
+}
+
+.stock-container{
+	margin: 25px 0px;
+	width: 100%;
+}
+
+.stock-logo{
+	max-height: 40%;
+	max-width: 40%;
+	margin: auto;
+}
+
+.stock-info{
+	margin-left:5%;
+}
