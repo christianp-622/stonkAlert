@@ -36,21 +36,21 @@ const CompanyCard = ({company}) => {
          <hr />
 
          <p className="c-p mb-0 text-light font-weight-bold text-right mt-auto">
-            <a className="text-light" href="https://www.amctheatres.com/">Visit AMC Website</a>
+            <a className="text-light" href={company.website}>Visit {company.ticker} Website</a>
             <i className="fas fa-arrow-right ml-1"></i>
          </p>
 
-         <NavLink exact to="/companies/AMC" activeClassName="activeClicked">
+         <NavLink exact to= {"/companies/"+company.ticker} activeClassName="activeClicked">
             <p className="c-p mb-0 text-light font-weight-bold text-right mt-auto">
-               More information on AMC
+               More information on {company.ticker}
                <i className="fas fa-arrow-right ml-1"></i>
             </p>
          </NavLink>
 
 
-         <NavLink exact to="/stocks/AMC" activeClassName="activeClicked">
+         <NavLink exact to={"/stocks/"+company.ticker} activeClassName="activeClicked">
             <p className="c-p mb-0 text-light font-weight-bold text-right mt-auto">
-               AMC Stock
+               {company.ticket} Stock
                <i className="fas fa-arrow-right ml-1"></i>
             </p>
          </NavLink>

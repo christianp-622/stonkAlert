@@ -70,7 +70,7 @@ const Company_Page = () => {
                                  </p>
                               </NavLink>
                               <div className="align-items-center justify-content-between">
-                                 <img src={logo} className="img-fluid" />
+                                 {/*<img src={logo} className="img-fluid" />*/}
                                  <hr />
                                  <p className="my-4 text-center text-light"> 
                                     <h4 className="m-0 h5 font-weight-bold text-light">About</h4>

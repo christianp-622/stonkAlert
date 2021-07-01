@@ -6,7 +6,7 @@ class Stock extends React.Component {
     super(props);
     this.state = {
       stockX: [],
-      stockY: []
+      stockY: [],
     }
   }
 
@@ -17,8 +17,10 @@ class Stock extends React.Component {
   getStock() {
     const pointerToThis = this;
     console.log(pointerToThis);
+
+    //get rid of key sometime from code
     const API_KEY = '3P8EFXNOM0JN21Q0';
-    let stock = 'AMC';
+    let stock = this.props.ticker;
     let API_Call = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${stock}&outputsize=compact&apikey=${API_KEY}`;
     let stockXFunction = [];
     let stockYFunction = [];
@@ -47,6 +49,11 @@ class Stock extends React.Component {
   }
 
   render() {
+    // assign random color to graph lines
+    let r = Math.floor(Math.random() * 256)
+    let g = Math.floor(Math.random() * 256)
+    let b = Math.floor(Math.random() * 256)
+    let randomColor = "rgb(" + r + "," + g + "," + b + ")"
     return (
       <div>
         <Plot
@@ -56,12 +63,12 @@ class Stock extends React.Component {
               y: this.state.stockY,
               type: 'scatter',
               mode: 'lines+markers',
-              marker: { color: 'yellow' },
+              marker: { color: randomColor },
             }
           ]}
           config={{ responsive: true }}
           layout={{
-            width: "1000", height: "440", title: 'AMC', plot_bgcolor: "rgba(0,0,0,0)",
+            width: "1000", height: "440", title: this.props.ticker, plot_bgcolor: "rgba(0,0,0,0)",
             paper_bgcolor: "rgba(0,0,0,0)", "yaxis": { "gridcolor": "rgba(0,0,0,0)" },
             "xaxis": { "gridcolor": "rgba(0,0,0,0)" }, font: { color: '#ffffff' }, autosize: true
           }}

@@ -17,7 +17,7 @@ function App() {
             <Route path="/" component={Home} exact/>
             <Route path="/about" component={About}/>
             <Route path="/companies" component={Companies} exact/>
-            <Route path="/news/:id" component={Company_Page}/>
+            <Route path="/companies/:id" component={Company_Page}/>
             <Route path="/stocks" component={Stocks} exact/>
             <Route path="/stocks/:id" component={Stock_Page}/>  brb remove after experiment with table
             <Route path="/news" component={News} exact/>

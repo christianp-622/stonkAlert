@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Sidebar from '../components/Sidebar';
 
 import { BrowserRouter as Router, useHistory, useParams } from 'react-router-dom';
@@ -10,22 +10,9 @@ import StockCard from '../components/StockCard'
 /*Table components */
 import {BootstrapTable,TableHeaderColumn} from "react-bootstrap-table";
 import "../../node_modules/react-bootstrap-table/css/react-bootstrap-table.css";
-import { Table } from "react-bootstrap";
-import StockTableEntry from '../components/StockTableEntry'
-const columns = [
-   { title: "Ticker", sortKey: "ticker" },
-   { title: "Company Name", sortKey: "name" },
-   { title: "Stock Price", sortKey: "departure_country" },
-   { title: "Sector", sortKey: "price" },
-   { title: "Exchange", sortKey: "sector" },
-   { title: "Trader Score", sortKey: "tradescore" },
-   { title: "Investor Score", sortKey: "invscore" },
-];
 
 //stock display components
 import Stock from '../components/Stock';
-import Stock2 from '../components/Stock2';
-import Stock3 from '../components/Stock3';
 
 //logo pngs
 import AMCLOGO from '../images/AMC.png';
@@ -39,7 +26,7 @@ const stocks = data['stocks'];
  
 const Stocks = () => {
 
-   const table = Stock_Table();
+   
     return (
        <div className="home d-flex">
          <div>
@@ -59,7 +46,15 @@ const Stocks = () => {
                      <div className="stock-container">
                         <div className="card-bg w-100 border d-flex flex-column">
                            <div className="p-4 d-flex flex-column h-100">
-                              {table}
+                           <BootstrapTable data={ data.stocks }>
+                           <TableHeaderColumn dataField='ticker' isKey dataSort={ true }>Ticker</TableHeaderColumn>
+                           <TableHeaderColumn dataField='name' dataSort={ true }>Company Name</TableHeaderColumn>
+                           <TableHeaderColumn dataField='price' dataSort={ true }>Stock Price</TableHeaderColumn>
+                           <TableHeaderColumn dataField='sector' dataSort={ true }>Sector</TableHeaderColumn>
+                           <TableHeaderColumn dataField='exchange' dataSort={ true }>Exchange</TableHeaderColumn>
+                           <TableHeaderColumn dataField='tradescore' dataSort={ true }>Trader Score</TableHeaderColumn>
+                           <TableHeaderColumn dataField='invscore' dataSort={ true }>Investor Score</TableHeaderColumn>
+                           </BootstrapTable>
                            </div>
                         </div>
                      </div>
@@ -71,7 +66,6 @@ const Stocks = () => {
       </div>
     );
 }
- 
 
 /* component for individual Stock pages */
 const Stock_Page = () => {
@@ -86,8 +80,10 @@ const Stock_Page = () => {
          }
 
    }
-   /* temp code for the hard code. Find better way later :p */
-   let graph = stock.ticker === "AMC" ? <Stock /> : stock.ticker === "GME" ? <Stock2 /> : <Stock3 />
+
+   // fixed hardcode stock, give stock ticker symbol for API call.
+   let graph = <Stock ticker={stock.ticker}/>
+
    let tempNewsID = stock.ticker === "AMC" ? "2" : stock.ticker === "GME" ? "1" : "3"
 
    /* */
@@ -167,65 +163,13 @@ const Stock_Page = () => {
 
                               </div>
                         </div>
-
-
-
-
-
-
-
                      </div>
                   </div>
-                     
                </div>
           </div>
          </div>
       </div>
    );
 }
-const Stock_Table = () => {
 
-   return(
-   // <BootstrapTable data={ data.stocks }>
-   //          <TableHeaderColumn dataField='ticker' isKey dataSort={ true }>Ticker</TableHeaderColumn>
-   //          <TableHeaderColumn dataField='name' dataSort={ true }>Company Name</TableHeaderColumn>
-   //          <TableHeaderColumn dataField='price' dataSort={ true }>Stock Price</TableHeaderColumn>
-   //          <TableHeaderColumn dataField='sector' dataSort={ true }>Sector</TableHeaderColumn>
-   //          <TableHeaderColumn dataField='exchange' dataSort={ true }>Exchange</TableHeaderColumn>
-   //          <TableHeaderColumn dataField='tradescore' dataSort={ true }>Trader Score</TableHeaderColumn>
-   //          <TableHeaderColumn dataField='invscore' dataSort={ true }>Investor Score</TableHeaderColumn>
-   //  </BootstrapTable>
-
-   <Table bordered hover variant="dark" className="routes-table">
-   <thead>
-     <tr>
-       {columns.map(({ title, sortKey }) => (
-         // <StockTableHeader
-         //   key={title}
-         //   sortKey={sortKey}
-         //   title={title}
-         //   active={sortKey === orderBy}
-         //   asc={ascending}
-         //   onChange={(key, asc) => {
-         //     setOrderBy(key);
-         //     setAscending(asc);
-         //   }}
-         // />
-
-   
-       ))}
-     </tr>
-   </thead>
-   <tbody>
-     {stocks.map((stock) => (
-       <StockTableEntry
-         key={`${stock.ticker}`}
-         stockData={stock}
-       />
-     ))}
-   </tbody>
- </Table>
-
-   );
-}
-export {Stocks, Stock_Page,Stock_Table};
+export {Stocks, Stock_Page};

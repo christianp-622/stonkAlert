@@ -1,8 +1,6 @@
 import React from 'react';
 import '../App.css';
 import Stock from '../components/Stock';
-import Stock2 from '../components/Stock2';
-import Stock3 from '../components/Stock3';
 import logo from '../images/stonkalertwebsite.png';
 import Sidebar from '../components/Sidebar';
 import { NavLink } from 'react-router-dom';
@@ -50,13 +48,13 @@ const Home = () => {
                                  </div>
                                  <div class="carousel-inner">
                                     <div class="carousel-item active">
-                                       <Stock />
+                                       <Stock ticker="GME"/>
                                     </div>
                                     <div class="carousel-item">
-                                       <Stock2 />
+                                       <Stock ticker="AMC"/>
                                     </div>
                                     <div class="carousel-item">
-                                       <Stock3 />
+                                       <Stock ticker="BB"/>
                                     </div>
                                  </div>
                                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">

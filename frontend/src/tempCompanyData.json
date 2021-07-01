@@ -7,7 +7,8 @@
            "employees": 12000,
            "headquarter": "Grapevine, Texas",
            "industry": "Retail",
-           "founding": "1996"
+           "founding": "1996",
+           "website" : "https://www.gamestop.com/"
        },
        {
            "ticker": "BB",
@@ -15,7 +16,8 @@
            "employees": 3497,
            "headquarter": "Waterloo, Ontario",
            "industry": "Software",
-           "founding": "March 7, 1984"
+           "founding": "March 7, 1984",
+           "website": "https://www.blackberry.com/us/en"
        },
        {
            "ticker": "AMC",
@@ -23,7 +25,8 @@
            "employees": 28468,
            "headquarter": "Leawood, Kansas",
            "industry": "Entertainment",
-           "founding": "1920"
+           "founding": "1920",
+           "website": "https://www.amctheatres.com/"
        }
    ]
 
