@@ -5,69 +5,13 @@ import { BrowserRouter as Router, useHistory, useParams } from 'react-router-dom
 import '../App.css';
 import { NavLink } from 'react-router-dom';
 import '../News.css';
-
+import NewsCard from '../components/NewsCard'
 //get the data from the json
 const data = require("../tempNewsData.json");
+const news = data['news']
 
-
-/*renders the news cards for each news in the Json*/
-function render_news(news) {
-    return (
-        <div className="card-bg w-100 border d-flex flex-column">
-            <div className="p-4 d-flex flex-column h-100">
-                <div className="d-flex align-items-center justify-content-between">
-                    <h2 class="text-light">{news.title}</h2>
-
-                </div>
-                <p className="my-4 text-left text-light">
-                    <strong>Company: </strong>{news.company}
-                    <br></br>
-                    <strong>Stock: </strong>{news.stock}
-                    <br></br>
-                    <strong>Date: </strong> {news.date}
-                    <br></br>
-                    <strong>Source: </strong> {news.source}
-                    <br></br>
-                    <strong>Description: </strong>{news.description}
-                    <br></br>
-
-
-
-                </p>
-
-                <NavLink exact to={"/news/" + news.id} activeClassName="activeClicked">
-                    <p className="c-p mb-0 text-light font-weight-bold text-right mt-auto">
-                        More info about this article
-                        <i className="fas fa-arrow-right ml-1"></i>
-                    </p>
-                </NavLink>
-                <NavLink exact to={"/companies/" + news.stock} activeClassName="activeClicked">
-                    <p className="c-p mb-0 text-light font-weight-bold text-right mt-auto">
-                        More info about the company
-                        <i className="fas fa-arrow-right ml-1"></i>
-                    </p>
-                </NavLink>
-
-                <NavLink exact to={"/stocks/" + news.stock} activeClassName="activeClicked">
-                    <p className="c-p mb-0 text-light font-weight-bold text-right mt-auto">
-                        More info about the stock
-                        <i className="fas fa-arrow-right ml-1"></i>
-                    </p>
-                </NavLink>
-
-
-
-            </div>
-        </div>
-    );
-}
 
 const News = () => {
-    const newsList = []
-    data.news.forEach(newsSingle => {
-        newsList.push(render_news(newsSingle))
-    });
-
     return (
         <div className="home d-flex">
             <div>
@@ -78,11 +22,11 @@ const News = () => {
                     <div style={{ height: "calc(100%)", overflowY: "scroll" }}>
                         <div className="d-flex card-section">
                             <div className="cards-container">
-                                {newsList}
+                              {news.map((article) => (
+                                 <NewsCard article={article} />
+                              ))}
                             </div>
                         </div>
-
-
                     </div>
                 </div>
             </div>
@@ -104,7 +48,6 @@ const News_Page = () => {
         }
 
     }
-
 
     return (
         <div className="home d-flex">
@@ -167,17 +110,8 @@ const News_Page = () => {
                                             </p>
                                         </NavLink>
 
-
-
-
                                     </div>
                                 </div>
-
-
-
-
-
-
 
                             </div>
                         </div>

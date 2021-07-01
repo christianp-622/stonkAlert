@@ -1,0 +1,31 @@
+{
+   "size": 3,
+   "company":[
+       {
+           "ticker": "GME",
+           "about": "GameStop Corp. engages in the retail of multichannel videogame, consumer txt electronics, and wireless services. It operates through the following segments: United States, Canada, Australia, and Europe. The United States segment includes the retail operations and electronic commerce websites wwww.gamestop.com and www.thinkgeek.com, Game Informer magazine, and Kongregate. The Canada segment comprises of retail and e-commerce business. The Austrailia segment refers to the retail and e-commerce operation in Austrailia and New Zealand. The Europe segment pertains to the retail and e-commerce operations in the European countries. The company was founded by Daniel A. DeMatteo.",
+           "employees": 12000,
+           "headquarter": "Grapevine, Texas",
+           "industry": "Retail",
+           "founding": "1996"
+       },
+       {
+           "ticker": "BB",
+           "about": "BlackBerry Ltd. engages in the provision of security software and services to enterprises and governments. It offers cybersecurity consulting enterprise consulting, endpoint management, and unified endpoint security. The company was founded by Michael Lazaridis, James Laurence Balsillie, and Douglas E.",
+           "employees": 3497,
+           "headquarter": "Waterloo, Ontario",
+           "industry": "Software",
+           "founding": "March 7, 1984"
+       },
+       {
+           "ticker": "AMC",
+           "about": "AMC Entertainment Holdings, Inc. engages in the theatrical exhibition business through its subsidiaries. It operates through the United States Markets and International Markets segments. The United States segment involves in the activity in the U.S. specifically in New York, Los Angeles, Chicaco, Atlanta, and Washington, D.C. The International Markets segment focuses its operations in the United Kingdom, Germany, Spain, Italy, Ireland, Portugal, Sweden, Finland, Estonia, Lativa, Lithuania, Norway, and Denmark. The company was founded by Barney Dubinsky, Maurice Durwood and Edward Durwood.",
+           "employees": 28468,
+           "headquarter": "Leawood, Kansas",
+           "industry": "Entertainment",
+           "founding": "1920"
+       }
+   ]
+
+
+}

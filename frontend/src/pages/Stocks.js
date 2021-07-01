@@ -5,10 +5,22 @@ import { BrowserRouter as Router, useHistory, useParams } from 'react-router-dom
 import '../App.css';
 import '../stock.css';
 import { NavLink } from 'react-router-dom';
+import StockCard from '../components/StockCard'
 
 /*Table components */
 import {BootstrapTable,TableHeaderColumn} from "react-bootstrap-table";
 import "../../node_modules/react-bootstrap-table/css/react-bootstrap-table.css";
+import { Table } from "react-bootstrap";
+import StockTableEntry from '../components/StockTableEntry'
+const columns = [
+   { title: "Ticker", sortKey: "ticker" },
+   { title: "Company Name", sortKey: "name" },
+   { title: "Stock Price", sortKey: "departure_country" },
+   { title: "Sector", sortKey: "price" },
+   { title: "Exchange", sortKey: "sector" },
+   { title: "Trader Score", sortKey: "tradescore" },
+   { title: "Investor Score", sortKey: "invscore" },
+];
 
 //stock display components
 import Stock from '../components/Stock';
@@ -22,73 +34,12 @@ import GMELOGO from '../images/GME.png';
 
 //get the data from the json
 const data = require("../tempStockData.json");
+const stocks = data['stocks'];
 
-
-
-/*renders the stock cards for each stock in the Json*/
-function render_stock(stock){
-   let logo = stock.ticker === "AMC" ? AMCLOGO : stock.ticker === "GME" ? GMELOGO : BBLOGO
-   let tempNewsID = stock.ticker === "AMC" ? "2" : stock.ticker === "GME" ? "1" : "3"
-   return (
-   <div className="card-bg w-100 border d-flex flex-column">
-      <div className="p-4 d-flex flex-column h-100">
-         <div className="d-flex align-items-center justify-content-between">
-               <h2 class="ticker-title text-light">${stock.ticker}</h2>
-
-         </div>
-         <img src={logo} class="stock-logo" alt="Stock logo image"></img>
-         <p className="my-4 text-left text-light">
-            <strong>Company Name: </strong>{stock.name}
-            <br></br>
-            <strong>Price: </strong> {stock.price}
-            <br></br>
-            <strong>Sector: </strong> {stock.sector}
-            <br></br>
-            <strong>Exchange: </strong>{stock.exchange}
-            <br></br>
-            <strong>Trade Score/Sentiment: </strong>{stock.tradescore}
-            <br></br>
-            <strong>Investing Score: </strong>{stock.invscore}
-            <br></br>
-
-
-         </p>
-            
-            <NavLink exact to={"/stocks/"+stock.ticker} activeClassName="activeClicked">
-               <p className="c-p mb-0 text-light font-weight-bold text-right mt-auto">
-                                 More info about the stock
-               <i className="fas fa-arrow-right ml-1"></i>
-               </p>
-            </NavLink>
-            <NavLink exact to={"/companies/"+stock.ticker} activeClassName="activeClicked">
-               <p className="c-p mb-0 text-light font-weight-bold text-right mt-auto">
-                                 More info about the company
-               <i className="fas fa-arrow-right ml-1"></i>
-               </p>
-            </NavLink>
-
-            <NavLink exact to={"/news/"+tempNewsID} activeClassName="activeClicked">
-               <p className="c-p mb-0 text-light font-weight-bold text-right mt-auto">
-                                 News about the stock
-               <i className="fas fa-arrow-right ml-1"></i>
-               </p>
-            </NavLink>
-
-
-            
-         </div>
-   </div>
-   );
-}
  
 const Stocks = () => {
-   const stockList = []
-   data.stocks.forEach(stock => {
-      stockList.push(render_stock(stock))
-   });
 
    const table = Stock_Table();
-
     return (
        <div className="home d-flex">
          <div>
@@ -99,12 +50,10 @@ const Stocks = () => {
                <div style={{ height: "calc(100%)", overflowY: "scroll" }}>
                   <div className="d-flex card-section">
                      <div className="cards-container">
-                     {stockList}
+                        {stocks.map((stock) => (
+                           <StockCard stock={stock} />
+                        ))}
                      </div>
-                  
-                  
-                  
-                  
                   </div>
                   <div className="d-flex card-section">
                      <div className="stock-container">
@@ -237,16 +186,46 @@ const Stock_Page = () => {
 const Stock_Table = () => {
 
    return(
-   <BootstrapTable data={ data.stocks }>
-            <TableHeaderColumn dataField='ticker' isKey dataSort={ true }>Ticker</TableHeaderColumn>
-            <TableHeaderColumn dataField='name' dataSort={ true }>Company Name</TableHeaderColumn>
-            <TableHeaderColumn dataField='price' dataSort={ true }>Stock Price</TableHeaderColumn>
-            <TableHeaderColumn dataField='sector' dataSort={ true }>Sector</TableHeaderColumn>
-            <TableHeaderColumn dataField='exchange' dataSort={ true }>Exchange</TableHeaderColumn>
-            <TableHeaderColumn dataField='tradescore' dataSort={ true }>Trader Score</TableHeaderColumn>
-            <TableHeaderColumn dataField='invscore' dataSort={ true }>Investor Score</TableHeaderColumn>
+   // <BootstrapTable data={ data.stocks }>
+   //          <TableHeaderColumn dataField='ticker' isKey dataSort={ true }>Ticker</TableHeaderColumn>
+   //          <TableHeaderColumn dataField='name' dataSort={ true }>Company Name</TableHeaderColumn>
+   //          <TableHeaderColumn dataField='price' dataSort={ true }>Stock Price</TableHeaderColumn>
+   //          <TableHeaderColumn dataField='sector' dataSort={ true }>Sector</TableHeaderColumn>
+   //          <TableHeaderColumn dataField='exchange' dataSort={ true }>Exchange</TableHeaderColumn>
+   //          <TableHeaderColumn dataField='tradescore' dataSort={ true }>Trader Score</TableHeaderColumn>
+   //          <TableHeaderColumn dataField='invscore' dataSort={ true }>Investor Score</TableHeaderColumn>
+   //  </BootstrapTable>
 
-    </BootstrapTable>
+   <Table bordered hover variant="dark" className="routes-table">
+   <thead>
+     <tr>
+       {columns.map(({ title, sortKey }) => (
+         // <StockTableHeader
+         //   key={title}
+         //   sortKey={sortKey}
+         //   title={title}
+         //   active={sortKey === orderBy}
+         //   asc={ascending}
+         //   onChange={(key, asc) => {
+         //     setOrderBy(key);
+         //     setAscending(asc);
+         //   }}
+         // />
+
+   
+       ))}
+     </tr>
+   </thead>
+   <tbody>
+     {stocks.map((stock) => (
+       <StockTableEntry
+         key={`${stock.ticker}`}
+         stockData={stock}
+       />
+     ))}
+   </tbody>
+ </Table>
+
    );
 }
 export {Stocks, Stock_Page,Stock_Table};
