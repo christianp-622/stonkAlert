@@ -30,3 +30,16 @@ class Company(db.Model):
     description = db.Column(db.String) # covered by alpha vantage company overview
 
     stock = db.relationship('Stock', backref = 'company', uselist = False)
+
+class Stock(db.Model):
+    __tablename__ = 'stock'
+
+    ticker = db.Column(db.String, primary_key = True) # covered by alpha vantage company overview
+    sector = db.Column(db.String) # covered by alpha vantage company overview
+    price = db.Column(db.Float) # covered by alpha vantage company overview
+    exchange = db.Column(db.String) # covered by alpha vantage company overview
+    traderscore = db.Column(db.String) # covered by styvio
+    investorscore = db.Column(db.String)  # covered by styvio
+    company = db.Column(db.String, db.ForeignKey('company.name')) # access stock company name through company
+
+    news = db.relationship('Article', backref = 'stock') # one to many: stock to many news about this stock
