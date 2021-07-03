@@ -4,7 +4,7 @@ import Sidebar from '../components/Sidebar';
 import { BrowserRouter as Router, useHistory, useParams } from 'react-router-dom';
 import '../App.css';
 import '../stock.css';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import StockCard from '../components/StockCard'
 
 /*Table components */
@@ -23,11 +23,16 @@ import GMELOGO from '../images/GME.png';
 const data = require("../tempStockData.json");
 const stocks = data['stocks'];
 
+const options = {
+   onRowClick: function(row) {
+      window.location.href = `/stocks/${row.ticker}`;
+   }
+};
  
 const Stocks = () => {
-
    
     return (
+       
        <div className="home d-flex">
          <div>
             <Sidebar />
@@ -46,14 +51,14 @@ const Stocks = () => {
                      <div className="stock-container">
                         <div className="card-bg w-100 border d-flex flex-column">
                            <div className="p-4 d-flex flex-column h-100">
-                           <BootstrapTable data={ data.stocks }>
-                           <TableHeaderColumn dataField='ticker' isKey dataSort={ true }>Ticker</TableHeaderColumn>
-                           <TableHeaderColumn dataField='name' dataSort={ true }>Company Name</TableHeaderColumn>
-                           <TableHeaderColumn dataField='price' dataSort={ true }>Stock Price</TableHeaderColumn>
-                           <TableHeaderColumn dataField='sector' dataSort={ true }>Sector</TableHeaderColumn>
-                           <TableHeaderColumn dataField='exchange' dataSort={ true }>Exchange</TableHeaderColumn>
-                           <TableHeaderColumn dataField='tradescore' dataSort={ true }>Trader Score</TableHeaderColumn>
-                           <TableHeaderColumn dataField='invscore' dataSort={ true }>Investor Score</TableHeaderColumn>
+                           <BootstrapTable data={ data.stocks } options={options} striped hover pagination version="4">
+                              <TableHeaderColumn dataField='ticker' isKey dataSort={ true }>Ticker</TableHeaderColumn>
+                              <TableHeaderColumn dataField='name' dataSort={ true }>Company Name</TableHeaderColumn>
+                              <TableHeaderColumn dataField='price' dataSort={ true }>Stock Price</TableHeaderColumn>
+                              <TableHeaderColumn dataField='sector' dataSort={ true }>Sector</TableHeaderColumn>
+                              <TableHeaderColumn dataField='exchange' dataSort={ true }>Exchange</TableHeaderColumn>
+                              <TableHeaderColumn dataField='tradescore' dataSort={ true }>Trader Score</TableHeaderColumn>
+                              <TableHeaderColumn dataField='invscore' dataSort={ true }>Investor Score</TableHeaderColumn>
                            </BootstrapTable>
                            </div>
                         </div>
