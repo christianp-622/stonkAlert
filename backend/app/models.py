@@ -43,3 +43,15 @@ class Stock(db.Model):
     company = db.Column(db.String, db.ForeignKey('company.name')) # access stock company name through company
 
     news = db.relationship('Article', backref = 'stock') # one to many: stock to many news about this stock
+
+class Article(db.Model):
+    __tablename__ = 'article'
+
+    id = db.Column(db.Integer, primary_key = True) # use number id instead of ticker symbol for URL
+    headline = db.Column(db.String) # covered by iexcloud news
+    datetime = db.Column(db.Integer) # covered by iexcloud news (in unix epoch milliseconds time)
+    source = db.Column(db.String) # covered by iexcloud news
+    link = db.Column(db.String) # covered by iexcloud news
+    summary = db.Column(db.String) # covered by iexcloud news
+    ticker = db.Column(db.String, db.ForeignKey('stock.ticker')) # access stock ticker through stock
+    company = db.Column(db.String, db.ForeignKey('stock.company')) # access stock company through stock
