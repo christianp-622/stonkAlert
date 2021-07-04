@@ -22,11 +22,12 @@ class Company(db.Model):
     __tablename__ = 'company'
     
     id = db.Column(db.Integer, primary_key = True) # use number id instead of ticker symbol for URL
-    name = db.Column(db.String) # covered by finnhub company profile
-    country = db.Column(db.String) # covered by finnhub company profile
-    industry = db.Column(db.String) # covered by finnhub company profile
-    exchange = db.Column(db.String) # covered by finnhub company profile
-    website = db.Column(db.String) # covered by finnhub company profile
+    name = db.Column(db.String) # covered by iexcloud company https://iexcloud.io/docs/api/#company
+    ceo = db.Column(db.String) # covered by iexcloud company
+    industry = db.Column(db.String) # covered by iexcloud company
+    employees = db.Column(db.String) # covered by iexcloud company
+    website = db.Column(db.String) # covered by iexcloud company
+    description = db.Column(db.String) # covered by iexcloud company
 
     stock = db.relationship('Stock', backref = 'company', uselist = False)
 
@@ -34,11 +35,11 @@ class Stock(db.Model):
     __tablename__ = 'stock'
 
     ticker = db.Column(db.String, primary_key = True) # covered by symbol at beginning
-    open = db.Column(db.Float) # covered by finnhub quote
-    high = db.Column(db.Float) # covered by finnhub quote
-    low = db.Column(db.Float) # covered by finnhub quote
-    close = db.Column(db.Float) # covered by finnhub quote
-    current = db.Column(db.Float) # covered by finnhub quote
+    price = db.Column(db.Float) # covered by iexcloud quote (latestPrice)
+    sector = db.Column(db.String) # covered by iexcloud company
+    tradescore = db.Column(db.String) # covered by styvio
+    investscore = db.Column(db.String) # covered by styvio
+    volume = db.Column(db.Float) # covered by iexcloud quote
     company = db.Column(db.String, db.ForeignKey('company.name')) # access stock company name through company
 
     news = db.relationship('Article', backref = 'stock') # one to many: stock to many news about this stock
