@@ -135,8 +135,29 @@ const About = () => {
                               </Card>
                               <Card className = "card" text = "white">
                                  <Card.Body>
-                                    <Card.Title>Tools</Card.Title>
+                                    <Card.Title>APIs and Data Sources</Card.Title>
                                  </Card.Body>
+                                    <ListGroup text = "white" className="list-group-flush listgroup">
+                                       <ListGroupItem className = "listgroup" action href="https://iexcloud.io/" rel="noopener noreferrer" target="_blank">iex cloud - API that provides financial data. 
+                                       Sent requests to iexcloud to retrieve information on attributes for all three models: stocks, companies, and news. These attributes include stock price, sector, and volume for the stock model;
+                                       company name, ceo, number of employees, industry, website, and company description for the company model; and headline, datetime, source, link, and summary for each article model. </ListGroupItem>
+                                       <ListGroupItem className = "listgroup" action href="https://finnhub.io/" rel="noopener noreferrer" target="_blank">finnhub - Realtime Restful APIs for Stocks, Currencies, and Crypto. Sent requests to finnhub
+                                       to retrieve information on ticker symbols for all stocks in the US. This is primarily useful in the sense that we can access all models through the ticker symbol attribute. We use this attribute as the
+                                       primary key for the stock and company models.</ListGroupItem>
+                                       <ListGroupItem className = "listgroup" action href="https://www.styvio.com/" rel="noopener noreferrer" target="_blank">Styvio - Real time APIs for stock chat, fundamental and technical data, and social sentiment. Since
+                                       we needed a sufficient number of attributes to depict each of our stocks, we decided to send requests to styvio to retrieve information on tradescore and investscore for each stock. This provides users with information
+                                       on social sentiment for each instance of our stock model</ListGroupItem>
+                                    </ListGroup>
+                              </Card>
+                              <Card className = "card" text = "white">
+                                 <Card.Body><Card.Title>Resources</Card.Title></Card.Body>
+                                 <ListGroup text = "white" className="list-group-flush listgroup">
+                                    <ListGroupItem className = "listgroup" action href="https://gitlab.com/albertchokor/cs373-idb" rel="noopener noreferrer" target="_blank">Gitlab</ListGroupItem>
+                                    <ListGroupItem className = "listgroup" action href="https://gitlab.com/albertchokor/cs373-idb/-/wikis/Initial-Report" rel="noopener noreferrer" target="_blank">Gitlab Wiki</ListGroupItem>
+                                    <ListGroupItem className = "listgroup" action href="https://gitlab.com/albertchokor/cs373-idb/-/issues" rel="noopener noreferrer" target="_blank">Gitlab Issue Tracker</ListGroupItem>
+                                    <ListGroupItem className = "listgroup" action href="https://documenter.getpostman.com/view/16352153/TzecCkJB" rel="noopener noreferrer" target="_blank">Postman</ListGroupItem>
+                                 </ListGroup>
+                                 <Card.Body><Card.Title>Tools</Card.Title></Card.Body>
                                  <ListGroup text = "white" className="list-group-flush listgroup">
                                        <ListGroupItem className = "listgroup" action href="https://cloud.google.com/gcp" rel="noopener noreferrer" target="_blank">Google Cloud Platform</ListGroupItem>
                                        <ListGroupItem className = "listgroup" action href="https://reactjs.org/" rel="noopener noreferrer" target="_blank">React</ListGroupItem>
@@ -148,22 +169,6 @@ const About = () => {
                                        <ListGroupItem className = "listgroup" action href="https://discord.com/" rel="noopener noreferrer" target="_blank">Discord</ListGroupItem>
                                        <ListGroupItem className = "listgroup" action href="https://about.gitlab.com/" rel="noopener noreferrer" target="_blank">GitLab</ListGroupItem>
                                        <ListGroupItem className = "listgroup" action href="https://www.namecheap.com/" rel="noopener noreferrer" target="_blank">NameCheap</ListGroupItem>
-                                    </ListGroup>
-                              </Card>
-                              <Card className = "card" text = "white">
-                                 <Card.Body><Card.Title>Resources</Card.Title></Card.Body>
-                                 <ListGroup text = "white" className="list-group-flush listgroup">
-                                    <ListGroupItem className = "listgroup" action href="https://gitlab.com/albertchokor/cs373-idb" rel="noopener noreferrer" target="_blank">Gitlab</ListGroupItem>
-                                    <ListGroupItem className = "listgroup" action href="https://gitlab.com/albertchokor/cs373-idb/-/wikis/Initial-Report" rel="noopener noreferrer" target="_blank">Gitlab Wiki</ListGroupItem>
-                                    <ListGroupItem className = "listgroup" action href="https://gitlab.com/albertchokor/cs373-idb/-/issues" rel="noopener noreferrer" target="_blank">Gitlab Issue Tracker</ListGroupItem>
-                                    <ListGroupItem className = "listgroup" action href="https://documenter.getpostman.com/view/16352153/TzecCkJB" rel="noopener noreferrer" target="_blank">Postman</ListGroupItem>
-                                 </ListGroup>
-                                 <Card.Body><Card.Title>APIs and Data Sources</Card.Title></Card.Body>
-                                    <ListGroup text = "white" className="list-group-flush listgroup">
-                                       <ListGroupItem className = "listgroup" action href="https://www.themuse.com/developers" rel="noopener noreferrer" target="_blank">The Muse - Information on company profiles</ListGroupItem>
-                                       <ListGroupItem className = "listgroup" action href="https://www.alphavantage.co/documentation/" rel="noopener noreferrer" target="_blank">Alpha Vantage - Realtime and historical stock data</ListGroupItem>
-                                       <ListGroupItem className = "listgroup" action href="https://newsapi.org/" rel="noopener noreferrer" target="_blank">News Api - Current and historical news articles</ListGroupItem>
-                                       <ListGroupItem className = "listgroup" action href="https://www.styvio.com/" rel="noopener noreferrer" target="_blank">Styvio - Realtime and historical stock data and current stock sentiment</ListGroupItem>
                                     </ListGroup>
                               </Card>
                         </CardDeck>
