@@ -24,35 +24,92 @@ def add_all(): # method to add all stocks, companies, and news instances for eac
         news_r = requests.get(IEXCLOUD_URL + 'stable/stock/' + symbol + '/news?token=' + IEXCLOUD_KEY)
 
         if company_r and stock_r and styvio_r and news_r: # check if json valid request
+            add_article(news_r)
             add_company(company_r)
             add_stock(company_r, stock_r, styvio_r)
-            add_article(news_r)
-
+            
 def add_stock(company_r, stock_r, styvio_r): # method to add stock instance
     # use r.json()['type'] to access company overview elements (ex: r.json()['Description'])
-    print(stock_r.json())
-    print(styvio_r.json()['invScore'])
-    print(styvio_r.json()['tradeScore'])
+    # test prints
+    # print(stock_r.json())
+    # print(styvio_r.json()['invScore'])
+    # print(styvio_r.json()['tradeScore'])
+
+    # creating instance
+    stock = Stock()
+    stock.ticker = stock_r.json()['symbol']
+    stock.price = stock_r.json()['latestPrice']
+    stock.sector = company_r.json()['sector']
+    stock.tradescore = styvio_r.json()['tradeScore']
+    stock.investscore = styvio_r.json()['invScore']
+    stock.volume = stock_r.json()['volume']
+
+    # 1:1 relationship link with company
+    # company = Company.query.filter(Company.stock == company_r.json()['symbol']).first()
+    # stock.company = company.stock
+    # stock.news
+
+    # news = Article.query.get(stock.ticker)
+
+
+    db.session.add(stock)
+    db.session.commit()
+
     # limit calls
     time.sleep(0.05)
 
 def add_company(company_r): # method to add instance of a company
     # use r.json()['type'] to access company overview elements (ex: r.json()['Description'])
-    print(company_r.json())
+    # test prints
+    # print(company_r.json())
+
+    # creating instance
+    company = Company()
+    company.name = company_r.json()['companyName']
+    company.ceo = company_r.json()['CEO']
+    company.industry = company_r.json()['industry']
+    company.employees = company_r.json()['employees']
+    company.website = company_r.json()['website']
+    company.description = company_r.json()['description']
+
+    # linking
+    # company.stock = company_r.json()['symbol']
+
+    db.session.add(company)
+    db.session.commit()
+
     # limit calls
     time.sleep(0.05)
 
 def add_article(news_r): # method to add article instance
     # use r.json()['type'] to access company overview elements (ex: r.json()['Description'])
-    print(news_r.json())
+    # test prints
+    # print(news_r.json())
+
+    # creating instance
+    article = Article()
+    article.headline = news_r.json()['headline']
+    article.datetime = news_r.json()['datetime']
+    article.source = news_r.json()['source']
+    article.link = news_r.json()['url']
+    article.summary = news_r.json()['summary']
+
+    # many to 1 relationship with stock (stock -> news about this stock)
+    # article.ticker = ??
+    # article.company = ??
+
+    db.session.add(article)
+    db.session.commit()
+
     # limit calls
     time.sleep(0.05)
 
 def create_stonkdb():
     add_all()
+    db.session.commit()
     
 # uncomment later when db setup
-# db.drop_all()
-# db.create_all()
+db.drop_all()
+db.create_all()
 
 create_stonkdb()
