@@ -21,8 +21,7 @@ def add_all(): # method to add all stocks, companies, and news instances for eac
         company_r = requests.get(IEXCLOUD_URL + 'stable/stock/' + symbol + '/company?token=' + IEXCLOUD_KEY)
         stock_r = requests.get(IEXCLOUD_URL + 'stable/stock/' + symbol + '/quote?token=' + IEXCLOUD_KEY)
         styvio_r = requests.get(STYVIO_URL + symbol)
-        news_r = requests.get(IEXCLOUD_URL + 'stable/stock/' + symbol + '/news?token=' + IEXCLOUD_KEY)
-
+        news_r = requests.get(IEXCLOUD_URL + 'stable/stock/' + symbol + '/news/last/3?token=' + IEXCLOUD_KEY) # arbitrary limit to 3 per stock so we don't burn our api credits -guan
         if company_r and stock_r and styvio_r and news_r: # check if json valid request
             add_article(news_r)
             add_company(company_r)
@@ -82,25 +81,26 @@ def add_company(company_r): # method to add instance of a company
     time.sleep(0.05)
 
 def add_article(news_r): # method to add article instance
-    # use r.json()['type'] to access company overview elements (ex: r.json()['Description'])
+    # news_r is an list of news articles, each element being a unique article.
+    # use r.json()[index]['type'] to access individual articles elements (ex: r.json()[0]['headline'])
     # test prints
     # print(news_r.json())
 
-    # creating instance
-    article = Article()
-    article.headline = news_r.json()['headline']
-    article.datetime = news_r.json()['datetime']
-    article.source = news_r.json()['source']
-    article.link = news_r.json()['url']
-    article.summary = news_r.json()['summary']
+    #go through the list of news and create an article instance for each
+    for news in news_r.json():
+        article = Article()
+        article.headline = news['headline']
+        article.datetime = news['datetime']
+        article.source   = news['source']
+        article.link     = news['url']
+        article.summary  = news['summary']
+        db.session.add(article)
+        db.session.commit()
 
     # many to 1 relationship with stock (stock -> news about this stock)
     # article.ticker = ??
     # article.company = ??
-
-    db.session.add(article)
-    db.session.commit()
-
+    
     # limit calls
     time.sleep(0.05)
 
@@ -110,6 +110,6 @@ def create_stonkdb():
     
 # uncomment later when db setup
 db.drop_all()
-db.create_all()
+db.create_all()  
 
 create_stonkdb()
