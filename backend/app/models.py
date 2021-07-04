@@ -22,24 +22,23 @@ class Company(db.Model):
     __tablename__ = 'company'
     
     id = db.Column(db.Integer, primary_key = True) # use number id instead of ticker symbol for URL
-    name = db.Column(db.String) # covered by alpha vantage company overview
-    location = db.Column(db.String) # covered by alpha vantage company overview
-    industry = db.Column(db.String) # covered by alpha vantage company overview
-    dps = db.Column(db.Float) # covered by alpha vantage company overview (dividends per share)
-    eps = db.Column(db.Float) # covered by alpha vantage company overview (earnings per share)
-    description = db.Column(db.String) # covered by alpha vantage company overview
+    name = db.Column(db.String) # covered by finnhub company profile
+    country = db.Column(db.String) # covered by finnhub company profile
+    industry = db.Column(db.String) # covered by finnhub company profile
+    exchange = db.Column(db.String) # covered by finnhub company profile
+    website = db.Column(db.String) # covered by finnhub company profile
 
     stock = db.relationship('Stock', backref = 'company', uselist = False)
 
 class Stock(db.Model):
     __tablename__ = 'stock'
 
-    ticker = db.Column(db.String, primary_key = True) # covered by alpha vantage company overview
-    sector = db.Column(db.String) # covered by alpha vantage company overview
-    price = db.Column(db.Float) # covered by alpha vantage company overview
-    exchange = db.Column(db.String) # covered by alpha vantage company overview
-    traderscore = db.Column(db.String) # covered by styvio
-    investorscore = db.Column(db.String)  # covered by styvio
+    ticker = db.Column(db.String, primary_key = True) # covered by symbol at beginning
+    open = db.Column(db.Float) # covered by finnhub quote
+    high = db.Column(db.Float) # covered by finnhub quote
+    low = db.Column(db.Float) # covered by finnhub quote
+    close = db.Column(db.Float) # covered by finnhub quote
+    current = db.Column(db.Float) # covered by finnhub quote
     company = db.Column(db.String, db.ForeignKey('company.name')) # access stock company name through company
 
     news = db.relationship('Article', backref = 'stock') # one to many: stock to many news about this stock
