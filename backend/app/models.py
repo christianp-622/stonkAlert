@@ -1,8 +1,7 @@
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 import os
-
-app = Flask(__name__) 
+from app import app
 
 USER = os.environ.get("MODELS_USER")
 PASSWORD = os.environ.get("MODELS_PASS")
@@ -19,7 +18,7 @@ db = SQLAlchemy(app)
 class Company(db.Model):
     __tablename__ = 'company'
     
-    id = db.Column(db.Integer, primary_key = True, autoincrement = "auto") # use number id instead of ticker symbol for URL
+    # id = db.Column(db.Integer, primary_key = True, autoincrement = "auto") # use number id instead of ticker symbol for URL
     name = db.Column(db.String) # covered by iexcloud company https://iexcloud.io/docs/api/#company
     country = db.Column(db.String) # covered by iexcloud company
     industry = db.Column(db.String) # covered by iexcloud company
@@ -27,7 +26,19 @@ class Company(db.Model):
     website = db.Column(db.String) # covered by iexcloud company
     description = db.Column(db.String) # covered by iexcloud company
     
-    stock = db.Column(db.String, db.ForeignKey('stock.ticker')) # stock to company relationship
+    stock = db.Column(db.String, db.ForeignKey('stock.ticker'), primary_key = True) # stock to company relationship, also primary key
+
+    # formatting for json dump
+    def format(self):
+        return {
+            "name": self.name,
+            "country": self.country,
+            "industry": self.industry,
+            "exchange": self.exchange,
+            "website": self.website,
+            "description": self.description,
+            "stock": self.stock,
+        }
 
 class Stock(db.Model):
     __tablename__ = 'stock'
@@ -42,6 +53,17 @@ class Stock(db.Model):
     company = db.relationship('Company', backref = 'company', uselist = False) # one to one
     news = db.relationship('Article', backref = 'stock') # one to many: stock to many news about this stock
 
+    # formatting for json dump
+    def format(self):
+        return {
+            "ticker": self.ticker,
+            "price": self.price,
+            "sector": self.sector,
+            "tradescore": self.tradescore,
+            "investscore": self.investscore,
+            "volume": self.volume,
+        }
+
 # one to many (stock -> news)
 class Article(db.Model):
     __tablename__ = 'article'
@@ -53,3 +75,14 @@ class Article(db.Model):
     link = db.Column(db.String) # covered by iexcloud news
     summary = db.Column(db.String) # covered by iexcloud news
     ticker = db.Column(db.String, db.ForeignKey('stock.ticker')) # access stock ticker through stock
+
+    # formatting for json dump
+    def format(self):
+        return {
+            "headline": self.headline,
+            "datetime": self.datetime,
+            "source": self.source,
+            "link": self.link,
+            "summary": self.summary,
+            "ticker": self.ticker,
+        }

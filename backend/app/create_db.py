@@ -2,7 +2,8 @@ import os
 import requests
 import time
 import json
-from models import app, db, Stock, Company, Article
+from app import app
+from .models import db, Stock, Company, Article
 
 IEXCLOUD_URL = "https://cloud.iexapis.com/" # https://cloud.iexapis.com/stable/stock/{ticker lowercase}}/news?token={api key}
 STYVIO_URL = "https://www.styvio.com/api/" # https://www.styvio.com/api/{ticker}
@@ -16,7 +17,10 @@ r = requests.get(FINNHUB_URL + 'stock/symbol?exchange=US&mic=XNYS&token=' + FINN
 stocks = r.json()
 
 def add_all(): # method to add all stocks, companies, and news instances for each stock in finnhub list of stocks
+    num = 0
     for stock in stocks:
+        if num == 20:
+            break
         symbol = stock['symbol']
         company_r = requests.get(IEXCLOUD_URL + 'stable/stock/' + symbol + '/company?token=' + IEXCLOUD_KEY)
         stock_r = requests.get(IEXCLOUD_URL + 'stable/stock/' + symbol + '/quote?token=' + IEXCLOUD_KEY)
@@ -26,6 +30,8 @@ def add_all(): # method to add all stocks, companies, and news instances for eac
             add_stock(company_r, stock_r, styvio_r)
             add_article(news_r, symbol)
             add_company(company_r)
+            app.logger.info('Added one.')
+        num += 1
             
 def add_stock(company_r, stock_r, styvio_r): # method to add stock instance
     # use r.json()['type'] to access company overview elements (ex: r.json()['Description'])
@@ -114,6 +120,7 @@ def add_article(news_r, symbol): # method to add article instance
 def create_stonkdb():
     add_all()
     db.session.commit()
+    app.logger.info('Database success.')
     
 # uncomment later when db setup
 db.drop_all()
