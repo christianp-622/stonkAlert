@@ -10,7 +10,14 @@ def index():
 
 @app.route('/api/stock')
 def get_stock():
-    return "Stonk Alert API"
+    # get symbol=<string> query param and find corresponding stock
+    ticker = request.args.get('symbol', default = "", type = str)
+    stock = db.session.query(Stock).filter(Stock.ticker == ticker).first()
+
+    if stock is None:
+        return "Requested stock or route not supported in the Stonk Alert API."
+
+    return jsonify(stock.format())
 
 @app.route('/api/stocks')
 def get_stocks():
@@ -18,7 +25,14 @@ def get_stocks():
 
 @app.route('/api/company')
 def get_company():
-    return "Stonk Alert API"
+    # get symbol=<string> query param and find corresponding company
+    ticker = request.args.get('symbol', default = "", type = str)
+    company = db.session.query(Company).filter(Company.stock == ticker).first()
+
+    if company is None:
+        return "Requested company or route not supported in the Stonk Alert API."
+
+    return jsonify(company.format())
 
 @app.route('/api/companies')
 def get_companies():
@@ -26,8 +40,12 @@ def get_companies():
 
 @app.route('/api/article', methods=['GET'])
 def get_article():
-    # first article test
-    article = db.session.query(Article).filter(Article.id == 1).first()
+    # get id=<int> query param and find corresponding article
+    id = request.args.get('id', default = 1, type = int)
+    article = db.session.query(Article).filter(Article.id == id).first()
+
+    if article is None:
+        return "Requested article or route not supported in the Stonk Alert API."
 
     return jsonify(article.format())
 

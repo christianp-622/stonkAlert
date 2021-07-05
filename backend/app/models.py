@@ -48,7 +48,7 @@ class Stock(db.Model):
     sector = db.Column(db.String) # covered by iexcloud company
     tradescore = db.Column(db.String) # covered by styvio
     investscore = db.Column(db.String) # covered by styvio
-    volume = db.Column(db.Integer) # covered by iexcloud quote
+    marketcap = db.Column(db.BigInteger) # covered by iexcloud quote
 
     company = db.relationship('Company', backref = 'company', uselist = False) # one to one
     news = db.relationship('Article', backref = 'stock') # one to many: stock to many news about this stock
@@ -61,7 +61,7 @@ class Stock(db.Model):
             "sector": self.sector,
             "tradescore": self.tradescore,
             "investscore": self.investscore,
-            "volume": self.volume,
+            "marketcap": self.marketcap,
         }
 
 # one to many (stock -> news)
