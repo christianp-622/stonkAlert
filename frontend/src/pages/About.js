@@ -12,72 +12,60 @@ import Guan from "../images/Guan_Image.jpg"
 
  
 const About = () => {
-   const GITLAB_ISSUES_API = "https://gitlab.com/api/v4/projects/27576968/issues";
-   const GITLAB_COMMITS_API = "https://gitlab.com/api/v4/projects/27576968/repository/commits";
+   const GITLAB_ISSUES_API = "https://gitlab.com/api/v4/projects/27576968/issues?per_page=1000";
+   const GITLAB_COMMITS_API = "https://gitlab.com/api/v4/projects/27576968/repository/commits?per_page=1000";
    const [commit, setCommits] = useState([0, 0, 0, 0, 0]);
    const [issue, setIssues] = useState([0, 0, 0, 0, 0]);
-   const [totalCommits, setTotalCommits] = useState(0);
-   const [totalIssues, setTotalIssues] = useState(0);
+   let totalCommits = 0;
+   let totalIssues = 0;
+
    useEffect(() => {
-      const parseCommit = async () => {
-         let commits = [0, 0, 0, 0, 0, 0];
-         let page = "1";
-         while (page) {
-               const response = await fetch(GITLAB_COMMITS_API + '?per_page=100&page=' + page);
-               const all_commits = await response.json();
-               all_commits.forEach((commit) => {
-                  let name = commit['author_name'];
-                  if (name === "Kevin Yang") {
-                     commits[0] += 1;
-                  } else if (name === "Albert Cho") {
-                     commits[1] += 1;
-                  } else if (name === "ashraydesai") {
-                     commits[2] += 1;
-                  } else if (name === "Christian Pichardo") {
-                     commits[3] += 1;
-                  } else if (name === "Guan Lin Wee") {
-                     commits[4] += 1;
-                  }
-                  commits[5] += 1;
-               })
-               page = response.headers.get('x-next-page')
-         }
-         setCommits(commits);
-         setTotalCommits(commits[5]);
-      };
-      parseCommit();
-   });
+      const parse_Commits_Issues = async () => {
+         let commits = [0, 0, 0, 0, 0, 0]
+         let issues = [0, 0, 0, 0, 0, 0]
 
-    useEffect(() => {
-        const parseIssues = async () => {
-            let issues = [0, 0, 0, 0, 0, 0];
-            let page = "1";
-            while (page) {
-                const response = await fetch(GITLAB_ISSUES_API + '?per_page=100&page=' + page);
-                const all_issues = await response.json();
-                all_issues.forEach((issue) => {
-                  let name = issue['author']['name'];
-                  if (name === "Kevin Yang") {
-                        issues[0] += 1;
-                  } else if (name === "Albert Cho") {
-                        issues[1] += 1;
-                  } else if (name === "Ashray Desai") {
-                        issues[2] += 1;
-                  } else if (name === "christianp-622") {
-                        issues[3] += 1;
-                  } else if (name === "guanlin-w") {
-                        issues[4] += 1;
-                  }
-                  issues[5] += 1;
-                })
-                page = response.headers.get('x-next-page')
+         const response_commit = await fetch(GITLAB_COMMITS_API);
+         const all_commits = await response_commit.json();
+         all_commits.forEach((commit) => {
+            let name = commit['author_name'];
+            if (name === "Kevin Yang") {
+               commits[0] += 1;
+            } else if (name === "Albert Cho") {
+               commits[1] += 1;
+            } else if (name === "ashraydesai") {
+               commits[2] += 1;
+            } else if (name === "Christian Pichardo") {
+               commits[3] += 1;
+            } else if (name === "Guan Lin Wee") {
+               commits[4] += 1;
             }
-            setIssues(issues);
-            setTotalIssues(issues[5]);
-        };
-        parseIssues();
-    });
+            commits[5] += 1;
+         })
+         setCommits(commits);
+         totalCommits = commits[5];
 
+         const response_issue = await fetch(GITLAB_ISSUES_API);
+         const all_issues = await response_issue.json();
+         all_issues.forEach((issue) => {
+           let name = issue['author']['name'];
+           if (name === "Kevin Yang") {
+                 issues[0] += 1;
+           } else if (name === "Albert Cho") {
+                 issues[1] += 1;
+           } else if (name === "Ashray Desai") {
+                 issues[2] += 1;
+           } else if (name === "christianp-622") {
+                 issues[3] += 1;
+           } else if (name === "guanlin-w") {
+                 issues[4] += 1;
+           }
+           issues[5] += 1;
+         })
+         setIssues(issues);
+         totalIssues = issues[5];
+      };
+      parse_Commits_Issues();
+   });
 
     return (
       <div className = "d-flex">
