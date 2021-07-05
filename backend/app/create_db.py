@@ -39,6 +39,8 @@ def add_stock(company_r, stock_r, styvio_r): # method to add stock instance
     stock.ticker = stock_r.json()['symbol']
     stock.price = stock_r.json()['latestPrice']
     stock.sector = company_r.json()['sector']
+    if stock.sector == "":
+        stock.sector = "Miscellaneous"
     stock.tradescore = styvio_r.json()['tradeScore']
     stock.investscore = styvio_r.json()['invScore']
     stock.volume = stock_r.json()['volume']
@@ -57,11 +59,19 @@ def add_company(company_r): # method to add instance of a company
     # creating instance
     company = Company()
     company.name = company_r.json()['companyName']
-    company.ceo = company_r.json()['CEO']
+    company.country = company_r.json()['country']
+    if not company.country:
+        company.country = "US"
     company.industry = company_r.json()['industry']
-    company.employees = company_r.json()['employees']
+    if company.industry == "":
+        company.industry = "Miscellaneous"
+    company.exchange = company_r.json()['exchange']
     company.website = company_r.json()['website']
+    if company.website == "":
+        company.website = "https://www.google.com/search?q=" + company.name
     company.description = company_r.json()['description']
+    if company.description == "":
+        company.description = "No description available."
 
     # linking one to one
     stock = Stock.query.filter(Stock.ticker == company_r.json()['symbol']).first()

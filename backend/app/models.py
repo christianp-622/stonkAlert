@@ -21,9 +21,9 @@ class Company(db.Model):
     
     id = db.Column(db.Integer, primary_key = True, autoincrement = "auto") # use number id instead of ticker symbol for URL
     name = db.Column(db.String) # covered by iexcloud company https://iexcloud.io/docs/api/#company
-    ceo = db.Column(db.String) # covered by iexcloud company
+    country = db.Column(db.String) # covered by iexcloud company
     industry = db.Column(db.String) # covered by iexcloud company
-    employees = db.Column(db.String) # covered by iexcloud company
+    exchange = db.Column(db.String) # covered by iexcloud company
     website = db.Column(db.String) # covered by iexcloud company
     description = db.Column(db.String) # covered by iexcloud company
     
@@ -48,7 +48,7 @@ class Article(db.Model):
 
     id = db.Column(db.Integer, primary_key = True, autoincrement = "auto") # use number id instead of ticker symbol for URL
     headline = db.Column(db.String) # covered by iexcloud news
-    datetime = db.Column(db.Integer) # covered by iexcloud news (in unix epoch milliseconds time)
+    datetime = db.Column(db.BigInteger) # covered by iexcloud news (in unix epoch milliseconds time)
     source = db.Column(db.String) # covered by iexcloud news
     link = db.Column(db.String) # covered by iexcloud news
     summary = db.Column(db.String) # covered by iexcloud news
