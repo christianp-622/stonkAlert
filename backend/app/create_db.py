@@ -23,9 +23,9 @@ def add_all(): # method to add all stocks, companies, and news instances for eac
         styvio_r = requests.get(STYVIO_URL + symbol)
         news_r = requests.get(IEXCLOUD_URL + 'stable/stock/' + symbol + '/news/last/3?token=' + IEXCLOUD_KEY) # arbitrary limit to 3 per stock so we don't burn our api credits -guan
         if company_r and stock_r and styvio_r and news_r: # check if json valid request
-            add_article(news_r)
-            add_company(company_r)
             add_stock(company_r, stock_r, styvio_r)
+            add_article(news_r, symbol)
+            add_company(company_r)
             
 def add_stock(company_r, stock_r, styvio_r): # method to add stock instance
     # use r.json()['type'] to access company overview elements (ex: r.json()['Description'])
@@ -42,14 +42,6 @@ def add_stock(company_r, stock_r, styvio_r): # method to add stock instance
     stock.tradescore = styvio_r.json()['tradeScore']
     stock.investscore = styvio_r.json()['invScore']
     stock.volume = stock_r.json()['volume']
-
-    # 1:1 relationship link with company
-    # company = Company.query.filter(Company.stock == company_r.json()['symbol']).first()
-    # stock.company = company.stock
-    # stock.news
-
-    # news = Article.query.get(stock.ticker)
-
 
     db.session.add(stock)
     db.session.commit()
@@ -71,8 +63,10 @@ def add_company(company_r): # method to add instance of a company
     company.website = company_r.json()['website']
     company.description = company_r.json()['description']
 
-    # linking
-    # company.stock = company_r.json()['symbol']
+    # linking one to one
+    stock = Stock.query.filter(Stock.ticker == company_r.json()['symbol']).first()
+    stock.company = company
+    # company.stock = stock.ticker # might not need bc linked through foreign key
 
     db.session.add(company)
     db.session.commit()
@@ -80,11 +74,13 @@ def add_company(company_r): # method to add instance of a company
     # limit calls
     time.sleep(0.05)
 
-def add_article(news_r): # method to add article instance
+def add_article(news_r, symbol): # method to add article instance
     # news_r is an list of news articles, each element being a unique article.
     # use r.json()[index]['type'] to access individual articles elements (ex: r.json()[0]['headline'])
     # test prints
     # print(news_r.json())
+
+    stock = Stock.query.filter(Stock.ticker == symbol).first()
 
     #go through the list of news and create an article instance for each
     for news in news_r.json():
@@ -94,12 +90,13 @@ def add_article(news_r): # method to add article instance
         article.source   = news['source']
         article.link     = news['url']
         article.summary  = news['summary']
+
+        # linking: many articles to one stock
+        stock.news.append(article)
+        # article.stock = stock.ticker # might not need bc linked through foreign key
+
         db.session.add(article)
         db.session.commit()
-
-    # many to 1 relationship with stock (stock -> news about this stock)
-    # article.ticker = ??
-    # article.company = ??
     
     # limit calls
     time.sleep(0.05)

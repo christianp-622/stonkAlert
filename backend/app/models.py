@@ -15,7 +15,7 @@ os.environ.get("DB_STRING",f'postgresql://{USER}:{PASSWORD}@{PUBLIC_IP_ADDRESS}/
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True  # To suppress a warning message
 db = SQLAlchemy(app)
 
-# One-To-One relation: company to stock
+# One-To-One relation: stock to company
 class Company(db.Model):
     __tablename__ = 'company'
     
@@ -26,8 +26,8 @@ class Company(db.Model):
     employees = db.Column(db.String) # covered by iexcloud company
     website = db.Column(db.String) # covered by iexcloud company
     description = db.Column(db.String) # covered by iexcloud company
-
-    stock = db.relationship('Stock', backref = 'company', uselist = False)
+    
+    stock = db.Column(db.String, db.ForeignKey('stock.ticker')) # stock to company relationship
 
 class Stock(db.Model):
     __tablename__ = 'stock'
@@ -38,8 +38,8 @@ class Stock(db.Model):
     tradescore = db.Column(db.String) # covered by styvio
     investscore = db.Column(db.String) # covered by styvio
     volume = db.Column(db.Integer) # covered by iexcloud quote
-    company = db.Column(db.Integer, db.ForeignKey('company.id')) # access stock company as id
 
+    company = db.relationship('Company', backref = 'company', uselist = False) # one to one
     news = db.relationship('Article', backref = 'stock') # one to many: stock to many news about this stock
 
 # one to many (stock -> news)
@@ -53,4 +53,3 @@ class Article(db.Model):
     link = db.Column(db.String) # covered by iexcloud news
     summary = db.Column(db.String) # covered by iexcloud news
     ticker = db.Column(db.String, db.ForeignKey('stock.ticker')) # access stock ticker through stock
-    company = db.Column(db.Integer, db.ForeignKey('stock.company')) # access stock company through stock
