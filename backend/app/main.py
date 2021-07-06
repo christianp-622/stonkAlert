@@ -16,7 +16,6 @@ def get_stock():
     ticker = request.args.get('symbol', default = "", type = str)
     stock = db.session.query(Stock).filter(Stock.ticker == ticker).first()
 
-    print(stock)
     if stock is None:
         return "Requested stock or route not supported in the Stonk Alert API."
 
