@@ -4,7 +4,7 @@ import json
 import sys
 from .create_db import Article, Stock, Company, db, create_stonkdb
 
-from sqlalchemy import desc
+from sqlalchemy import desc, exists
 
 @app.route('/')
 def index():
@@ -73,5 +73,28 @@ def get_article():
 
 @app.route('/api/news')
 def get_news():
-    return "Stonk Alert API"
+    news = []
 
+    # must sort/filter database (symbol for filtering, sort/asc for sorting)
+    sort = request.args.get('symbol', default = "datetime", type = str) # 'headline', 'datetime', 'source', 'link', 'summary', 'ticker'
+    asc = request.args.get('asc', default = 'True', type = str)
+    limit = request.args.get('limit', default = 10, type = int) # how many articles will be returned
+    symbol = request.args.get('symbol', default = "", type = str) # filter out by stock
+    
+    # symbol is not empty and exists in database
+    if symbol and db.session.query(Article.query.filter(Article.ticker == symbol).exists()).scalar():
+        if asc == 'True':
+            news += db.session.query(Article).order_by(sort).limit(limit).filter(Article.ticker == symbol)
+        else:
+            news += db.session.query(Article).order_by(desc(sort)).limit(limit).filter(Article.ticker == symbol)
+    elif symbol: # symbol is not empty but doesn't exit in database
+        return "Requested stock not supported in the Stonk Alert API."
+    else: # symbol is empty, so return news without ticker filter
+        if asc == 'True':
+            news += db.session.query(Article).order_by(sort).limit(limit)
+        else:
+            news += db.session.query(Article).order_by(desc(sort)).limit(limit)
+
+    result = map(lambda x: x.format(), news)
+
+    return jsonify(list(result))
