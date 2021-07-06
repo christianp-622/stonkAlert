@@ -25,16 +25,17 @@ def get_stock():
 @app.route('/api/stocks')
 def get_stocks():
     sort =  request.args.get('sort', default="ticker", type = str)
-    asc =   request.args.get('asc', default=True, type = bool)
+    asc =   request.args.get('asc', default='True', type = str)
     limit = request.args.get('limit', default=10,type = int)
     
     # have to set stocklist to empty list in order to get a list of stocks
     # doing a direct equals to the query will assign it to the actual sql query format
     stockList =[]
-    if asc:
+    if asc == 'True':
         stockList += db.session.query(Stock).order_by(sort).limit(limit)
     else:
-        stockList += db.session.query(Stock).order_by(sort.desc()).limit(limit)
+        print("asdf")
+        stockList += db.session.query(Stock).order_by(desc(sort)).limit(limit)
     
     print(stockList)
     result = map(lambda x: x.format(), stockList)
