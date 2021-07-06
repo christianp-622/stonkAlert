@@ -11,6 +11,8 @@ import StockCard from '../components/StockCard'
 import {BootstrapTable,TableHeaderColumn} from "react-bootstrap-table";
 import "../../node_modules/react-bootstrap-table/css/react-bootstrap-table.css";
 
+import Spinner from 'react-bootstrap/Spinner'
+
 //stock display components
 import Stock from '../components/Stock';
 
@@ -21,11 +23,12 @@ class Stock_Page extends React.Component {
       this.state = {
         stock: {}
       }
-    }
+   }
   
     componentDidMount() {
       this.getStock();
     }
+    
   
     getStock() {
        const ticker = this.props.match.params.id;
@@ -47,11 +50,27 @@ class Stock_Page extends React.Component {
            }
          )
     }
-  
+    
+
     render() {
         let stock = this.state.stock;
+
+         // the render occurs before the retrieval is complete put a spinner in place     
+        let graph =<Spinner animation="border" role="status">  
+                     <span className="sr-only">Loading...</span> 
+                  </Spinner>;
+  
+         // check if the stock has a proper ticker. if so set graph to Stock
+         // this should trigger an update
+        if (typeof(stock.ticker) !== 'undefined') {
+            graph = <Stock ticker={stock.ticker}/>; 
+        }
+
+        console.log(stock.ticker);
+ 
      
         let tempNewsID = stock.ticker === "AMC" ? "2" : stock.ticker === "GME" ? "1" : "3"
+
      
         /* */
         return (
@@ -76,10 +95,12 @@ class Stock_Page extends React.Component {
                                    </NavLink>
                                    <div className="align-items-center justify-content-between">
                                          <h1 class="ticker-title text-light">${stock.ticker}</h1> 
-                                         <h2 class = "ticker-title text-light"> {stock.name}</h2>
+                                         <h2 class = "ticker-title text-light">{stock.name}</h2>
                                    </div>
                                    <div style={{margin: "10px auto"}}>
-                                        <Stock ticker={stock.ticker}/>
+                                         {graph} 
+                                        
+
                                    </div>
                                    <div class = "stock-info">
                                       <p className="my-4 text-left text-light">
