@@ -62,7 +62,28 @@ def get_company():
 
 @app.route('/api/companies')
 def get_companies():
-    return "Stonk Alert API"
+    companies = []
+
+    # must sort/filter database (sort/asc for sorting)
+    sort = request.args.get('sort', default = "name", type = str)
+    asc = request.args.get('asc', default = 'True', type = str)
+    limit = request.args.get('limit', default = 10, type = int) # how many articles will be returned
+    
+    # preconditions/defaults
+    if sort not in ['name', 'country', 'industry', 'exchange', 'website', 'description', 'stock']:
+        sort = 'name'
+    if asc.lower() not in ['true', 'false']:
+        asc = 'true'
+    if limit < 0:
+        limit = 0
+
+    if asc.lower() == 'true':
+        companies += db.session.query(Company).order_by(sort).limit(limit)
+    elif asc.lower() == 'false':
+        companies += db.session.query(Company).order_by(desc(sort)).limit(limit)
+
+    result = map(lambda x: x.format(), companies)
+    return jsonify(list(result))
 
 @app.route('/api/article', methods=['GET'])
 def get_article():
