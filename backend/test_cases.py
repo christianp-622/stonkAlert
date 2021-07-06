@@ -13,6 +13,29 @@ class python_tests(TestCase):
 
 
     # Stock API Test 
+    stock_response= requests.get("{}/stock".format(api_base))
+    stock_json = stock_response.json()
+
+    def test_stock_response(self):
+        self.assertEqual(self.article_response.status_code, 200)
+
+    def test_stock_ticker(self):
+        self.assertTrue("ticker" in self.stock_json.keys())
+
+    def test_stock_price(self):
+        self.assertTrue("price" in self.stock_json.keys())
+
+    def test_stock_sector(self):
+        self.assertTrue("sector" in self.stock_json.keys())
+
+    def test_stock_tradescore(self):
+        self.assertTrue("tradescore" in self.stock_json.keys())
+
+    def test_stock_investscore(self):
+        self.assertTrue("investscore" in self.stock_json.keys())
+
+    def test_stock_marketcap(self):
+        self.assertTrue("marketcap" in self.stock_json.keys())
 
 
     # Articles API Test
