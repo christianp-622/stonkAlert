@@ -28,19 +28,23 @@ def get_stocks():
     asc =   request.args.get('asc', default='True', type = str)
     limit = request.args.get('limit', default=10,type = int)
     
+    # preconditions/defaults
+    if sort not in ['ticker', 'price', 'tradescore', 'investscore', 'marketcap', 'sector']:
+        sort = 'ticker'
+    if asc.lower() not in ['true', 'false']:
+        asc = 'true'
+    if limit < 0:
+        limit = 0
+
     # have to set stocklist to empty list in order to get a list of stocks
     # doing a direct equals to the query will assign it to the actual sql query format
     stockList =[]
-    if asc == 'True':
+    if asc.lower() == 'true':
         stockList += db.session.query(Stock).order_by(sort).limit(limit)
-    else:
-        print("asdf")
+    elif asc.lower() == 'false':
         stockList += db.session.query(Stock).order_by(desc(sort)).limit(limit)
-    
-    print(stockList)
-    result = map(lambda x: x.format(), stockList)
-    
 
+    result = map(lambda x: x.format(), stockList)
     return jsonify(list(result))
 
 
@@ -76,25 +80,32 @@ def get_news():
     news = []
 
     # must sort/filter database (symbol for filtering, sort/asc for sorting)
-    sort = request.args.get('symbol', default = "datetime", type = str) # 'headline', 'datetime', 'source', 'link', 'summary', 'ticker'
+    sort = request.args.get('sort', default = "datetime", type = str) # 'headline', 'datetime', 'source', 'link', 'summary', 'ticker'
     asc = request.args.get('asc', default = 'True', type = str)
     limit = request.args.get('limit', default = 10, type = int) # how many articles will be returned
     symbol = request.args.get('symbol', default = "", type = str) # filter out by stock
     
+    # preconditions/defaults
+    if sort not in ['headline', 'datetime', 'source', 'link', 'summary', 'ticker']:
+        sort = 'datetime'
+    if asc.lower() not in ['true', 'false']:
+        asc = 'true'
+    if limit < 0:
+        limit = 0
+
     # symbol is not empty and exists in database
     if symbol and db.session.query(Article.query.filter(Article.ticker == symbol).exists()).scalar():
-        if asc == 'True':
-            news += db.session.query(Article).order_by(sort).limit(limit).filter(Article.ticker == symbol)
-        else:
-            news += db.session.query(Article).order_by(desc(sort)).limit(limit).filter(Article.ticker == symbol)
+        if asc.lower() == 'true':
+            news += db.session.query(Article).order_by(sort).filter(Article.ticker == symbol).limit(limit)
+        elif asc.lower() == 'false':
+            news += db.session.query(Article).order_by(desc(sort)).filter(Article.ticker == symbol).limit(limit)
     elif symbol: # symbol is not empty but doesn't exit in database
         return "Requested stock not supported in the Stonk Alert API."
     else: # symbol is empty, so return news without ticker filter
-        if asc == 'True':
+        if asc.lower() == 'true':
             news += db.session.query(Article).order_by(sort).limit(limit)
-        else:
+        elif asc.lower() == 'false':
             news += db.session.query(Article).order_by(desc(sort)).limit(limit)
 
     result = map(lambda x: x.format(), news)
-
     return jsonify(list(result))
