@@ -44,11 +44,13 @@ def add_stock(company_r, stock_r, styvio_r): # method to add stock instance
     stock.ticker = stock_r.json()['symbol']
     stock.price = stock_r.json()['latestPrice']
     stock.sector = company_r.json()['sector']
-    if stock.sector == "":
+    if stock.sector == "" or stock.sector is None:
         stock.sector = "Miscellaneous"
     stock.tradescore = styvio_r.json()['tradeScore']
     stock.investscore = styvio_r.json()['invScore']
     stock.marketcap = stock_r.json()['marketCap']
+    if stock.marketcap is None:
+        stock.marketcap = 0
 
     db.session.add(stock)
     db.session.commit()

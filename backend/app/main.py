@@ -10,7 +10,7 @@ from sqlalchemy import desc, exists
 def index():
     return "Stonk Alert API"
 
-@app.route('/api/stock')
+@app.route('/api/stock', methods=["GET"])
 def get_stock():
     # get symbol=<string> query param and find corresponding stock
     ticker = request.args.get('symbol', default = "", type = str)
@@ -22,7 +22,7 @@ def get_stock():
 
     return jsonify(stock.format())
 
-@app.route('/api/stocks')
+@app.route('/api/stocks', methods=["GET"])
 def get_stocks():
     sort =  request.args.get('sort', default="ticker", type = str)
     asc =   request.args.get('asc', default='True', type = str)
@@ -49,7 +49,7 @@ def get_stocks():
 
 
 
-@app.route('/api/company')
+@app.route('/api/company', methods=["GET"])
 def get_company():
     # get symbol=<string> query param and find corresponding company
     ticker = request.args.get('symbol', default = "", type = str)
@@ -60,7 +60,7 @@ def get_company():
 
     return jsonify(company.format())
 
-@app.route('/api/companies')
+@app.route('/api/companies', methods=["GET"])
 def get_companies():
     companies = []
 
@@ -96,7 +96,7 @@ def get_article():
 
     return jsonify(article.format())
 
-@app.route('/api/news')
+@app.route('/api/news', methods=["GET"])
 def get_news():
     news = []
 
