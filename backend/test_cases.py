@@ -10,7 +10,32 @@ api_base = "http://localhost:3000/api"
 
 class python_tests(TestCase):
     # Company API Test
+    company_response= requests.get("{}/company".format(api_base))
+    company_json = company_response.json()
 
+    def test_company_response(self):
+        self.assertEqual(self.article_response.status_code, 200)
+
+    def test_company_name(self):
+        self.assertTrue("name" in self.company_json.keys())
+
+    def test_company_country(self):
+        self.assertTrue("country" in self.company_json.keys())
+
+    def test_company_industry(self):
+        self.assertTrue("industry" in self.company_json.keys())
+
+    def test_company_exchange(self):
+        self.assertTrue("exchange" in self.company_json.keys())
+
+    def test_company_website(self):
+        self.assertTrue("website" in self.company_json.keys())
+
+    def test_company_description(self):
+        self.assertTrue("description" in self.company_json.keys())
+
+    def test_company_stock(self):
+        self.assertTrue("stock" in self.company_json.keys())
 
     # Stock API Test 
     stock_response= requests.get("{}/stock".format(api_base))
