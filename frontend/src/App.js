@@ -6,7 +6,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Switch } from 'react-router-dom';
 import Home from './pages/Home';
 import About from './pages/About';
-import {Stocks, Stock_Page, Stock_Table} from './pages/Stocks';
+// import {Stocks, Stock_Page, Stock_Table} from './pages/Stocks';
+import Stocks from './pages/Stocks'
+import Stock_Page from './pages/Stock_Page'
 import {News, News_Page} from './pages/News';
 import {Companies, Company_Page} from './pages/Companies';
 
@@ -19,7 +21,7 @@ function App() {
             <Route path="/companies" component={Companies} exact/>
             <Route path="/companies/:id" component={Company_Page}/>
             <Route path="/stocks" component={Stocks} exact/>
-            <Route path="/stocks/:id" component={Stock_Page}/>  brb remove after experiment with table
+            <Route path="/stocks/:id" component={Stock_Page}/>
             <Route path="/news" component={News} exact/>
             <Route path="/news/:id" component={News_Page}/>
           </Switch>

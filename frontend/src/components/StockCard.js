@@ -19,11 +19,11 @@ const StockCard = ({stock}) => {
              <br></br>
              <strong>Sector: </strong> {stock.sector}
              <br></br>
-             <strong>Exchange: </strong>{stock.exchange}
+             <strong>Market Cap: </strong>{stock.marketcap}
              <br></br>
              <strong>Trade Score/Sentiment: </strong>{stock.tradescore}
              <br></br>
-             <strong>Investing Score: </strong>{stock.invscore}
+             <strong>Investing Score: </strong>{stock.investscore}
              <br></br>
  
  

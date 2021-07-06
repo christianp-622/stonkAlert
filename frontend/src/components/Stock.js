@@ -8,6 +8,7 @@ class Stock extends React.Component {
       stockX: [],
       stockY: [],
     }
+    this.getStock = this.getStock.bind(this);
   }
 
   componentDidMount() {
@@ -16,11 +17,11 @@ class Stock extends React.Component {
 
   getStock() {
     const pointerToThis = this;
-    console.log(pointerToThis);
 
     //get rid of key sometime from code
     const API_KEY = '3P8EFXNOM0JN21Q0';
     let stock = this.props.ticker;
+    console.log(this.props);
     let API_Call = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${stock}&outputsize=compact&apikey=${API_KEY}`;
     let stockXFunction = [];
     let stockYFunction = [];
@@ -33,7 +34,6 @@ class Stock extends React.Component {
       )
       .then(
         function (data) {
-          console.log(data);
 
           for (var key in data['Time Series (Daily)']) {
             stockXFunction.push(key);
