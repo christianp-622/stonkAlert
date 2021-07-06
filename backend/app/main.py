@@ -4,6 +4,8 @@ import json
 import sys
 from .create_db import Article, Stock, Company, db, create_stonkdb
 
+from sqlalchemy import desc
+
 @app.route('/')
 def index():
     return "Stonk Alert API"
@@ -14,6 +16,7 @@ def get_stock():
     ticker = request.args.get('symbol', default = "", type = str)
     stock = db.session.query(Stock).filter(Stock.ticker == ticker).first()
 
+    print(stock)
     if stock is None:
         return "Requested stock or route not supported in the Stonk Alert API."
 
@@ -21,7 +24,25 @@ def get_stock():
 
 @app.route('/api/stocks')
 def get_stocks():
-    return "Stonk Alert API"
+    sort =  request.args.get('sort', default="ticker", type = str)
+    asc =   request.args.get('asc', default=True, type = bool)
+    limit = request.args.get('limit', default=10,type = int)
+    
+    # have to set stocklist to empty list in order to get a list of stocks
+    # doing a direct equals to the query will assign it to the actual sql query format
+    stockList =[]
+    if asc:
+        stockList += db.session.query(Stock).order_by(sort).limit(limit)
+    else:
+        stockList += db.session.query(Stock).order_by(sort.desc()).limit(limit)
+    
+    print(stockList)
+    result = map(lambda x: x.format(), stockList)
+    
+
+    return jsonify(list(result))
+
+
 
 @app.route('/api/company')
 def get_company():
