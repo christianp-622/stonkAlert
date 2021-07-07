@@ -46,6 +46,9 @@ class python_tests(TestCase):
 
     def test_stock_ticker(self):
         self.assertTrue("ticker" in self.stock_json.keys())
+    
+    def test_stock_company(self):
+        self.assertTrue("company" in self.stock_json.keys())
 
     def test_stock_price(self):
         self.assertTrue("price" in self.stock_json.keys())
@@ -90,4 +93,7 @@ class python_tests(TestCase):
 
     def test_article_ticker(self):
         self.assertTrue("ticker" in self.article_json.keys())
+    
+    def test_article_ticker(self):
+        self.assertTrue("company" in self.article_jason.keys())
 
