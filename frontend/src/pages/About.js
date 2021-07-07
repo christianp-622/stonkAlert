@@ -9,6 +9,7 @@ import Ashray from "../images/Ashray_Image.jpg"
 import Albert from "../images/Albert_Image.jpg"
 import Christian from "../images/Christian_Image.jpg"
 import Guan from "../images/Guan_Image.jpg"
+import logo from '../images/stonkalertlogo.png';
 
  
 const About = () => {
@@ -75,13 +76,14 @@ const About = () => {
          <div style={{ flex: "1 1 auto", display: "flex", flexFlow: "column", height: "100vh", overflowY: "hidden" }}>
             <div style={{ height: "100%" }}>
                <div style={{ height: "calc(100% - 0px)", overflowY: "scroll" }}>
-                  <div className="d-flex card-section">
+
                      <div className="cards-container">
-                        <Container xl={3} className = "container">
-                           <h1>About Stonk Alert</h1>
+                        <Container xl={3} className = "container" align = "center">
+                           
                            <CardDeck className = "deck">
                               <Card className = "description" text = "white">
                                  <Card.Body>
+                                 <h1 className="text-light">About Stonk Alert</h1>
                                     <Card.Text>
                                           Stocks are slices of a company's ownership that grant their buyer partial ownership of that company. 
                                        People who participate in the stock market buy and sell stocks tactically to try and make as much money 
@@ -161,6 +163,22 @@ const About = () => {
                                        <ListGroupItem>Tests: 0</ListGroupItem>
                                  </ListGroup>
                               </Card>
+                              <Card className = "card" text = "white">
+                              <Card.Img width='100%' className = "img" variant="top" src= {logo} />
+                                 <Card.Body>
+                                    <Card.Title>Total Commits</Card.Title>
+                                    <Card.Text>{commit[5]}</Card.Text>
+                                    <Card.Title>Total Issues</Card.Title>
+                                    <Card.Text>{issue[5]}</Card.Text>
+                                    <Card.Title>Total Tests</Card.Title>
+                                    <Card.Text>0</Card.Text>
+                                 </Card.Body>
+                                 <ListGroup className="list-group-flush">
+                                       <ListGroupItem>Unit Tests</ListGroupItem>
+                                       <ListGroupItem>idk</ListGroupItem>
+                                       <ListGroupItem>idk</ListGroupItem>
+                                 </ListGroup>
+                              </Card>
                               <Card classname = "card" text = "white">
                                  <Card.Img className = "img" variant="top" src= {Christian} />
                                  <Card.Body>
@@ -178,17 +196,9 @@ const About = () => {
                                  </ListGroup>
                               </Card>
                            </CardDeck>
+                           
                            <CardDeck className="deck">
-                              <Card className = "card" text = "white">
-                                 <Card.Body>
-                                    <Card.Title>Total Commits</Card.Title>
-                                    <Card.Text>{totalCommits}</Card.Text>
-                                    <Card.Title>Total Issues</Card.Title>
-                                    <Card.Text>{totalIssues}</Card.Text>
-                                    <Card.Title>Total Tests</Card.Title>
-                                    <Card.Text>0</Card.Text>
-                                 </Card.Body>
-                              </Card>
+
                               <Card className = "card" text = "white">
                                  <Card.Body>
                                     <Card.Title>APIs and Data Sources</Card.Title>
@@ -202,7 +212,7 @@ const About = () => {
                                        primary key for the stock and company models.</ListGroupItem>
                                        <ListGroupItem className = "listgroup" action href="https://www.styvio.com/" rel="noopener noreferrer" target="_blank">Styvio - Real time APIs for stock chat, fundamental and technical data, and social sentiment. Since
                                        we needed a sufficient number of attributes to depict each of our stocks, we decided to send requests to styvio to retrieve information on tradescore and investscore for each stock. This provides users with information
-                                       on social sentiment for each instance of our stock model</ListGroupItem>
+                                       on social sentiment for each instance of our stock model. We also used its yearly prices to populate our stock graph values.</ListGroupItem>
                                     </ListGroup>
                               </Card>
                               <Card className = "card" text = "white">
@@ -234,7 +244,7 @@ const About = () => {
                </div>
             </div>
          </div>
-      </div>
+
 
     );
 }
