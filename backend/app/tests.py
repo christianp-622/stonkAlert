@@ -8,7 +8,7 @@ api_base = "http://localhost:3000/api"
 # api_base = "https://stonkalert.me/api"
 
 
-class python_tests(TestCase):
+class tests(TestCase):
     # Company API Test
     company_response= requests.get("{}/company".format(api_base))
     company_json = company_response.json()
@@ -27,6 +27,9 @@ class python_tests(TestCase):
 
     def test_company_exchange(self):
         self.assertTrue("exchange" in self.company_json.keys())
+
+    def test_company_logo(self):
+        self.assertTrue("logo" in self.company_json.keys())
 
     def test_company_website(self):
         self.assertTrue("website" in self.company_json.keys())
@@ -97,3 +100,7 @@ class python_tests(TestCase):
     def test_article_ticker(self):
         self.assertTrue("company" in self.article_jason.keys())
 
+
+
+if __name__ =="__main__":
+    main()
