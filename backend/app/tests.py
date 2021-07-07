@@ -13,32 +13,56 @@ class tests(TestCase):
     company_response= requests.get("{}/company".format(api_base))
     company_json = company_response.json()
 
+    # test response attribute of Company model
     def test_company_response(self):
         self.assertEqual(self.article_response.status_code, 200)
 
+    # test name attribute of Company model
     def test_company_name(self):
         self.assertTrue("name" in self.company_json.keys())
+        self.assertGreater(len(self.company_json.get("name")), 0)
 
+    # test country attribute of Company model
     def test_company_country(self):
         self.assertTrue("country" in self.company_json.keys())
+        self.assertGreater(len(self.company_json.get("country")), 0)
 
+    # test industry attribute of Company model
     def test_company_industry(self):
         self.assertTrue("industry" in self.company_json.keys())
+        self.assertGreater(len(self.company_json.get("industry")), 0)
 
+    # test exchange attribute of Company model
     def test_company_exchange(self):
         self.assertTrue("exchange" in self.company_json.keys())
+        self.assertGreater(len(self.company_json.get("exchange")), 0)
 
+    # test logo attribute of Company model
     def test_company_logo(self):
         self.assertTrue("logo" in self.company_json.keys())
+        self.assertGreater(len(self.company_json.get("logo")), 0)
 
+    # test website attribute of Company model
     def test_company_website(self):
         self.assertTrue("website" in self.company_json.keys())
+        self.assertGreater(len(self.company_json.get("website")), 0)
 
+    # test description attribute of Company model
     def test_company_description(self):
         self.assertTrue("description" in self.company_json.keys())
+        self.assertGreater(len(self.company_json.get("description")), 0)
 
+    # test stock attribute of Company model, and the stock's attributes
     def test_company_stock(self):
         self.assertTrue("stock" in self.company_json.keys())
+        
+        stock = self.company_json.get("stock")
+        self.assertTrue("ticker" in stock.keys())
+        self.assertTrue("company" in stock.keys())
+        self.assertTrue("price" in stock.keys())
+        self.assertTrue("sector" in stock.keys())
+        self.assertTrue("tradescore" in stock.keys())
+        self.assertTrue("marketcap" in stock.keys())
 
     # Stock API Test 
     stock_response= requests.get("{}/stock".format(api_base))
