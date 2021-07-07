@@ -23,6 +23,7 @@ class Company(db.Model):
     country = db.Column(db.String) # covered by iexcloud company
     industry = db.Column(db.String) # covered by iexcloud company
     exchange = db.Column(db.String) # covered by iexcloud company
+    logo = db.Column(db.String) # covered by styvio
     website = db.Column(db.String) # covered by iexcloud company
     description = db.Column(db.String) # covered by iexcloud company
     
@@ -35,6 +36,7 @@ class Company(db.Model):
             "country": self.country,
             "industry": self.industry,
             "exchange": self.exchange,
+            "logo": self.logo,
             "website": self.website,
             "description": self.description,
             "stock": self.stock,

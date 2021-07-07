@@ -29,7 +29,7 @@ def add_all(): # method to add all stocks, companies, and news instances for eac
         if company_r and stock_r and styvio_r and news_r: # check if json valid request
             add_stock(company_r, stock_r, styvio_r)
             add_article(company_r, news_r, symbol)
-            add_company(company_r)
+            add_company(company_r, styvio_r)
         num += 1
             
 def add_stock(company_r, stock_r, styvio_r): # method to add stock instance
@@ -59,7 +59,7 @@ def add_stock(company_r, stock_r, styvio_r): # method to add stock instance
     # limit calls
     time.sleep(0.05)
 
-def add_company(company_r): # method to add instance of a company
+def add_company(company_r, styvio_r): # method to add instance of a company
     # use r.json()['type'] to access company overview elements (ex: r.json()['Description'])
     # test prints
     # print(company_r.json())
@@ -74,6 +74,11 @@ def add_company(company_r): # method to add instance of a company
     if company.industry == "":
         company.industry = "Miscellaneous"
     company.exchange = company_r.json()['exchange']
+    company.logo = styvio_r.json()['logoURL']
+    if company.logo == 'logoURL' or not company.logo:
+      company.logo = "https://i.stack.imgur.com/h6viz.gif"
+    elif not image_exists(company.logo):
+      company.logo = "https://i.stack.imgur.com/h6viz.gif"
     company.website = company_r.json()['website']
     if company.website == "":
         company.website = "https://www.google.com/search?q=" + company.name
@@ -123,6 +128,13 @@ def add_article(company_r, news_r, symbol): # method to add article instance
 def create_stonkdb():
     add_all()
     db.session.commit()
+
+def image_exists(image_url):
+   format = ("image/png", "image/jpeg", "image/jpg")
+   r = requests.head(image_url)
+   if r.headers["content-type"] in format:
+      return True
+   return False
     
 # uncomment later when db setup
 db.drop_all()
