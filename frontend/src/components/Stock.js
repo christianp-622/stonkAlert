@@ -19,10 +19,9 @@ class Stock extends React.Component {
     const pointerToThis = this;
 
     //get rid of key sometime from code
-    const API_KEY = '3P8EFXNOM0JN21Q0';
     let stock = this.props.ticker;
-    console.log(this.props);
-    let API_Call = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${stock}&outputsize=compact&apikey=${API_KEY}`;
+    //http://www.styvio.com/api/${stock}
+    let API_Call  = `https://arcane-springs-49957.herokuapp.com/http://www.styvio.com/api/${stock}`;
     let stockXFunction = [];
     let stockYFunction = [];
 
@@ -34,10 +33,13 @@ class Stock extends React.Component {
       )
       .then(
         function (data) {
-
-          for (var key in data['Time Series (Daily)']) {
-            stockXFunction.push(key);
-            stockYFunction.push(data['Time Series (Daily)'][key]['1. open']);
+          console.log("data");
+          console.log(data);
+          let yearlyPrices = data['yearlyPrices'];
+          let i =0;
+          for (; i< yearlyPrices.length;i++) {
+            stockXFunction.push(i);
+            stockYFunction.push(yearlyPrices[i]); 
           }
 
           pointerToThis.setState({
@@ -69,8 +71,8 @@ class Stock extends React.Component {
           config={{ responsive: true }}
           layout={{
             width: "1000", height: "440", title: this.props.ticker, plot_bgcolor: "rgba(0,0,0,0)",
-            paper_bgcolor: "rgba(0,0,0,0)", "yaxis": { "gridcolor": "rgba(0,0,0,0)" },
-            "xaxis": { "gridcolor": "rgba(0,0,0,0)" }, font: { color: '#ffffff' }, autosize: true
+            paper_bgcolor: "rgba(0,0,0,0)",  "yaxis": {"title":'$USD', "gridcolor": "rgba(0,0,0,0)"},
+            "xaxis": { "gridcolor": "rgba(0,0,0,0)", 'visible':false }, font: { color: '#ffffff' }, autosize: true,
           }}
           useResizeHandler={true}
           style={{ width: "100%", height: "100%" }}
