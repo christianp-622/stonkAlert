@@ -38,7 +38,12 @@ class Stock extends React.Component {
           let yearlyPrices = data['yearlyPrices'];
           let i =0;
           for (; i< yearlyPrices.length;i++) {
-            stockXFunction.push(i);
+            if (yearlyPrices.length - 1 - i == 0) // if statements to put how many days ago since styvio doesn't provide dates
+              stockXFunction.push("Today");
+            else if (yearlyPrices.length - 1 - i == 1)
+              stockXFunction.push("1 Day Ago");
+            else
+              stockXFunction.push((yearlyPrices.length - 1 - i) + " Days Ago");
             stockYFunction.push(yearlyPrices[i]); 
           }
 
@@ -72,7 +77,7 @@ class Stock extends React.Component {
           layout={{
             width: "1000", height: "440", title: this.props.ticker, plot_bgcolor: "rgba(0,0,0,0)",
             paper_bgcolor: "rgba(0,0,0,0)",  "yaxis": {"title":'$USD', "gridcolor": "rgba(0,0,0,0)"},
-            "xaxis": { "gridcolor": "rgba(0,0,0,0)", 'visible':false }, font: { color: '#ffffff' }, autosize: true,
+            "xaxis": { "title":'Days Ago', "gridcolor": "rgba(0,0,0,0)", "tickvals": [ "250 Days Ago", "200 Days Ago", "150 Days Ago", "100 Days Ago", "50 Days Ago", "Today", ]}, font: { color: '#ffffff' }, autosize: true,
           }}
           useResizeHandler={true}
           style={{ width: "100%", height: "100%" }}
