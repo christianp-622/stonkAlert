@@ -85,6 +85,9 @@ class tests(TestCase):
     def test_article_datetime(self):
         self.assertTrue("datetime" in self.article_json.keys())
 
+    def test_article_image(self):
+        self.assertTrue("image" in self.article_json.keys())
+
     def test_article_source(self):
         self.assertTrue("source" in self.article_json.keys())
 
