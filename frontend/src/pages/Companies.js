@@ -63,12 +63,15 @@ class Companies extends React.Component {
                     <div className="stock-container">
                        <div className="card-bg w-100 border d-flex flex-column">
                           <div className="p-4 d-flex flex-column h-100">
-                          <BootstrapTable data={ this.state.companies } options={options} striped hover pagination version="4">
-                             <TableHeaderColumn dataField='name' isKey dataSort={ true }>Name</TableHeaderColumn>
-                             <TableHeaderColumn dataField='industry' dataSort={ true }>Industry</TableHeaderColumn>
-                             <TableHeaderColumn dataField='country' dataSort={ true }>Country</TableHeaderColumn>
-                             <TableHeaderColumn dataField='exchange' dataSort={ true }>Exchange</TableHeaderColumn>
-                             <TableHeaderColumn dataField='stock' dataSort={ true }>Symbol</TableHeaderColumn>
+                          <p className="my-4 text-center text-light"> 
+                                       <h4 className="m-0 h1 font-weight-bold text-light">Companies</h4>
+                          </p>
+                          <BootstrapTable data={ this.state.companies } options={options} striped hover pagination version="4" search multiColumnSearch>
+                             <TableHeaderColumn dataField='name' isKey dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } }>Name</TableHeaderColumn>
+                             <TableHeaderColumn dataField='industry' dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } }>Industry</TableHeaderColumn>
+                             <TableHeaderColumn dataField='country' dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } }>Country</TableHeaderColumn>
+                             <TableHeaderColumn dataField='exchange' dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } }>Exchange</TableHeaderColumn>
+                             <TableHeaderColumn dataField='stock' dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } }>Symbol</TableHeaderColumn>
                           </BootstrapTable>
                           </div>
                        </div>

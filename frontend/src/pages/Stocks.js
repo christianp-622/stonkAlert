@@ -74,13 +74,16 @@ class Stocks extends React.Component {
                     <div className="stock-container">
                        <div className="card-bg w-100 border d-flex flex-column">
                           <div className="p-4 d-flex flex-column h-100">
-                          <BootstrapTable data={ this.state.stocks } options={options} striped hover pagination version="4">
-                             <TableHeaderColumn dataField='ticker' isKey dataSort={ true }>Ticker</TableHeaderColumn>
-                             <TableHeaderColumn dataField='price' dataSort={ true }>Stock Price</TableHeaderColumn>
-                             <TableHeaderColumn dataField='marketcap' dataSort={ true }>Market Cap</TableHeaderColumn>
-                             <TableHeaderColumn dataField='sector' dataSort={ true }>Sector</TableHeaderColumn>
-                             <TableHeaderColumn dataField='tradescore' dataSort={ true }>Trader Score</TableHeaderColumn>
-                             <TableHeaderColumn dataField='investscore' dataSort={ true }>Investor Score</TableHeaderColumn>
+                          <p className="my-4 text-center text-light"> 
+                                       <h4 className="m-0 h1 font-weight-bold text-light">Stocks</h4>
+                          </p>
+                          <BootstrapTable data={ this.state.stocks } options={options} striped hover pagination version="4" search multiColumnSearch>
+                             <TableHeaderColumn dataField='ticker' isKey dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } }>Ticker</TableHeaderColumn>
+                             <TableHeaderColumn dataField='price' dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } }>Stock Price</TableHeaderColumn>
+                             <TableHeaderColumn dataField='marketcap' dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } }>Market Cap</TableHeaderColumn>
+                             <TableHeaderColumn dataField='sector' dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } }>Sector</TableHeaderColumn>
+                             <TableHeaderColumn dataField='tradescore' dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } }>Trader Score</TableHeaderColumn>
+                             <TableHeaderColumn dataField='investscore' dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } }>Investor Score</TableHeaderColumn>
                           </BootstrapTable>
                           </div>
                        </div>
