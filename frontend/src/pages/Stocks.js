@@ -63,13 +63,13 @@ class Stocks extends React.Component {
         <div style={{ flex: "1 1 auto", display: "flex", flexFlow: "column", height: "100vh", overflowY: "hidden" }}>
            <div style={{ height: "100%" }}>
               <div style={{ height: "calc(100%)", overflowY: "scroll" }}>
-                 <div className="d-flex card-section">
+                 {/* <div className="d-flex card-section">
                     <div className="cards-container">
                        {this.state.stocks.map((stock) => (
                           <StockCard stock={stock} />
                        ))}
                     </div>
-                 </div>
+                 </div> */}
                  <div className="d-flex card-section">
                     <div className="stock-container">
                        <div className="card-bg w-100 border d-flex flex-column">

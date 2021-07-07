@@ -1,126 +1,87 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Sidebar from '../components/Sidebar';
 
 import { BrowserRouter as Router, useHistory, useParams } from 'react-router-dom';
 import '../App.css';
-import { NavLink } from 'react-router-dom';
-import '../News.css';
-import NewsCard from '../components/NewsCard'
-//get the data from the json
-const data = require("../tempNewsData.json");
-const news = data['news']
+import '../stock.css';
+import { NavLink, Redirect } from 'react-router-dom';
+import StockCard from '../components/StockCard'
 
+/*Table components */
+import {BootstrapTable,TableHeaderColumn} from "react-bootstrap-table";
+import "../../node_modules/react-bootstrap-table/css/react-bootstrap-table.css";
 
-const News = () => {
-    return (
-        <div className="home d-flex">
-            <div>
-                <Sidebar />
-            </div>
-            <div style={{ flex: "1 1 auto", display: "flex", flexFlow: "column", height: "100vh", overflowY: "hidden" }}>
-                <div style={{ height: "100%" }}>
-                    <div style={{ height: "calc(100%)", overflowY: "scroll" }}>
-                        <div className="d-flex card-section">
-                            <div className="cards-container">
-                              {news.map((article) => (
-                                 <NewsCard article={article} />
-                              ))}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+const options = {
+   onRowClick: function(row) {
+      window.location.href = "/news/" + row.id;
+   }
+};
+
+class News extends React.Component {
+   constructor(props) {
+     super(props);
+     this.state = {
+       news: []
+     }
+   }
+ 
+   componentDidMount() {
+     this.getNews();
+   }
+ 
+   getNews() {
+    //   const ticker = this.props.match.params.id;
+      const localURL = "http://127.0.0.1:5000/api/news?limit=15000";
+      const pointerToThis = this;
+
+      fetch(localURL)
+        .then(
+          function (response) {
+            return response.json();
+          }
+        )
+        .then(
+          function (data) {
+            console.log(data);
+            pointerToThis.setState({
+                news: data
+             });
+          }
+        )
+   }
+ 
+   render() {
+     return (
+       
+      <div className="home d-flex">
+        <div>
+           <Sidebar />
         </div>
-    );
-}
-
-
-/* component for individual news pages */
-const News_Page = () => {
-    let {id} = useParams();
-    let newsSingle = {};
-    /* Search for the news in the json */
-    for (const news of data.news) {
-
-        if (news.id === id) {
-            newsSingle = news;
-            break;
-        }
-
-    }
-
-    return (
-        <div className="home d-flex">
-            <div>
-                <Sidebar />
-            </div>
-            <div style={{ flex: "1 1 auto", display: "flex", flexFlow: "column", height: "100vh", overflowY: "hidden" }}>
-                <div style={{ height: "100%" }}>
-                    <div style={{ height: "calc(100%)", overflowY: "scroll" }}>
-                        <div className="d-flex card-section">
-                            <div className="news-container">
-
-                                <div className="card-bg w-100 border d-flex flex-column">
-                                    <div className="p-4 d-flex flex-column h-100">
-                                        <NavLink exact to="/news/" activeClassName="activeClicked">
-                                            <p className="c-p mt-0 text-light font-weight-bold text-left mb-auto">
-
-                                                <i className="fas fa-arrow-left mr-1"></i>
-                                                View Other News
-                                            </p>
-                                        </NavLink>
-                                        <div className="align-items-center justify-content-between">
-                                            <h1 class="text-light">{newsSingle.title}</h1>
-                                        </div>
-
-                                        <div class="news-info">
-                                            <p className="my-4 text-left text-light">
-
-                                                <strong>Company: </strong>{newsSingle.company}
-                                                <br></br>
-                                                <strong>Stock: </strong>{newsSingle.stock}
-                                                <br></br>
-                                                <strong>Date: </strong> {newsSingle.date}
-                                                <br></br>
-                                                <strong>Source: </strong> {newsSingle.source}
-                                                <br></br>
-                                                <strong>Description: </strong>{newsSingle.description}
-                                                <br></br>
-                                                <strong>Link: </strong>{newsSingle.link}
-                                                <br></br>
-
-
-                                            </p>
-
-                                        </div>
-
-
-
-                                        <NavLink exact to={"/companies/" + newsSingle.stock} activeClassName="activeClicked">
-                                            <p className="c-p mb-0 text-light font-weight-bold text-right mt-auto">
-                                                More info about the company
-                                                <i className="fas fa-arrow-right ml-1"></i>
-                                            </p>
-                                        </NavLink>
-
-                                        <NavLink exact to={"/stocks/" + newsSingle.stock} activeClassName="activeClicked">
-                                            <p className="c-p mb-0 text-light font-weight-bold text-right mt-auto">
-                                                More info about the stock
-                                                <i className="fas fa-arrow-right ml-1"></i>
-                                            </p>
-                                        </NavLink>
-
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
+        <div style={{ flex: "1 1 auto", display: "flex", flexFlow: "column", height: "100vh", overflowY: "hidden" }}>
+           <div style={{ height: "100%" }}>
+              <div style={{ height: "calc(100%)", overflowY: "scroll" }}>
+                 <div className="d-flex card-section">
+                    <div className="stock-container">
+                       <div className="card-bg w-100 border d-flex flex-column">
+                          <div className="p-4 d-flex flex-column h-100">
+                          <BootstrapTable data={ this.state.news } options={options} striped hover pagination version="4">
+                             <TableHeaderColumn dataField='headline' isKey dataSort={ true }>Title</TableHeaderColumn>
+                             <TableHeaderColumn dataField='datetime' dataSort={ true }>Date</TableHeaderColumn>
+                             <TableHeaderColumn dataField='source' dataSort={ true }>Source</TableHeaderColumn>
+                             <TableHeaderColumn dataField='ticker' dataSort={ true }>Symbol</TableHeaderColumn>
+                             <TableHeaderColumn dataField='company' dataSort={ true }>Company</TableHeaderColumn>
+                          </BootstrapTable>
+                          </div>
+                       </div>
                     </div>
-                </div>
-            </div>
+                 </div>
+                
+              </div>
+         </div>
         </div>
-    );
-}
-
-export { News, News_Page };
+     </div>
+   )
+   }
+ }
+ 
+ export default News;

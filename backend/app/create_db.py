@@ -28,7 +28,7 @@ def add_all(): # method to add all stocks, companies, and news instances for eac
         news_r = requests.get(IEXCLOUD_URL + 'stable/stock/' + symbol + '/news/last/3?token=' + IEXCLOUD_KEY) # arbitrary limit to 3 per stock so we don't burn our api credits -guan
         if company_r and stock_r and styvio_r and news_r: # check if json valid request
             add_stock(company_r, stock_r, styvio_r)
-            add_article(news_r, symbol)
+            add_article(company_r, news_r, symbol)
             add_company(company_r)
         num += 1
             
@@ -43,6 +43,7 @@ def add_stock(company_r, stock_r, styvio_r): # method to add stock instance
     stock = Stock()
     stock.ticker = stock_r.json()['symbol']
     stock.price = stock_r.json()['latestPrice']
+    stock.companyName = company_r.json()['companyName']
     stock.sector = company_r.json()['sector']
     if stock.sector == "" or stock.sector is None:
         stock.sector = "Miscellaneous"
@@ -91,7 +92,7 @@ def add_company(company_r): # method to add instance of a company
     # limit calls
     time.sleep(0.05)
 
-def add_article(news_r, symbol): # method to add article instance
+def add_article(company_r, news_r, symbol): # method to add article instance
     # news_r is an list of news articles, each element being a unique article.
     # use r.json()[index]['type'] to access individual articles elements (ex: r.json()[0]['headline'])
     # test prints
@@ -103,6 +104,7 @@ def add_article(news_r, symbol): # method to add article instance
     for news in news_r.json():
         article = Article()
         article.headline = news['headline']
+        article.company = company_r.json()['companyName']
         article.datetime = news['datetime']
         article.source   = news['source']
         article.link     = news['url']

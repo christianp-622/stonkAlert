@@ -8,9 +8,11 @@ import Home from './pages/Home';
 import About from './pages/About';
 // import {Stocks, Stock_Page, Stock_Table} from './pages/Stocks';
 import Stocks from './pages/Stocks'
-import Stock_Page from './pages/Stock_Page'
-import {News, News_Page} from './pages/News';
-import {Companies, Company_Page} from './pages/Companies';
+import Stock_Page from './components/Stock_Page'
+import News from './pages/News'
+import Article_Page from './components/Article_Page'
+import Companies from './pages/Companies'
+import Company_Page from './components/Company_Page'
 
 function App() {
   return (
@@ -23,7 +25,7 @@ function App() {
             <Route path="/stocks" component={Stocks} exact/>
             <Route path="/stocks/:id" component={Stock_Page}/>
             <Route path="/news" component={News} exact/>
-            <Route path="/news/:id" component={News_Page}/>
+            <Route path="/news/:id" component={Article_Page}/>
           </Switch>
     </Router>
   );

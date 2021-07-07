@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
-import Sidebar from '../components/Sidebar';
+import Sidebar from './Sidebar';
 
 import { BrowserRouter as Router, useHistory, useParams } from 'react-router-dom';
 import '../App.css';
 import '../stock.css';
 import { NavLink, Redirect } from 'react-router-dom';
-import StockCard from '../components/StockCard'
+import StockCard from './StockCard'
 
 /*Table components */
 import {BootstrapTable,TableHeaderColumn} from "react-bootstrap-table";
@@ -14,7 +14,7 @@ import "../../node_modules/react-bootstrap-table/css/react-bootstrap-table.css";
 import Spinner from 'react-bootstrap/Spinner'
 
 //stock display components
-import Stock from '../components/Stock';
+import Stock from './Stock';
 
 
 class Stock_Page extends React.Component {
@@ -67,11 +67,7 @@ class Stock_Page extends React.Component {
         }
 
         console.log(stock.ticker);
- 
-     
-        let tempNewsID = stock.ticker === "AMC" ? "2" : stock.ticker === "GME" ? "1" : "3"
 
-     
         /* */
         return (
            <div className="home d-flex">
@@ -95,13 +91,13 @@ class Stock_Page extends React.Component {
                                    </NavLink>
                                    <div className="align-items-center justify-content-between">
                                          <h1 class="ticker-title text-light">${stock.ticker}</h1> 
-                                         <h2 class = "ticker-title text-light">{stock.name}</h2>
+                                         <h2 class = "ticker-title text-light">{stock.companyName}</h2>
                                    </div>
+
                                    <div style={{margin: "10px auto"}}>
                                          {graph} 
-                                        
-
                                    </div>
+
                                    <div class = "stock-info">
                                       <p className="my-4 text-left text-light">
      
@@ -129,19 +125,18 @@ class Stock_Page extends React.Component {
                                       </p>
      
                                    </div>
-                                      
-                                
-                                      
+                                    
+                                 
                                    <NavLink exact to={"/companies/"+stock.ticker} activeClassName="activeClicked">
                                       <p className="c-p mb-0 text-light font-weight-bold text-right mt-auto">
-                                                           More info about the company
+                                                           More about the company
                                       <i className="fas fa-arrow-right ml-1"></i>
                                       </p>
                                    </NavLink>
      
-                                   <NavLink exact to={"/news/"+tempNewsID} activeClassName="activeClicked">
+                                   <NavLink exact to={"/news/"+stock.ticker} activeClassName="activeClicked">
                                       <p className="c-p mb-0 text-light font-weight-bold text-right mt-auto">
-                                                           News about the stock
+                                                           News about this stock
                                       <i className="fas fa-arrow-right ml-1"></i>
                                       </p>
                                    </NavLink>

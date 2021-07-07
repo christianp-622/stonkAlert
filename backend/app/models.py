@@ -44,6 +44,7 @@ class Stock(db.Model):
     __tablename__ = 'stock'
 
     ticker = db.Column(db.String, primary_key = True) # covered by symbol at beginning
+    companyName = db.Column(db.String) # covered by iexcloud company
     price = db.Column(db.Float) # covered by iexcloud quote (latestPrice)
     sector = db.Column(db.String) # covered by iexcloud company
     tradescore = db.Column(db.String) # covered by styvio
@@ -57,6 +58,7 @@ class Stock(db.Model):
     def format(self):
         return {
             "ticker": self.ticker,
+            "company": self.companyName,
             "price": self.price,
             "sector": self.sector,
             "tradescore": self.tradescore,
@@ -75,14 +77,17 @@ class Article(db.Model):
     link = db.Column(db.String) # covered by iexcloud news
     summary = db.Column(db.String) # covered by iexcloud news
     ticker = db.Column(db.String, db.ForeignKey('stock.ticker')) # access stock ticker through stock
+    company = db.Column(db.String)
 
     # formatting for json dump
     def format(self):
         return {
+            "id": self.id,
             "headline": self.headline,
             "datetime": self.datetime,
             "source": self.source,
             "link": self.link,
             "summary": self.summary,
             "ticker": self.ticker,
+            "company": self.company,
         }
