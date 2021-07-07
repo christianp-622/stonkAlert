@@ -111,6 +111,7 @@ def add_article(company_r, news_r, symbol): # method to add article instance
         article.headline = news['headline']
         article.company = company_r.json()['companyName']
         article.datetime = news['datetime']
+        article.image    = news['image']
         article.source   = news['source']
         article.link     = news['url']
         article.summary  = news['summary']

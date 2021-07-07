@@ -75,6 +75,7 @@ class Article(db.Model):
     id = db.Column(db.Integer, primary_key = True, autoincrement = "auto") # use number id instead of ticker symbol for URL
     headline = db.Column(db.String) # covered by iexcloud news
     datetime = db.Column(db.BigInteger) # covered by iexcloud news (in unix epoch milliseconds time)
+    image = db.Column(db.String) # covered by iexcloud news
     source = db.Column(db.String) # covered by iexcloud news
     link = db.Column(db.String) # covered by iexcloud news
     summary = db.Column(db.String) # covered by iexcloud news
@@ -87,6 +88,7 @@ class Article(db.Model):
             "id": self.id,
             "headline": self.headline,
             "datetime": self.datetime,
+            "image": self.image,
             "source": self.source,
             "link": self.link,
             "summary": self.summary,
