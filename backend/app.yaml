@@ -9,10 +9,8 @@ env_variables:
     prod
   DB_STRING: >-
     "postgresql+psycopg2://postgres:stonkalert@/stonkalertdb?host=/cloudsql/stonk-alert:us-central1:stonkalert"
-  IEXCLOUD_KEY: >-
-    "pk_6563b77bb10d4e7092eb75e37cdeda8a"
-  FINNHUB_KEY: >-
-    "c3fv6u2ad3if6rt4vdmg"
+  IEXCLOUD_KEY: "pk_6563b77bb10d4e7092eb75e37cdeda8a"
+  FINNHUB_KEY: "c3fv6u2ad3if6rt4vdmg"
   # MODELS_USER: >-
   #   postgres
   # MODELS_PASS: >-
