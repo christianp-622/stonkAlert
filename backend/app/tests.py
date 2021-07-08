@@ -15,7 +15,7 @@ class tests(TestCase):
 
     # test response of get request for the Company model 
     def test_company_response(self):
-        self.assertEqual(self.article_response.status_code, 200)
+        self.assertEqual(self.company_response.status_code, 200)
 
     # test name attribute of Company model
     def test_company_name(self):
@@ -77,14 +77,37 @@ class tests(TestCase):
         self.assertTrue(isinstance(stock.get("marketcap"), int))
 
 
+    # test multiple company instances 
+    # do this for a limit of 25 companies
+    def test_multiple_company_instances(self):
+        company_attributes = ["name", "country", "industry", "exchange", 
+                              "logo", "website", "description", "stock"]
+
+        # sort based on all atribute input
+        for atr in company_attributes:
+            url = ("{}/companies?sort=" + atr + "&asc=True&limit=25").format(api_base)
+
+            companies_response = requests.get(url) 
+            self.assertEqual(companies_response.status_code, 200)
+            
+            companies_json = companies_response.json()
+
+            # limit of 25 companies
+            for i in range(25):
+                this_company = companies_json[i]
+
+                for val in company_attributes:
+                    self.assertTrue(val in this_company.keys())
+
+
 
     # Stock Model API Test 
-    stock_response= requests.get("{}/stock?symbol=AMC".format(api_base))
+    stock_response = requests.get("{}/stock?symbol=AMC".format(api_base))
     stock_json = stock_response.json()
 
     # test response of get request for Stock model
     def test_stock_response(self):
-        self.assertEqual(self.article_response.status_code, 200)
+        self.assertEqual(self.stock_response.status_code, 200)
 
     # test ticker attribute of Stock model
     def test_stock_ticker(self):
@@ -120,6 +143,28 @@ class tests(TestCase):
     def test_stock_marketcap(self):
         self.assertTrue("marketcap" in self.stock_json.keys())
         self.assertTrue(isinstance(self.stock_json.get("marketcap"), int))
+
+
+    # test multiple stock instances 
+    # do this for a limit of 25 stock
+    def test_multiple_stock_instances(self):
+        stock_attributes = ["ticker", "companyName", "price", "sector", 
+                              "tradescore", "investscore", "marketcap"]
+
+        for atr in stock_attributes:
+            url = ("{}/stocks?sort=" + atr + "&asc=True&limit=25").format(api_base)
+
+            stock_response = requests.get(url) 
+            self.assertEqual(stock_response.status_code, 200)
+            
+            stock_json = stock_response.json()
+
+            # limit of 25 stock
+            for i in range(25):
+                this_stock = stock_json[i]
+
+                for val in stock_attributes:
+                    self.assertTrue(val in this_stock.keys())
 
 
 
@@ -176,6 +221,28 @@ class tests(TestCase):
         self.assertTrue("company" in self.article_json.keys())
         self.assertTrue(isinstance(self.stock_json.get("company"), str))
 
+
+    # test multiple article instances 
+    # do this for a limit of 25 news articles on AMC
+    def test_multiple_article_instances(self):
+        article_attributes = ["id", "headline", "datetime", 
+                              "image", "source", "link", 
+                              "summary", "ticker", "company"]
+
+        for atr in article_attributes:
+            url = ("{}/news?sort=" + atr + "&asc=True&limit=25&symbol=AMC").format(api_base)
+
+            article_response = requests.get(url)
+            self.assertEqual(article_response.status_code, 200)
+            
+            article_json = article_response.json()
+
+            # limit of 25 news articles
+            for i in range(25):
+                this_article = article_json[i]
+
+                for val in article_attributes:
+                    self.assertTrue(val in this_article.keys())
 
 
 if __name__ =="__main__":
