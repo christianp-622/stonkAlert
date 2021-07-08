@@ -1,3 +1,4 @@
+service: backend
 runtime: python37
 entrypoint: gunicorn -t 0 -b :$PORT run:app
 
