@@ -7,7 +7,6 @@ import io
 import subprocess
 import functools
 from .create_db import Article, Stock, Company, db, create_stonkdb
-import os.path
 
 from sqlalchemy import desc, exists, case
 
@@ -20,9 +19,8 @@ def run_tests():
     return render_template('index.html', output=test_output()) # populate template with unit test results
 
 def test_output():
-    p = subprocess.Popen('coverage run --branch app/tests.py > tmp/output.txt 2>&1 && coverage report -m >> tmp/output.txt', shell=True) # GOOGLE APP ENGINE ONLY
-    file = open("tmp/output.txt")
-    # p = subprocess.Popen('coverage run --branch app/tests.py > output.txt 2>&1 && coverage report -m >> output.txt', shell=True) # run tests.py, which redirects output to txt file
+    file = open("output.txt")
+    p = subprocess.Popen('coverage run --branch app/tests.py > output.txt 2>&1 && coverage report -m >> output.txt', shell=True) # run tests.py, which redirects output to txt file
     output = file.read()
     file.close()
     output = output.replace('\n', '<br />')
