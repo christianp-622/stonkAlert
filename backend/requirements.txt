@@ -6,3 +6,4 @@ requests
 Flask-SQLAlchemy
 coverage
 gunicorn==19.7.1
+google-cloud-storage
