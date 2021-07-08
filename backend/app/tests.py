@@ -3,8 +3,7 @@ import unittest
 import requests
 import json
 
-api_base = "https://stonk-alert.uc.r.appspot.com/api"
-# api_base = "http://127.0.0.1:5000/api"
+api_base = "http://127.0.0.1:5000/api"
 # api_base = "http://stonkalert.me/api"
 
 
@@ -52,6 +51,31 @@ class tests(TestCase):
     #     self.assertTrue("description" in self.company_json.keys())
     #     self.assertTrue(isinstance(self.company_json.get("description"), str))
 
+    # # test stock attribute of Company model, and the stock's attributes
+    # def test_company_stock(self):
+    #     self.assertTrue("stock" in self.company_json.keys())
+    #     self.assertTrue(isinstance(self.company_json.get("stock"), str))
+        
+    #     stock = self.company_json.get("stock")
+    #     self.assertTrue("ticker" in stock.keys())
+    #     self.assertTrue(isinstance(stock.get("ticker"), str))
+
+    #     self.assertTrue("company" in stock.keys())
+    #     self.assertTrue(isinstance(stock.get("company"), str))
+
+    #     self.assertTrue("price" in stock.keys())
+    #     self.assertTrue(isinstance(stock.get("price"), float))
+
+    #     self.assertTrue("sector" in stock.keys())
+    #     self.assertTrue(isinstance(stock.get("sector"), str))
+
+    #     self.assertTrue("tradescore" in stock.keys())
+    #     self.assertTrue(isinstance(stock.get("tradescore"), str))
+
+    #     self.assertTrue("marketcap" in stock.keys())
+    #     self.assertTrue(isinstance(stock.get("marketcap"), int))
+
+
     # test multiple company instances 
     # do this for a limit of 25 companies
     def test_multiple_company_instances(self):
@@ -82,6 +106,9 @@ class tests(TestCase):
                 self.assertTrue(isinstance(this_company.get("description"), str))
                 self.assertTrue(isinstance(this_company.get("exchange"), str))
                 self.assertTrue(isinstance(this_company.get("stock"), str))
+
+
+
 
     # # Stock Model API Test 
     # stock_response = requests.get("{}/stock?symbol=AMC".format(api_base))
@@ -155,6 +182,7 @@ class tests(TestCase):
                 self.assertTrue(isinstance(this_stock.get("tradescore"), str))
                 self.assertTrue(isinstance(this_stock.get("investscore"), str))
                 self.assertTrue(isinstance(this_stock.get("marketcap"), int))
+
 
 
     # Articles Model API Test
