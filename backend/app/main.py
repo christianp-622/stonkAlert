@@ -9,7 +9,7 @@ from .create_db import Article, Stock, Company, db, create_stonkdb
 
 from sqlalchemy import desc, exists
 
-@app.route('/')
+@app.route('/api')
 def index():
     return "Stonk Alert API"
 
