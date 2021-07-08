@@ -1,9 +1,5 @@
 from unittest import main, TestCase
 import unittest
-import requests
-import json
-import os
-
 from app.models import db, Company, Stock, Article
 
 
@@ -121,8 +117,7 @@ class tests(TestCase):
 
 
 if __name__ == '__main__':
-    main()
-    """  output = 'db_output.txt'
+    output = 'db_output.txt'
     with open(output, 'w') as f:
        runner = unittest.TextTestRunner(f)
        unittest.main(testRunner=runner) # allows to run file as "python ../db_tests.py" """
