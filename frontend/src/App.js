@@ -24,8 +24,8 @@ function App() {
             <Route path="/companies/:id" component={Company_Page}/>
             <Route path="/stocks" component={Stocks} exact/>
             <Route path="/stocks/:id" component={Stock_Page}/>
-            <Route path="/news/" component={News} exact/>
-            <Route path="/news/:id" component={News} exact/>
+            <Route path="/news" component={News} exact/>
+            <Route path="/news/:id" component={News}/>
             <Route path="/article/:id" component={Article_Page}/>
           </Switch>
     </Router>
