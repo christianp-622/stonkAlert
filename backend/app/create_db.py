@@ -5,6 +5,7 @@ import json
 from app import app
 from .models import db, Stock, Company, Article
 
+
 IEXCLOUD_URL = "https://cloud.iexapis.com/" # https://cloud.iexapis.com/stable/stock/{ticker lowercase}}/news?token={api key}
 STYVIO_URL = "https://www.styvio.com/api/" # https://www.styvio.com/api/{ticker}
 FINNHUB_URL = "https://finnhub.io/api/v1/" # https://finnhub.io/api/v1/stock/symbol?exchange=US&token={api key}
@@ -86,9 +87,9 @@ def add_company(company_r, styvio_r): # method to add instance of a company
         company.exchange = "Unknown"
     company.logo = styvio_r.json()['logoURL']
     if company.logo == 'logoURL' or not company.logo:
-      company.logo = "https://i.stack.imgur.com/h6viz.gif"
+      company.logo = "https://i.imgur.com/u4SGaf6.png"
     elif not image_exists(company.logo):
-      company.logo = "https://i.stack.imgur.com/h6viz.gif"
+      company.logo = "https://i.imgur.com/u4SGaf6.png"
     company.website = company_r.json()['website']
     if company.website == "" or not company.website:
         company.website = "https://www.google.com/search?q=" + company.name
