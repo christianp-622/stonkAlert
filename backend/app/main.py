@@ -2,6 +2,8 @@ from flask import request, render_template, jsonify, Flask
 from app import app
 import json
 import sys
+import io
+import subprocess
 from .create_db import Article, Stock, Company, db, create_stonkdb
 
 from sqlalchemy import desc, exists
@@ -9,6 +11,15 @@ from sqlalchemy import desc, exists
 @app.route('/')
 def index():
     return "Stonk Alert API"
+
+@app.route('/tests', methods=["GET"])
+def run_tests():
+    # os.system("python app/tests.py")
+    p = subprocess.Popen('python app/tests.py', shell=True) # run tests.py, which redirects output to txt file
+    file = open("output.txt", newline='\n')
+    output = file.read()
+    file.close()
+    return render_template('index.html', output=output) # populate template with unit test results
 
 @app.route('/api/stock', methods=["GET"])
 def get_stock():
