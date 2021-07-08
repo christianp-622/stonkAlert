@@ -1,0 +1,32 @@
+service: backend
+runtime: python37
+entrypoint: gunicorn -t 0 -b :$PORT run:app
+
+env_variables:
+  COVERAGE_FILE: >-
+    /tmp/.coverage
+  DB_ENV: >-
+    prod
+  DB_STRING: >-
+    postgresql+psycopg2://postgres:stonkalert@/stonkalertdb?host=/cloudsql/stonk-alert:us-central1:stonkalert
+  IEXCLOUD_KEY: >-
+    pk_6563b77bb10d4e7092eb75e37cdeda8a
+  FINNHUB_KEY: >-
+    c3fv6u2ad3if6rt4vdmg
+  # MODELS_USER: >-
+  #   postgres
+  # MODELS_PASS: >-
+  #   stonkalert
+  # PUBLIC_IP_ADDRESS: >-
+  #   stonkalert
+  # MODELS_DBNAME: >-
+  #   stonk-alert:us-central1:stonkalertdb
+
+beta_settings:
+    cloud_sql_instances: stonk-alert:us-central1:stonkalert
+
+handlers:
+  - url: .*
+    script: auto
+    secure: always
+    redirect_http_response_code: 301

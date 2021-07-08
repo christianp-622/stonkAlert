@@ -34,6 +34,7 @@ class Stocks extends React.Component {
    }
  
    getStocks() {
+      // const localURL = "http://stonkalert.me/api/stocks?limit=15000";
       const localURL = "http://127.0.0.1:5000/api/stocks?limit=15000";
       const pointerToThis = this;
 

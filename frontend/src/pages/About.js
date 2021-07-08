@@ -176,8 +176,8 @@ const About = () => {
                                  </Card.Body>
                                  <ListGroup className="list-group-flush">
                                        <ListGroupItem>Unit Tests</ListGroupItem>
-                                       <ListGroupItem><Button href="/tests" variant="outline-dark">Run Tests</Button>{' '}</ListGroupItem>
-                                       <ListGroupItem>idk</ListGroupItem>
+                                       <ListGroupItem><Button href="/api/tests" variant="outline-dark">Run Tests</Button>{' '}</ListGroupItem>
+                                       <ListGroupItem></ListGroupItem>
                                  </ListGroup>
                               </Card>
                               <Card classname = "card" text = "white">

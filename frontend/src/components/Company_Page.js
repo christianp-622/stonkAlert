@@ -25,6 +25,7 @@ class Company_Page extends React.Component {
   
     getCompany() {
        const ticker = this.props.match.params.id;
+      //  const localURL = "http://stonkalert.me/api/company?symbol=" + ticker;
        const localURL = "http://127.0.0.1:5000/api/company?symbol=" + ticker;
        const pointerToThis = this;
  

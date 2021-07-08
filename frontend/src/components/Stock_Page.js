@@ -32,6 +32,7 @@ class Stock_Page extends React.Component {
   
     getStock() {
        const ticker = this.props.match.params.id;
+      //  const localURL = "http://stonkalert.me/api/stock?symbol=" + ticker;
        const localURL = "http://127.0.0.1:5000/api/stock?symbol=" + ticker;
        const pointerToThis = this;
  

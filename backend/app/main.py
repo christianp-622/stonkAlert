@@ -1,6 +1,7 @@
-from flask import request, render_template, jsonify, Flask
+from flask import request, render_template, jsonify, Flask, Markup
 from app import app
 import json
+import time
 import sys
 import io
 import subprocess
@@ -12,14 +13,19 @@ from sqlalchemy import desc, exists
 def index():
     return "Stonk Alert API"
 
-@app.route('/tests', methods=["GET"])
+@app.route('/api/tests', methods=["GET"])
 def run_tests():
-    # os.system("python app/tests.py")
-    p = subprocess.Popen('python app/tests.py', shell=True) # run tests.py, which redirects output to txt file
-    file = open("output.txt", newline='\n')
+    return render_template('index.html', output=test_output()) # populate template with unit test results
+
+def test_output():
+    file = open("output.txt")
+    p = subprocess.Popen('make output-tests', shell=True) # run tests.py, which redirects output to txt file
     output = file.read()
     file.close()
-    return render_template('index.html', output=output) # populate template with unit test results
+    output = output.replace('\n', '<br />')
+    output = Markup(output)
+    time.sleep(2) # so process finishes to get correct output
+    return output
 
 @app.route('/api/stock', methods=["GET"])
 def get_stock():
