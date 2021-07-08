@@ -2,7 +2,9 @@ import os
 import requests
 import time
 import json
+from app import app
 from .models import db, Stock, Company, Article
+
 
 IEXCLOUD_URL = "https://cloud.iexapis.com/" # https://cloud.iexapis.com/stable/stock/{ticker lowercase}}/news?token={api key}
 STYVIO_URL = "https://www.styvio.com/api/" # https://www.styvio.com/api/{ticker}
@@ -18,7 +20,7 @@ stocks = r.json()
 def add_all(): # method to add all stocks, companies, and news instances for each stock in finnhub list of stocks
     num = 0
     for stock in stocks:
-        if num == 20:
+        if num == 10:
             break
         symbol = stock['symbol']
         company_r = requests.get(IEXCLOUD_URL + 'stable/stock/' + symbol + '/company?token=' + IEXCLOUD_KEY)
@@ -30,9 +32,7 @@ def add_all(): # method to add all stocks, companies, and news instances for eac
             add_article(company_r, news_r, symbol)
             add_company(company_r, styvio_r)
         num += 1
-
-      
-         
+            
 def add_stock(company_r, stock_r, styvio_r): # method to add stock instance
     # use r.json()['type'] to access company overview elements (ex: r.json()['Description'])
     # test prints
@@ -44,12 +44,20 @@ def add_stock(company_r, stock_r, styvio_r): # method to add stock instance
     stock = Stock()
     stock.ticker = stock_r.json()['symbol']
     stock.price = stock_r.json()['latestPrice']
+    if stock.price is None:
+        stock.price = 0
     stock.companyName = company_r.json()['companyName']
+    if stock.companyName == "" or stock.companyName is None:
+        stock.companyName = stock.ticker
     stock.sector = company_r.json()['sector']
     if stock.sector == "" or stock.sector is None:
         stock.sector = "Miscellaneous"
     stock.tradescore = styvio_r.json()['tradeScore']
+    if stock.tradescore == "" or stock.tradescore is None:
+        stock.tradescore = "Unknown"
     stock.investscore = styvio_r.json()['invScore']
+    if stock.investscore == "" or stock.investscore is None:
+        stock.investscore = "Unknown"
     stock.marketcap = stock_r.json()['marketCap']
     if stock.marketcap is None:
         stock.marketcap = 0
@@ -69,22 +77,24 @@ def add_company(company_r, styvio_r): # method to add instance of a company
     company = Company()
     company.name = company_r.json()['companyName']
     company.country = company_r.json()['country']
-    if not company.country:
+    if company.country is None or company.country == "United States":
         company.country = "US"
     company.industry = company_r.json()['industry']
-    if company.industry == "":
+    if company.industry == "" or company.industry is None:
         company.industry = "Miscellaneous"
     company.exchange = company_r.json()['exchange']
+    if company.exchange == "" or company.exchange is None:
+        company.exchange = "Unknown"
     company.logo = styvio_r.json()['logoURL']
     if company.logo == 'logoURL' or not company.logo:
-      company.logo = "https://i.stack.imgur.com/h6viz.gif"
+      company.logo = "https://i.imgur.com/u4SGaf6.png"
     elif not image_exists(company.logo):
-      company.logo = "https://i.stack.imgur.com/h6viz.gif"
+      company.logo = "https://i.imgur.com/u4SGaf6.png"
     company.website = company_r.json()['website']
-    if company.website == "":
+    if company.website == "" or not company.website:
         company.website = "https://www.google.com/search?q=" + company.name
     company.description = company_r.json()['description']
-    if company.description == "":
+    if company.description == "" or not company.description:
         company.description = "No description available."
 
     # linking one to one

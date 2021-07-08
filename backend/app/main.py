@@ -6,7 +6,7 @@ import sys
 import io
 import subprocess
 import functools
-from .models import Article, Stock, Company, db
+from .create_db import Article, Stock, Company, db, create_stonkdb
 
 from sqlalchemy import desc, exists, case
 
@@ -16,7 +16,7 @@ def index():
 
 @app.route('/api/tests', methods=["GET"])
 def run_tests():
-    return render_template('index.html', output=test_output(), db_output=test_database()) # populate template with unit test results
+    return render_template('index.html', output=test_output()) # populate template with unit test results
 
 def test_output():
     file = open("output.txt")
@@ -27,17 +27,6 @@ def test_output():
     output = Markup(output)
     time.sleep(2) # so process finishes to get correct output
     return output
-
-def test_database():
-    file = open("db_output.txt")
-    p = subprocess.Popen("make database-tests",shell=True)
-    output = file.read()
-    file.close()
-    output = output.replace('\n', '<br />')
-    output = Markup(output)
-    time.sleep(4) # so process finishes to get correct output
-    return output
-
 
 @app.route('/api/stock', methods=["GET"])
 def get_stock():
