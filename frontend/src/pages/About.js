@@ -10,6 +10,7 @@ import Albert from "../images/Albert_Image.jpg"
 import Christian from "../images/Christian_Image.jpg"
 import Guan from "../images/Guan_Image.jpg"
 import logo from '../images/stonkalertlogo.png';
+import Button from 'react-bootstrap/Button'
 
  
 const About = () => {
@@ -175,7 +176,7 @@ const About = () => {
                                  </Card.Body>
                                  <ListGroup className="list-group-flush">
                                        <ListGroupItem>Unit Tests</ListGroupItem>
-                                       <ListGroupItem>idk</ListGroupItem>
+                                       <ListGroupItem><Button href="/tests" variant="outline-dark">Run Tests</Button>{' '}</ListGroupItem>
                                        <ListGroupItem>idk</ListGroupItem>
                                  </ListGroup>
                               </Card>
