@@ -31,7 +31,8 @@ class Companies extends React.Component {
  
    getCompanies() {
       // const localURL = "http://stonkalert.me/api/companies?limit=15000";
-      const localURL = "http://127.0.0.1:5000/api/companies?limit=15000";
+      // const localURL = "http://127.0.0.1:5000/api/companies?limit=15000";
+      const localURL = window.location.protocol + window.location.hostname + "/api/companies?limit=15000";
       const pointerToThis = this;
 
       fetch(localURL)

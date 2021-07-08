@@ -23,7 +23,8 @@ class Home extends React.Component {
  
    getInfo() {
       // const localURLArticle = "http://stonkalert.me/api/news?sort=datetime&limit=3"; // get 3 most recent articles
-      const localURLArticle = "http://127.0.0.1:5000/api/news?sort=datetime&limit=3"; // get 3 most recent articles
+      // const localURLArticle = "http://127.0.0.1:5000/api/news?sort=datetime&limit=3"; // get 3 most recent articles
+      const localURLArticle = window.location.protocol + window.location.hostname + "/api/news?sort=datetime&limit=3";
       const pointerToThis = this;
 
       fetch(localURLArticle)
