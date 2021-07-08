@@ -43,12 +43,20 @@ def add_stock(company_r, stock_r, styvio_r): # method to add stock instance
     stock = Stock()
     stock.ticker = stock_r.json()['symbol']
     stock.price = stock_r.json()['latestPrice']
+    if stock.price is None:
+        stock.price = 0
     stock.companyName = company_r.json()['companyName']
+    if stock.companyName == "" or stock.companyName is None:
+        stock.companyName = stock.ticker
     stock.sector = company_r.json()['sector']
     if stock.sector == "" or stock.sector is None:
         stock.sector = "Miscellaneous"
     stock.tradescore = styvio_r.json()['tradeScore']
+    if stock.tradescore == "" or stock.tradescore is None:
+        stock.tradescore = "Unknown"
     stock.investscore = styvio_r.json()['invScore']
+    if stock.investscore == "" or stock.investscore is None:
+        stock.investscore = "Unknown"
     stock.marketcap = stock_r.json()['marketCap']
     if stock.marketcap is None:
         stock.marketcap = 0
@@ -68,22 +76,24 @@ def add_company(company_r, styvio_r): # method to add instance of a company
     company = Company()
     company.name = company_r.json()['companyName']
     company.country = company_r.json()['country']
-    if not company.country:
+    if company.country is None or company.country == "United States":
         company.country = "US"
     company.industry = company_r.json()['industry']
-    if company.industry == "":
+    if company.industry == "" or company.industry is None:
         company.industry = "Miscellaneous"
     company.exchange = company_r.json()['exchange']
+    if company.exchange == "" or company.exchange is None:
+        company.exchange = "Unknown"
     company.logo = styvio_r.json()['logoURL']
     if company.logo == 'logoURL' or not company.logo:
       company.logo = "https://i.stack.imgur.com/h6viz.gif"
     elif not image_exists(company.logo):
       company.logo = "https://i.stack.imgur.com/h6viz.gif"
     company.website = company_r.json()['website']
-    if company.website == "":
+    if company.website == "" or not company.website:
         company.website = "https://www.google.com/search?q=" + company.name
     company.description = company_r.json()['description']
-    if company.description == "":
+    if company.description == "" or not company.description:
         company.description = "No description available."
 
     # linking one to one
