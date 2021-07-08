@@ -5,9 +5,10 @@ import time
 import sys
 import io
 import subprocess
+import functools
 from .create_db import Article, Stock, Company, db, create_stonkdb
 
-from sqlalchemy import desc, exists
+from sqlalchemy import desc, exists, case
 
 @app.route('/api')
 def index():
@@ -61,7 +62,41 @@ def get_stocks():
         stockList += db.session.query(Stock).order_by(desc(sort)).limit(limit)
 
     result = map(lambda x: x.format(), stockList)
+
+    if sort == 'tradescore':
+        result=list(result)
+        result_sort_grade =sorted(result, key=functools.cmp_to_key(trade_cmp), reverse = asc.lower()== 'false')
+        return jsonify(result_sort_grade)
+
+    if sort == 'investscore':
+        result=list(result)
+        result_sort_grade =sorted(result, key=functools.cmp_to_key(invest_cmp), reverse = asc.lower()== 'false')
+        return jsonify(result_sort_grade)
+    
     return jsonify(list(result))
+
+# helper functions to ensure that grades a properly sorted A+ > A-
+def trade_cmp(a,b):
+    mapping = {'A+': 11,'A': 10, 'A-': 9, 'B+': 8, 'B': 7, 'B-': 6, 'C+': 5, 'C': 4, 'C-': 3, 'D+': 2, 'D': 1, 'F': 0}
+    A = mapping[a['tradescore']]
+    B = mapping[b['tradescore']]
+    if A > B:
+        return 1
+    elif A < B:
+        return -1
+    else:
+        return 0
+
+def invest_cmp(a,b):
+    mapping = {'A+': 11,'A': 10, 'A-': 9, 'B+': 8, 'B': 7, 'B-': 6, 'C+': 5, 'C': 4, 'C-': 3, 'D+': 2, 'D': 1, 'F': 0}
+    A = mapping[a['investscore']]
+    B = mapping[b['investscore']]
+    if A > B:
+        return 1
+    elif A < B:
+        return -1
+    else:
+        return 0
 
 
 
