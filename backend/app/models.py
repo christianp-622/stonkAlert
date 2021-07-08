@@ -1,17 +1,7 @@
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
-import os
 from app import app
 
-USER = os.environ.get("MODELS_USER")
-PASSWORD = os.environ.get("MODELS_PASS")
-PUBLIC_IP_ADDRESS = os.environ.get("MODELS_IP")
-DBNAME = os.environ.get("MODELS_DBNAME")
-
-# Configuration 
-app.config['SQLALCHEMY_DATABASE_URI'] = \
-os.environ.get("DB_STRING",f'postgresql://{USER}:{PASSWORD}@{PUBLIC_IP_ADDRESS}/{DBNAME}')
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True  # To suppress a warning message
 db = SQLAlchemy(app)
 
 # One-To-One relation: stock to company
