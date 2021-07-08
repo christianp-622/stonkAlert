@@ -1,7 +1,7 @@
 dispatch:
 
   # Send all backend traffic to the backend.
-  - url: "*/api/*"
+  - url: "*/api*"
     service: backend
 
   # everything else is directed to frontend service

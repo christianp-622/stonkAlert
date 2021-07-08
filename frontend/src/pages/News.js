@@ -33,7 +33,7 @@ class News extends React.Component {
    getNews() {
       // let localURL = "http://stonkalert.me/api/news?limit=15000";
       // let localURL = "http://127.0.0.1:5000/api/news?limit=15000";
-      const localURL = window.location.protocol + window.location.hostname + "/api/news?limit=15000";
+      const localURL = window.location.protocol + "//" + window.location.hostname + "/api/news?limit=15000";
       let ticker = this.props.match.params.id;
       if (ticker != null && ticker != "" && isNaN(ticker)) { // if text put in news link
         localURL += "&symbol=" + ticker;

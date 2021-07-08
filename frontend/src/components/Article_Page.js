@@ -28,7 +28,7 @@ class Article_Page extends React.Component {
     getArticle() {
        const id = this.props.match.params.id;
       //  const localURL = "http://stonkalert.me/api/article?id=" + id;
-       const localURL = window.location.protocol + window.location.hostname + "/api/article?id=" + id;
+       const localURL = window.location.protocol + "//" + window.location.hostname + "/api/article?id=" + id;
        const pointerToThis = this;
  
        fetch(localURL)
