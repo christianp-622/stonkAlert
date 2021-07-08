@@ -20,7 +20,7 @@ def run_tests():
 
 def test_output():
     file = open("output.txt")
-    p = subprocess.Popen('make output-tests', shell=True) # run tests.py, which redirects output to txt file
+    p = subprocess.Popen('coverage run --branch app/tests.py > output.txt 2>&1 && coverage report -m >> output.txt', shell=True) # run tests.py, which redirects output to txt file
     output = file.read()
     file.close()
     output = output.replace('\n', '<br />')
