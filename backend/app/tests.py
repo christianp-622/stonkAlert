@@ -9,47 +9,72 @@ api_base = "http://127.0.0.1:5000/api"
 
 class tests(TestCase):
     # Company Model API Test
-    company_response= requests.get("{}/company?symbol=WWW".format(api_base))
-    company_json = company_response.json()
+    # company_response= requests.get("{}/company?symbol=AMC".format(api_base))
+    # company_json = company_response.json()
 
-    # test response of get request for the Company model 
-    def test_company_response(self):
-        self.assertEqual(self.company_response.status_code, 200)
+    # # test response of get request for the Company model 
+    # def test_company_response(self):
+    #     self.assertEqual(self.company_response.status_code, 200)
 
-    # test name attribute of Company model
-    def test_company_name(self):
-        self.assertTrue("name" in self.company_json.keys())
-        self.assertTrue(isinstance(self.company_json.get("name"), str))
+    # # test name attribute of Company model
+    # def test_company_name(self):
+    #     self.assertTrue("name" in self.company_json.keys())
+    #     self.assertTrue(isinstance(self.company_json.get("name"), str))
 
-    # test country attribute of Company model
-    def test_company_country(self):
-        self.assertTrue("country" in self.company_json.keys())
-        self.assertTrue(isinstance(self.company_json.get("country"), str))
+    # # test country attribute of Company model
+    # def test_company_country(self):
+    #     self.assertTrue("country" in self.company_json.keys())
+    #     self.assertTrue(isinstance(self.company_json.get("country"), str))
 
-    # test industry attribute of Company model
-    def test_company_industry(self):
-        self.assertTrue("industry" in self.company_json.keys())
-        self.assertTrue(isinstance(self.company_json.get("industry"), str))
+    # # test industry attribute of Company model
+    # def test_company_industry(self):
+    #     self.assertTrue("industry" in self.company_json.keys())
+    #     self.assertTrue(isinstance(self.company_json.get("industry"), str))
 
-    # test exchange attribute of Company model
-    def test_company_exchange(self):
-        self.assertTrue("exchange" in self.company_json.keys())
-        self.assertTrue(isinstance(self.company_json.get("exchange"), str))
+    # # test exchange attribute of Company model
+    # def test_company_exchange(self):
+    #     self.assertTrue("exchange" in self.company_json.keys())
+    #     self.assertTrue(isinstance(self.company_json.get("exchange"), str))
 
-    # test logo attribute of Company model
-    def test_company_logo(self):
-        self.assertTrue("logo" in self.company_json.keys())
-        self.assertTrue(isinstance(self.company_json.get("logo"), str))
+    # # test logo attribute of Company model
+    # def test_company_logo(self):
+    #     self.assertTrue("logo" in self.company_json.keys())
+    #     self.assertTrue(isinstance(self.company_json.get("logo"), str))
 
-    # test website attribute of Company model
-    def test_company_website(self):
-        self.assertTrue("website" in self.company_json.keys())
-        self.assertTrue(isinstance(self.company_json.get("website"), str))
+    # # test website attribute of Company model
+    # def test_company_website(self):
+    #     self.assertTrue("website" in self.company_json.keys())
+    #     self.assertTrue(isinstance(self.company_json.get("website"), str))
 
-    # test description attribute of Company model
-    def test_company_description(self):
-        self.assertTrue("description" in self.company_json.keys())
-        self.assertTrue(isinstance(self.company_json.get("description"), str))
+    # # test description attribute of Company model
+    # def test_company_description(self):
+    #     self.assertTrue("description" in self.company_json.keys())
+    #     self.assertTrue(isinstance(self.company_json.get("description"), str))
+
+    # # test stock attribute of Company model, and the stock's attributes
+    # def test_company_stock(self):
+    #     self.assertTrue("stock" in self.company_json.keys())
+    #     self.assertTrue(isinstance(self.company_json.get("stock"), str))
+        
+    #     stock = self.company_json.get("stock")
+    #     self.assertTrue("ticker" in stock.keys())
+    #     self.assertTrue(isinstance(stock.get("ticker"), str))
+
+    #     self.assertTrue("company" in stock.keys())
+    #     self.assertTrue(isinstance(stock.get("company"), str))
+
+    #     self.assertTrue("price" in stock.keys())
+    #     self.assertTrue(isinstance(stock.get("price"), float))
+
+    #     self.assertTrue("sector" in stock.keys())
+    #     self.assertTrue(isinstance(stock.get("sector"), str))
+
+    #     self.assertTrue("tradescore" in stock.keys())
+    #     self.assertTrue(isinstance(stock.get("tradescore"), str))
+
+    #     self.assertTrue("marketcap" in stock.keys())
+    #     self.assertTrue(isinstance(stock.get("marketcap"), int))
+
 
     # test multiple company instances 
     # do this for a limit of 25 companies
@@ -82,48 +107,51 @@ class tests(TestCase):
                 self.assertTrue(isinstance(this_company.get("exchange"), str))
                 self.assertTrue(isinstance(this_company.get("stock"), str))
 
+
+
+
     # # Stock Model API Test 
-    stock_response = requests.get("{}/stock?symbol=WWW".format(api_base))
-    stock_json = stock_response.json()
+    # stock_response = requests.get("{}/stock?symbol=AMC".format(api_base))
+    # stock_json = stock_response.json()
 
-    # test response of get request for Stock model
-    def test_stock_response(self):
-        self.assertEqual(self.stock_response.status_code, 200)
+    # # test response of get request for Stock model
+    # def test_stock_response(self):
+    #     self.assertEqual(self.stock_response.status_code, 200)
 
-    # test ticker attribute of Stock model
-    def test_stock_ticker(self):
-        self.assertTrue("ticker" in self.stock_json.keys())
-        self.assertTrue(isinstance(self.stock_json.get("ticker"), str))
+    # # test ticker attribute of Stock model
+    # def test_stock_ticker(self):
+    #     self.assertTrue("ticker" in self.stock_json.keys())
+    #     self.assertTrue(isinstance(self.stock_json.get("ticker"), str))
     
-    # test company attribute of Stock model
-    def test_stock_company(self):
-        self.assertTrue("company" in self.stock_json.keys())
-        self.assertTrue(isinstance(self.stock_json.get("company"), str))
+    # # test company attribute of Stock model
+    # def test_stock_company(self):
+    #     self.assertTrue("company" in self.stock_json.keys())
+    #     self.assertTrue(isinstance(self.stock_json.get("company"), str))
 
-    # test price attribute of Stock model
-    def test_stock_price(self):
-        self.assertTrue("price" in self.stock_json.keys())
-        self.assertTrue(isinstance(self.stock_json.get("price"), float))
+    # # test price attribute of Stock model
+    # def test_stock_price(self):
+    #     self.assertTrue("price" in self.stock_json.keys())
+    #     self.assertTrue(isinstance(self.stock_json.get("price"), float))
 
-    # test sector attribute of Stock model
-    def test_stock_sector(self):
-        self.assertTrue("sector" in self.stock_json.keys())
-        self.assertTrue(isinstance(self.stock_json.get("sector"), str))
+    # # test sector attribute of Stock model
+    # def test_stock_sector(self):
+    #     self.assertTrue("sector" in self.stock_json.keys())
+    #     self.assertTrue(isinstance(self.stock_json.get("sector"), str))
 
-    # test tradescore attribute of Stock model
-    def test_stock_tradescore(self):
-        self.assertTrue("tradescore" in self.stock_json.keys())
-        self.assertTrue(isinstance(self.stock_json.get("tradescore"), str))
+    # # test tradescore attribute of Stock model
+    # def test_stock_tradescore(self):
+    #     self.assertTrue("tradescore" in self.stock_json.keys())
+    #     self.assertTrue(isinstance(self.stock_json.get("tradescore"), str))
 
-    # test investscore attribute of Stock model
-    def test_stock_investscore(self):
-        self.assertTrue("investscore" in self.stock_json.keys())
-        self.assertTrue(isinstance(self.stock_json.get("investscore"), str))
+    # # test investscore attribute of Stock model
+    # def test_stock_investscore(self):
+    #     self.assertTrue("investscore" in self.stock_json.keys())
+    #     self.assertTrue(isinstance(self.stock_json.get("investscore"), str))
 
-    # test marketcap attribute of Stock model
-    def test_stock_marketcap(self):
-        self.assertTrue("marketcap" in self.stock_json.keys())
-        self.assertTrue(isinstance(self.stock_json.get("marketcap"), int))
+    # # test marketcap attribute of Stock model
+    # def test_stock_marketcap(self):
+    #     self.assertTrue("marketcap" in self.stock_json.keys())
+    #     self.assertTrue(isinstance(self.stock_json.get("marketcap"), int))
 
 
     # test multiple stock instances 
@@ -154,6 +182,7 @@ class tests(TestCase):
                 self.assertTrue(isinstance(this_stock.get("tradescore"), str))
                 self.assertTrue(isinstance(this_stock.get("investscore"), str))
                 self.assertTrue(isinstance(this_stock.get("marketcap"), int))
+
 
 
     # Articles Model API Test

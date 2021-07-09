@@ -1,44 +1,10 @@
-Traceback (most recent call last):
-  File "c:\users\alber\appdata\local\programs\python\python36\lib\runpy.py", line 193, in _run_module_as_main
-    "__main__", mod_spec)
-  File "c:\users\alber\appdata\local\programs\python\python36\lib\runpy.py", line 85, in _run_code
-    exec(code, run_globals)
-  File "C:\Users\alber\AppData\Local\Programs\Python\Python36\Scripts\coverage.exe\__main__.py", line 9, in <module>
-  File "c:\users\alber\appdata\local\programs\python\python36\lib\site-packages\coverage\cmdline.py", line 871, in main
-    status = CoverageScript().command_line(argv)
-  File "c:\users\alber\appdata\local\programs\python\python36\lib\site-packages\coverage\cmdline.py", line 588, in command_line
-    return self.do_run(options, args)
-  File "c:\users\alber\appdata\local\programs\python\python36\lib\site-packages\coverage\cmdline.py", line 746, in do_run
-    runner.run()
-  File "c:\users\alber\appdata\local\programs\python\python36\lib\site-packages\coverage\execfile.py", line 247, in run
-    exec(code, main_mod.__dict__)
-  File "app/tests.py", line 10, in <module>
-    class tests(TestCase):
-  File "app/tests.py", line 12, in tests
-    company_response= requests.get("{}/company?symbol=WWW".format(api_base))
-  File "c:\users\alber\appdata\local\programs\python\python36\lib\site-packages\requests\api.py", line 76, in get
-    return request('get', url, params=params, **kwargs)
-  File "c:\users\alber\appdata\local\programs\python\python36\lib\site-packages\requests\api.py", line 61, in request
-    return session.request(method=method, url=url, **kwargs)
-  File "c:\users\alber\appdata\local\programs\python\python36\lib\site-packages\requests\sessions.py", line 542, in request
-    resp = self.send(prep, **send_kwargs)
-  File "c:\users\alber\appdata\local\programs\python\python36\lib\site-packages\requests\sessions.py", line 655, in send
-    r = adapter.send(request, **kwargs)
-  File "c:\users\alber\appdata\local\programs\python\python36\lib\site-packages\requests\adapters.py", line 449, in send
-    timeout=timeout
-  File "c:\users\alber\appdata\local\programs\python\python36\lib\site-packages\urllib3\connectionpool.py", line 706, in urlopen
-    chunked=chunked,
-  File "c:\users\alber\appdata\local\programs\python\python36\lib\site-packages\urllib3\connectionpool.py", line 445, in _make_request
-    six.raise_from(e, None)
-  File "<string>", line 3, in raise_from
-  File "c:\users\alber\appdata\local\programs\python\python36\lib\site-packages\urllib3\connectionpool.py", line 440, in _make_request
-    httplib_response = conn.getresponse()
-  File "c:\users\alber\appdata\local\programs\python\python36\lib\http\client.py", line 1331, in getresponse
-    response.begin()
-  File "c:\users\alber\appdata\local\programs\python\python36\lib\http\client.py", line 297, in begin
-    version, status, reason = self._read_status()
-  File "c:\users\alber\appdata\local\programs\python\python36\lib\http\client.py", line 258, in _read_status
-    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
-  File "c:\users\alber\appdata\local\programs\python\python36\lib\socket.py", line 586, in readinto
-    return self._sock.recv_into(b)
-KeyboardInterrupt
+.............
+----------------------------------------------------------------------
+Ran 13 tests in 0.155s
+
+OK
+Name           Stmts   Miss Branch BrPart  Cover   Missing
+----------------------------------------------------------
+app\tests.py      96      0     20      1    99%   275->exit
+----------------------------------------------------------
+TOTAL             96      0     20      1    99%
