@@ -37,13 +37,14 @@ database-tests:
     - postgres:12.2-alpine
   variables:
     POSTGRES_DB: stonkalertdb
-    POSTGRES_USER: runner
+    POSTGRES_USER: postgres
     POSTGRES_PASSWORD: ""
     POSTGRES_HOST_AUTH_METHOD: trust
   before_script:
       - cd backend
       - pip install -r requirements.txt
   script:
+      - export MODELS_PASS=''
       - python db_tests.py
       - echo "finished running db_tests"
       - cat db_output.txt
