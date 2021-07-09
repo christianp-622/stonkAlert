@@ -1,0 +1,2032 @@
+{
+	"info": {
+		"_postman_id": "5e1acec1-2a3f-4091-b7ba-94151019cc8c",
+		"name": "Stonk Alert Testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Stock Tests",
+			"item": [
+				{
+					"name": "Get Stock Test",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"const responseJson = pm.response.json();\r",
+									"pm.test(\"Valid Json Schema\", function () {\r",
+									"    pm.expect(responseJson.company).to.be.a('string');\r",
+									"    pm.expect(responseJson.investscore).to.be.a('string');\r",
+									"    pm.expect(responseJson.marketcap).to.be.a('number');\r",
+									"    pm.expect(responseJson.price).to.be.a('number');\r",
+									"    pm.expect(responseJson.sector).to.be.a('string');\r",
+									"    pm.expect(responseJson.ticker).to.be.a('string');\r",
+									"    pm.expect(responseJson.tradescore).to.be.a('string');\r",
+									"});\r",
+									"\r",
+									"/*pm.test(\"Valid Json Content\", function () {\r",
+									"    pm.expect(responseJson.company).to.be.eql(\"AMC Entertainment Holdings Inc\");\r",
+									"    pm.expect(responseJson.investscore).to.be.eql(\"C\");\r",
+									"    pm.expect(responseJson.marketcap).to.be.eql(22615235417);\r",
+									"    pm.expect(responseJson.price).to.be.eql(45.07);\r",
+									"    pm.expect(responseJson.sector).to.be.eql(\"Information\");\r",
+									"    pm.expect(responseJson.ticker).to.be.eql(\"AMC\");\r",
+									"    pm.expect(responseJson.tradescore).to.be.eql(\"C\");\r",
+									"});\r",
+									"*/\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE}}/api/stock?symbol=AMC",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"api",
+								"stock"
+							],
+							"query": [
+								{
+									"key": "symbol",
+									"value": "AMC",
+									"description": "Indicates the stock to look for. Required"
+								}
+							]
+						},
+						"description": "Get Stock Tests tests the stock endpoint (/api/stock) using AMC\n\n\nGet Stock Tests ensures that endpoint returns a proper connection and that the schema of the responses is correct"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Stocks Test Default Values",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var _ = require('lodash');\r",
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Test Default limit value (10)\", function () {\r",
+									"    pm.expect(responseJson.length).to.be.lessThan(11);\r",
+									"});\r",
+									"\r",
+									"pm.test('Stocks are sorted by default setting (ticker, asc)', () => {\r",
+									"    var expectedSortedOrder = _.orderBy(responseJson, ['ticker'],['asc']);\r",
+									"    pm.expect(responseJson).to.eql(expectedSortedOrder);    \r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Validate Schemas of items in stocks\", function () {\r",
+									"    var i = 0;\r",
+									"    for(;i < responseJson.length;i++){\r",
+									"        stock = responseJson[i];\r",
+									"        pm.expect(stock.company).to.be.a('string');\r",
+									"        pm.expect(stock.investscore).to.be.a('string');\r",
+									"        pm.expect(stock.marketcap).to.be.a('number');\r",
+									"        pm.expect(stock.price).to.be.a('number');\r",
+									"        pm.expect(stock.sector).to.be.a('string');\r",
+									"        pm.expect(stock.ticker).to.be.a('string');\r",
+									"        pm.expect(stock.tradescore).to.be.a('string');\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE}}/api/stocks",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"api",
+								"stocks"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "",
+									"description": "Indicates how many stocks are retrieved. Default value is 10",
+									"disabled": true
+								},
+								{
+									"key": "asc",
+									"value": "",
+									"description": "Indicates the direction of the sort. Default value is True (ascending order)",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "",
+									"description": "indicates the attribute to sort by. Default value is ticker",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Get Stocks Test tests the stocks endpoint (/api/stocks). \n\n\nGet Stocks Tests ensures that the correct number of stocks are retrieved, the stocks are ordered correctly, and that each of the stocks has the proper schema.\n\nGet Stocks Test Default Values ensures that the proper default settings are used when query parameters are omitted."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Stocks Test Custom Values",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var _ = require('lodash');\r",
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Test Custom limit value (5)\", function () {\r",
+									"    pm.expect(responseJson.length).to.be.lessThan(6);\r",
+									"});\r",
+									"\r",
+									"pm.test('Stocks are sorted by Custom setting (investscore, desc)', () => {\r",
+									"    //asc since _.orderBy does the opposite\r",
+									"    var expectedSortedOrder = _.orderBy(responseJson, ['investscore'],['asc']);\r",
+									"\r",
+									"    for (var i  =0; i< expectedSortedOrder.length; i++){\r",
+									"        console.log(expectedSortedOrder[i]);\r",
+									"    }\r",
+									"    pm.expect(responseJson).to.eql(expectedSortedOrder);    \r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Validate Schemas of items in stocks\", function () {\r",
+									"    var i = 0;\r",
+									"    for(;i < responseJson.length;i++){\r",
+									"        stock = responseJson[i];\r",
+									"        pm.expect(stock.company).to.be.a('string');\r",
+									"        pm.expect(stock.investscore).to.be.a('string');\r",
+									"        pm.expect(stock.marketcap).to.be.a('number');\r",
+									"        pm.expect(stock.price).to.be.a('number');\r",
+									"        pm.expect(stock.sector).to.be.a('string');\r",
+									"        pm.expect(stock.ticker).to.be.a('string');\r",
+									"        pm.expect(stock.tradescore).to.be.a('string');\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE}}/api/stocks?limit=5&asc=false&sort=investscore",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"api",
+								"stocks"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "5",
+									"description": "Indicates how many stocks are retrieved. Default value is 10"
+								},
+								{
+									"key": "asc",
+									"value": "false",
+									"description": "Indicates the direction of the sort. Default value is True (ascending order)"
+								},
+								{
+									"key": "sort",
+									"value": "investscore",
+									"description": "indicates the attribute to sort by. Default value is ticker"
+								}
+							]
+						},
+						"description": "Get Stocks Test tests the stocks endpoint (/api/stocks). \n\n\nGet Stocks Tests ensures that the correct number of stocks are retrieved, the stocks are ordered correctly, and that each of the stocks has the proper schema.\n\nGet Stocks Test Custom values tests each query parameter with a custom input and ensures that the response fits the query"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Stocks Test Custom Limit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var _ = require('lodash');\r",
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Test Number of stocks <= 20\", function () {\r",
+									"    pm.expect(responseJson.length).to.be.lessThan(21);\r",
+									"});\r",
+									"\r",
+									"pm.test('Stocks are sorted by default setting (ticker, asc)', () => {\r",
+									"    var expectedSortedOrder = _.orderBy(responseJson, ['ticker'],['asc']);\r",
+									"    pm.expect(responseJson).to.eql(expectedSortedOrder);    \r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Validate Schemas of items in stocks\", function () {\r",
+									"    var i = 0;\r",
+									"    for(;i < responseJson.length;i++){\r",
+									"        stock = responseJson[i];\r",
+									"        pm.expect(stock.company).to.be.a('string');\r",
+									"        pm.expect(stock.investscore).to.be.a('string');\r",
+									"        pm.expect(stock.marketcap).to.be.a('number');\r",
+									"        pm.expect(stock.price).to.be.a('number');\r",
+									"        pm.expect(stock.sector).to.be.a('string');\r",
+									"        pm.expect(stock.ticker).to.be.a('string');\r",
+									"        pm.expect(stock.tradescore).to.be.a('string');\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE}}/api/stocks?limit=20",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"api",
+								"stocks"
+							],
+							"query": [
+								{
+									"key": "ticker",
+									"value": "",
+									"description": "indicates the attribute to sort by. Default value is ticker",
+									"disabled": true
+								},
+								{
+									"key": "asc",
+									"value": "",
+									"description": "Indicates the direction of the sort. Default value is True (ascending order)",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "20",
+									"description": "Indicates how many stocks are retrieved. Default value is 10"
+								}
+							]
+						},
+						"description": "Get Stocks Test tests the stocks endpoint (/api/stocks). \n\n\nGet Stocks Tests ensures that the correct number of stocks are retrieved, the stocks are ordered correctly, and that each of the stocks has the proper schema.\n\nGet Stocks Custom Limit Test tests the limit query parameter of the stocks endpoint and ensures that the response does not return more than the limit."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Stocks Test Custom Sort- Descending Order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var _ = require('lodash');\r",
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Test Default limit value (10)\", function () {\r",
+									"    pm.expect(responseJson.length).to.be.lessThan(11);\r",
+									"});\r",
+									"\r",
+									"pm.test('Stocks are sorted by custom setting (ticker, desc)', () => {\r",
+									"    var expectedSortedOrder = _.orderBy(responseJson, ['ticker'],['desc']);\r",
+									"    pm.expect(responseJson).to.eql(expectedSortedOrder);    \r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Validate Schemas of items in stocks\", function () {\r",
+									"    var i = 0;\r",
+									"    for(;i < responseJson.length;i++){\r",
+									"        stock = responseJson[i];\r",
+									"        pm.expect(stock.company).to.be.a('string');\r",
+									"        pm.expect(stock.investscore).to.be.a('string');\r",
+									"        pm.expect(stock.marketcap).to.be.a('number');\r",
+									"        pm.expect(stock.price).to.be.a('number');\r",
+									"        pm.expect(stock.sector).to.be.a('string');\r",
+									"        pm.expect(stock.ticker).to.be.a('string');\r",
+									"        pm.expect(stock.tradescore).to.be.a('string');\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE}}/api/stocks?asc=false",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"api",
+								"stocks"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "",
+									"description": "Indicates how many stocks are retrieved. Default value is 10",
+									"disabled": true
+								},
+								{
+									"key": "asc",
+									"value": "false",
+									"description": "Indicates the direction of the sort. Default value is True (ascending order)"
+								},
+								{
+									"key": "sort",
+									"value": "",
+									"description": "indicates the attribute to sort by. Default value is ticker",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Get Stocks Test tests the stocks endpoint (/api/stocks). \n\n\nGet Stocks Tests ensures that the correct number of stocks are retrieved, the stocks are ordered correctly, and that each of the stocks has the proper schema.\n\nGet Stocks Test Custom Sort- Descending Order tests the asc query parameter and ensures that the stocks are sorted in descending order"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Stocks Test Custom Sort- By Price",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var _ = require('lodash');\r",
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Test Default limit value (10)\", function () {\r",
+									"    pm.expect(responseJson.length).to.be.lessThan(11);\r",
+									"});\r",
+									"\r",
+									"pm.test('Stocks are sorted by custom setting (price, asc)', () => {\r",
+									"    var expectedSortedOrder = _.orderBy(responseJson, ['price'],['asc']);\r",
+									"    pm.expect(responseJson).to.eql(expectedSortedOrder);    \r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Validate Schemas of items in stocks\", function () {\r",
+									"    var i = 0;\r",
+									"    for(;i < responseJson.length;i++){\r",
+									"        stock = responseJson[i];\r",
+									"        pm.expect(stock.company).to.be.a('string');\r",
+									"        pm.expect(stock.investscore).to.be.a('string');\r",
+									"        pm.expect(stock.marketcap).to.be.a('number');\r",
+									"        pm.expect(stock.price).to.be.a('number');\r",
+									"        pm.expect(stock.sector).to.be.a('string');\r",
+									"        pm.expect(stock.ticker).to.be.a('string');\r",
+									"        pm.expect(stock.tradescore).to.be.a('string');\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE}}/api/stocks?sort=price",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"api",
+								"stocks"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "",
+									"description": "Indicates how many stocks are retrieved. Default value is 10",
+									"disabled": true
+								},
+								{
+									"key": "asc",
+									"value": "",
+									"description": "Indicates the direction of the sort. Default value is True (ascending order)",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "price",
+									"description": "indicates the attribute to sort by. Default value is ticker"
+								}
+							]
+						},
+						"description": "Get Stocks Test tests the stocks endpoint (/api/stocks). \n\n\nGet Stocks Tests ensures that the correct number of stocks are retrieved, the stocks are ordered correctly, and that each of the stocks has the proper schema.\n\nGet Stocks Test Custom Sort- By Price tests the sort query parameter and ensures that the stocks are sorted by price"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Stock Test Improper Values",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var _ = require('lodash');\r",
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Test Default limit value (10)\", function () {\r",
+									"    pm.expect(responseJson.length).to.be.lessThan(11);\r",
+									"});\r",
+									"\r",
+									"pm.test('Stocks are sorted by default setting (ticker, asc)', () => {\r",
+									"    var expectedSortedOrder = _.orderBy(responseJson, ['ticker'],['asc']);\r",
+									"    pm.expect(responseJson).to.eql(expectedSortedOrder);    \r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Validate Schemas of items in stocks\", function () {\r",
+									"    var i = 0;\r",
+									"    for(;i < responseJson.length;i++){\r",
+									"        stock = responseJson[i];\r",
+									"        pm.expect(stock.company).to.be.a('string');\r",
+									"        pm.expect(stock.investscore).to.be.a('string');\r",
+									"        pm.expect(stock.marketcap).to.be.a('number');\r",
+									"        pm.expect(stock.price).to.be.a('number');\r",
+									"        pm.expect(stock.sector).to.be.a('string');\r",
+									"        pm.expect(stock.ticker).to.be.a('string');\r",
+									"        pm.expect(stock.tradescore).to.be.a('string');\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE}}/api/stocks?asc=truefalse&sort=sort",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"api",
+								"stocks"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "",
+									"description": "Indicates how many stocks are retrieved. Default value is 10",
+									"disabled": true
+								},
+								{
+									"key": "asc",
+									"value": "truefalse",
+									"description": "Indicates the direction of the sort. Default value is True (ascending order)"
+								},
+								{
+									"key": "sort",
+									"value": "sort",
+									"description": "indicates the attribute to sort by. Default value is ticker"
+								}
+							]
+						},
+						"description": "Get Stocks Test tests the stocks endpoint (/api/stocks).\n\nGet Stocks Tests ensures that the correct number of stocks are retrieved, the stocks are ordered correctly, and that each of the stocks has the proper schema.\n\nGet Stocks Test Improper Values ensures that the proper default settings are used when improper parameters are passed in"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Stock Test Improper Limit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var _ = require('lodash');\r",
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Test Size of Response is 0\", function () {\r",
+									"    pm.expect(responseJson.length).to.be.eq(0);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Valid Json Content\", function () {\r",
+									"    pm.expect(responseJson).to.be.eql([])\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Validate Schemas of items in stocks\", function () {\r",
+									"    var i = 0;\r",
+									"    for(;i < responseJson.length;i++){\r",
+									"        stock = responseJson[i];\r",
+									"        pm.expect(stock.company).to.be.a('string');\r",
+									"        pm.expect(stock.investscore).to.be.a('string');\r",
+									"        pm.expect(stock.marketcap).to.be.a('number');\r",
+									"        pm.expect(stock.price).to.be.a('number');\r",
+									"        pm.expect(stock.sector).to.be.a('string');\r",
+									"        pm.expect(stock.ticker).to.be.a('string');\r",
+									"        pm.expect(stock.tradescore).to.be.a('string');\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE}}/api/stocks?limit=-3",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"api",
+								"stocks"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "-3",
+									"description": "Indicates how many stocks are retrieved. Default value is 10"
+								},
+								{
+									"key": "asc",
+									"value": "truefalse",
+									"description": "Indicates the direction of the sort. Default value is True (ascending order)",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "sort",
+									"description": "indicates the attribute to sort by. Default value is ticker",
+									"disabled": true
+								}
+							]
+						},
+						"description": "\nGet Stocks Test tests the stocks endpoint (/api/stocks).\n\nGet Stocks Tests ensures that the correct number of stocks are retrieved, the stocks are ordered correctly, and that each of the stocks has the proper schema.\n\nGet Stocks Test Improper Limit ensures that the limit cannot be a nonnegative number and that it defaults to 0"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Company Test",
+			"item": [
+				{
+					"name": "Get Company Test",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"//default values for matching responses\r",
+									"const country = \"US\"\r",
+									"const description = \"AMC is the largest movie exhibition company in the United States, the largest in Europe and the largest throughout the world with approximately 1,000 theatres and 11,000 screens across the globe. AMC has propelled innovation in the exhibition industry by: deploying its Signature power-recliner seats; delivering enhanced food and beverage choices; generating greater guest engagement through its loyalty and subscription programs, web site and mobile apps; offering premium large format experiences and playing a wide variety of content including the latest Hollywood releases and independent programming.\";\r",
+									"const exchange = \"NEW YORK STOCK EXCHANGE, INC.\";\r",
+									"const industry = \"Motion Picture Theaters (except Drive-Ins) \";\r",
+									"const logo = \"https://logo.clearbit.com/amctheatres.com\";\r",
+									"const name =\"AMC Entertainment Holdings Inc\";\r",
+									"const stock = \"AMC\";\r",
+									"const website = \"www.amctheatres.com\"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Valid Json Schema\", function () {\r",
+									"    pm.expect(responseJson.country).to.be.a('string');\r",
+									"    pm.expect(responseJson.description).to.be.a('string');\r",
+									"    pm.expect(responseJson.exchange).to.be.a('string');\r",
+									"    pm.expect(responseJson.industry).to.be.a('string');\r",
+									"    pm.expect(responseJson.logo).to.be.a('string');\r",
+									"    pm.expect(responseJson.name).to.be.a('string');\r",
+									"    pm.expect(responseJson.stock).to.be.a('string');\r",
+									"    pm.expect(responseJson.website).to.be.a('string');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Valid Json content\", function (){\r",
+									"    pm.expect(responseJson.country).to.be.eql(country);\r",
+									"    pm.expect(responseJson.description).to.be.eql(description);\r",
+									"    pm.expect(responseJson.exchange).to.be.eql(exchange);\r",
+									"    pm.expect(responseJson.industry).to.be.eql(industry);\r",
+									"    pm.expect(responseJson.logo).to.be.eql(logo);\r",
+									"    pm.expect(responseJson.name).to.be.eql(name);\r",
+									"    pm.expect(responseJson.stock).to.be.eql(stock);\r",
+									"    pm.expect(responseJson.website).to.be.eql(website);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE}}/api/company?symbol=AMC",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"api",
+								"company"
+							],
+							"query": [
+								{
+									"key": "symbol",
+									"value": "AMC",
+									"description": "Indicates the company to look for (via ticker). Required"
+								}
+							]
+						},
+						"description": "Get Company Test tests the Company endpoint (/api/company) using AMC\n\nGet Company Tests ensures that endpoint returns a proper connection and that the schema of the response is correct"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Companies Test Default Values",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var _ = require('lodash');\r",
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Test Default limit value (10)\", function () {\r",
+									"    pm.expect(responseJson.length).to.be.lessThan(11);\r",
+									"});\r",
+									"\r",
+									"pm.test('Companies are sorted by default setting (name, asc)', () => {\r",
+									"    var expectedSortedOrder = _.orderBy(responseJson, ['name'],['asc']);\r",
+									"    pm.expect(responseJson).to.eql(expectedSortedOrder);    \r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Validate Schemas of items in companies\", function () {\r",
+									"    var i = 0;\r",
+									"    for(;i < responseJson.length;i++){\r",
+									"        company = responseJson[i];\r",
+									"        pm.expect(company.country).to.be.a('string');\r",
+									"        pm.expect(company.description).to.be.a('string');\r",
+									"        pm.expect(company.exchange).to.be.a('string');\r",
+									"        pm.expect(company.industry).to.be.a('string');\r",
+									"        pm.expect(company.logo).to.be.a('string');\r",
+									"        pm.expect(company.name).to.be.a('string');\r",
+									"        pm.expect(company.stock).to.be.a('string');\r",
+									"        pm.expect(company.website).to.be.a('string');\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE}}/api/companies",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"api",
+								"companies"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "",
+									"description": "indicates the attribute to sort by. Default value is name",
+									"disabled": true
+								},
+								{
+									"key": "asc",
+									"value": "",
+									"description": "Indicates the direction of the sort. Default value is True (ascending order)",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "",
+									"description": "Indicates how many companies are retrieved. Default value is 10",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Get Companies Test tests the Companies endpoint (/api/companies).\n\nGet Companies Test ensures that the correct number of companies are retrieved, the companies are ordered correctly, and that each of the companies has the proper schema.\n\nGet Companies Test Default values ensures that the proper default settings are used when query parameters are omitted."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Companies  Test Custom Values",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var _ = require('lodash');\r",
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Test custom limit value (15)\", function () {\r",
+									"    pm.expect(responseJson.length).to.be.lessThan(16);\r",
+									"});\r",
+									"\r",
+									"pm.test('Companies are sorted by custom setting (stock, desc)', () => {\r",
+									"    var expectedSortedOrder = _.orderBy(responseJson, ['stock'],['desc']);\r",
+									"    pm.expect(responseJson).to.eql(expectedSortedOrder);    \r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Validate Schemas of items in companies\", function () {\r",
+									"    var i = 0;\r",
+									"    for(;i < responseJson.length;i++){\r",
+									"        company = responseJson[i];\r",
+									"        pm.expect(company.country).to.be.a('string');\r",
+									"        pm.expect(company.description).to.be.a('string');\r",
+									"        pm.expect(company.exchange).to.be.a('string');\r",
+									"        pm.expect(company.industry).to.be.a('string');\r",
+									"        pm.expect(company.logo).to.be.a('string');\r",
+									"        pm.expect(company.name).to.be.a('string');\r",
+									"        pm.expect(company.stock).to.be.a('string');\r",
+									"        pm.expect(company.website).to.be.a('string');\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE}}/api/companies?sort=stock&asc=false&limit=15",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"api",
+								"companies"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "stock",
+									"description": "indicates the attribute to sort by. Default value is name"
+								},
+								{
+									"key": "asc",
+									"value": "false",
+									"description": "Indicates the direction of the sort. Default value is True (ascending order)"
+								},
+								{
+									"key": "limit",
+									"value": "15",
+									"description": "Indicates how many companies are retrieved. Default value is 10"
+								}
+							]
+						},
+						"description": "Get Companies Test tests the Companies endpoint (/api/companies).\n\nGet Companies Test ensures that the correct number of companies are retrieved, the companies are ordered correctly, and that each of the companies has the proper schema.\n\nGet Companies Test Custom Values tests each query parameter with a custom input and ensures that the response fits the query"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Companies Test Custom Limit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var _ = require('lodash');\r",
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Test Custom limit value (8)\", function () {\r",
+									"    pm.expect(responseJson.length).to.be.lessThan(9);\r",
+									"});\r",
+									"\r",
+									"pm.test('Companies are sorted by default setting (name, asc)', () => {\r",
+									"    var expectedSortedOrder = _.orderBy(responseJson, ['name'],['asc']);\r",
+									"    pm.expect(responseJson).to.eql(expectedSortedOrder);    \r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Validate Schemas of items in companies\", function () {\r",
+									"    var i = 0;\r",
+									"    for(;i < responseJson.length;i++){\r",
+									"        company = responseJson[i];\r",
+									"        pm.expect(company.country).to.be.a('string');\r",
+									"        pm.expect(company.description).to.be.a('string');\r",
+									"        pm.expect(company.exchange).to.be.a('string');\r",
+									"        pm.expect(company.industry).to.be.a('string');\r",
+									"        pm.expect(company.logo).to.be.a('string');\r",
+									"        pm.expect(company.name).to.be.a('string');\r",
+									"        pm.expect(company.stock).to.be.a('string');\r",
+									"        pm.expect(company.website).to.be.a('string');\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE}}/api/companies?limit=8",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"api",
+								"companies"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "",
+									"description": "indicates the attribute to sort by. Default value is name",
+									"disabled": true
+								},
+								{
+									"key": "asc",
+									"value": "",
+									"description": "Indicates the direction of the sort. Default value is True (ascending order)",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "8",
+									"description": "Indicates how many companies are retrieved. Default value is 10"
+								}
+							]
+						},
+						"description": "Get Companies Test tests the Companies endpoint (/api/companies).\n\nGet Companies Test ensures that the correct number of companies are retrieved, the companies are ordered correctly, and that each of the companies has the proper schema.\n\nGet Companies Test Custom Limit tests the limit query parameter and ensures that the response does not return more than the limit."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Companies  Test Custom Sort- Descending",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var _ = require('lodash');\r",
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Test Default limit value (10)\", function () {\r",
+									"    pm.expect(responseJson.length).to.be.lessThan(11);\r",
+									"});\r",
+									"\r",
+									"pm.test('Companies are sorted by custom setting (name, desc)', () => {\r",
+									"    var expectedSortedOrder = _.orderBy(responseJson, ['name'],['desc']);\r",
+									"    pm.expect(responseJson).to.eql(expectedSortedOrder);    \r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Validate Schemas of items in companies\", function () {\r",
+									"    var i = 0;\r",
+									"    for(;i < responseJson.length;i++){\r",
+									"        company = responseJson[i];\r",
+									"        pm.expect(company.country).to.be.a('string');\r",
+									"        pm.expect(company.description).to.be.a('string');\r",
+									"        pm.expect(company.exchange).to.be.a('string');\r",
+									"        pm.expect(company.industry).to.be.a('string');\r",
+									"        pm.expect(company.logo).to.be.a('string');\r",
+									"        pm.expect(company.name).to.be.a('string');\r",
+									"        pm.expect(company.stock).to.be.a('string');\r",
+									"        pm.expect(company.website).to.be.a('string');\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE}}/api/companies?asc=False",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"api",
+								"companies"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "",
+									"description": "indicates the attribute to sort by. Default value is name",
+									"disabled": true
+								},
+								{
+									"key": "asc",
+									"value": "False",
+									"description": "Indicates the direction of the sort. Default value is True (ascending order)"
+								},
+								{
+									"key": "limit",
+									"value": "",
+									"description": "Indicates how many companies are retrieved. Default value is 10",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Get Companies Test tests the Companies endpoint (/api/companies).\n\nGet Companies Test ensures that the correct number of companies are retrieved, the companies are ordered correctly, and that each of the companies has the proper schema.\n\nGet Companies Test Custom Sort- By Descending tests the asc query parameter and ensures that the companies are sorted in descending order"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Companies Test Custom Sort- By Industry",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var _ = require('lodash');\r",
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Test Default limit value (10)\", function () {\r",
+									"    pm.expect(responseJson.length).to.be.lessThan(11);\r",
+									"});\r",
+									"\r",
+									"pm.test('Companies are sorted by custom setting (industry , asc)', () => {\r",
+									"    var expectedSortedOrder = _.orderBy(responseJson, ['industry'],['asc']);\r",
+									"    pm.expect(responseJson).to.eql(expectedSortedOrder);    \r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Validate Schemas of items in companies\", function () {\r",
+									"    var i = 0;\r",
+									"    for(;i < responseJson.length;i++){\r",
+									"        company = responseJson[i];\r",
+									"        pm.expect(company.country).to.be.a('string');\r",
+									"        pm.expect(company.description).to.be.a('string');\r",
+									"        pm.expect(company.exchange).to.be.a('string');\r",
+									"        pm.expect(company.industry).to.be.a('string');\r",
+									"        pm.expect(company.logo).to.be.a('string');\r",
+									"        pm.expect(company.name).to.be.a('string');\r",
+									"        pm.expect(company.stock).to.be.a('string');\r",
+									"        pm.expect(company.website).to.be.a('string');\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE}}/api/companies?sort=industry",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"api",
+								"companies"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "industry",
+									"description": "indicates the attribute to sort by. Default value is name"
+								},
+								{
+									"key": "asc",
+									"value": "",
+									"description": "Indicates the direction of the sort. Default value is True (ascending order)",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "",
+									"description": "Indicates how many companies are retrieved. Default value is 10",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Get Companies Test tests the Companies endpoint (/api/companies).\n\nGet Companies Test ensures that the correct number of companies are retrieved, the companies are ordered correctly, and that each of the companies has the proper schema.\n\nGet Companies Test Custom Sort-By Industry tests the sort query parameter and ensures that the companies are sorted by industry"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Companies Test Improper Values",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var _ = require('lodash');\r",
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Test Default limit value (10)\", function () {\r",
+									"    pm.expect(responseJson.length).to.be.lessThan(11);\r",
+									"});\r",
+									"\r",
+									"pm.test('Companies are sorted by default setting (name, asc)', () => {\r",
+									"    var expectedSortedOrder = _.orderBy(responseJson, ['name'],['asc']);\r",
+									"    pm.expect(responseJson).to.eql(expectedSortedOrder);    \r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Validate Schemas of items in companies\", function () {\r",
+									"    var i = 0;\r",
+									"    for(;i < responseJson.length;i++){\r",
+									"        company = responseJson[i];\r",
+									"        pm.expect(company.country).to.be.a('string');\r",
+									"        pm.expect(company.description).to.be.a('string');\r",
+									"        pm.expect(company.exchange).to.be.a('string');\r",
+									"        pm.expect(company.industry).to.be.a('string');\r",
+									"        pm.expect(company.logo).to.be.a('string');\r",
+									"        pm.expect(company.name).to.be.a('string');\r",
+									"        pm.expect(company.stock).to.be.a('string');\r",
+									"        pm.expect(company.website).to.be.a('string');\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE}}/api/companies?sort=sort&asc=truefalse",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"api",
+								"companies"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "sort",
+									"description": "indicates the attribute to sort by. Default value is name"
+								},
+								{
+									"key": "asc",
+									"value": "truefalse",
+									"description": "Indicates the direction of the sort. Default value is True (ascending order)"
+								},
+								{
+									"key": "limit",
+									"value": "",
+									"description": "Indicates how many companies are retrieved. Default value is 10",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Get Companies Test tests the Companies endpoint (/api/companies).\n\nGet Companies Test ensures that the correct number of companies are retrieved, the companies are ordered correctly, and that each of the companies has the proper schema.\n\nGet Companies Test Improper Values ensures that the proper default settings are used when improper parameters are passed in"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Companies Test Improper Limit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var _ = require('lodash');\r",
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Test Size of Response is 0\", function () {\r",
+									"    pm.expect(responseJson.length).to.be.eq(0);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Valid Json Content\", function () {\r",
+									"    pm.expect(responseJson).to.be.eql([])\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Validate Schemas of items in companies\", function () {\r",
+									"    var i = 0;\r",
+									"    for(;i < responseJson.length;i++){\r",
+									"        company = responseJson[i];\r",
+									"        pm.expect(company.country).to.be.a('string');\r",
+									"        pm.expect(company.description).to.be.a('string');\r",
+									"        pm.expect(company.exchange).to.be.a('string');\r",
+									"        pm.expect(company.industry).to.be.a('string');\r",
+									"        pm.expect(company.logo).to.be.a('string');\r",
+									"        pm.expect(company.name).to.be.a('string');\r",
+									"        pm.expect(company.stock).to.be.a('string');\r",
+									"        pm.expect(company.website).to.be.a('string');\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE}}/api/companies?limit=0",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"api",
+								"companies"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "",
+									"description": "indicates the attribute to sort by. Default value is name",
+									"disabled": true
+								},
+								{
+									"key": "asc",
+									"value": "",
+									"description": "Indicates the direction of the sort. Default value is True (ascending order)",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "0",
+									"description": "Indicates how many companies are retrieved. Default value is 10"
+								}
+							]
+						},
+						"description": "Get Companies Test tests the Companies endpoint (/api/companies).\n\nGet Companies Test ensures that the correct number of companies are retrieved, the companies are ordered correctly, and that each of the companies has the proper schema.\n\nGet Companies Test Improper Limit ensures that the limit cannot be a nonnegative number and that it defaults to 0"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Article Test",
+			"item": [
+				{
+					"name": "Get Article Test",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"const responseJson = pm.response.json();\r",
+									"pm.test(\"Valid Json Schema\", function () {\r",
+									"    pm.expect(responseJson.company).to.be.a('string');\r",
+									"    pm.expect(responseJson.datetime).to.be.a('number');\r",
+									"    pm.expect(responseJson.id).to.be.a('number');\r",
+									"    pm.expect(responseJson.image).to.be.a('string');\r",
+									"    pm.expect(responseJson.source).to.be.a('string');\r",
+									"    pm.expect(responseJson.summary).to.be.a('string');\r",
+									"    pm.expect(responseJson.ticker).to.be.a('string');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE}}/api/article",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"api",
+								"article"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": null,
+									"description": "indicates the displayed article's current id. Default value is 1",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Get Article Test tests the Company endpoint (/api/articles) using the default query parameters\n\n\nGet Article Test ensures that the endpoint returns a proper connection and that  the schema of the response is correct"
+					},
+					"response": []
+				},
+				{
+					"name": "Get News Test Default Values",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var _ = require('lodash');\r",
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Test Default limit value (10)\", function () {\r",
+									"    pm.expect(responseJson.length).to.be.lessThan(11);\r",
+									"});\r",
+									"\r",
+									"pm.test('News articles are sorted by default setting (datetime, asc)', () => {\r",
+									"    var expectedSortedOrder = _.orderBy(responseJson, ['datetime'],['asc']);\r",
+									"    pm.expect(responseJson).to.eql(expectedSortedOrder);    \r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Validate Schemas of items in news\", function () {\r",
+									"    var i = 0;\r",
+									"    for(;i < responseJson.length;i++){\r",
+									"        article = responseJson[i];\r",
+									"        pm.expect(article.company).to.be.a('string');\r",
+									"        pm.expect(article.datetime).to.be.a('number');\r",
+									"        pm.expect(article.headline).to.be.a('string');\r",
+									"        pm.expect(article.id).to.be.a('number');\r",
+									"        pm.expect(article.image).to.be.a('string');\r",
+									"        pm.expect(article.link).to.be.a('string');\r",
+									"        pm.expect(article.source).to.be.a('string');\r",
+									"        pm.expect(article.summary).to.be.a('string');\r",
+									"        pm.expect(article.ticker).to.be.a('string');\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE}}/api/news",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"api",
+								"news"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "",
+									"description": "Indicates the Attribute to sort by. Default value is datetime",
+									"disabled": true
+								},
+								{
+									"key": "asc",
+									"value": "",
+									"description": "Indicates the direction of the sort. Default value is true (ascending)",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "",
+									"description": "Indicates how many articles are retrieved. Default value is 10",
+									"disabled": true
+								},
+								{
+									"key": "symbol",
+									"value": "",
+									"description": "Indicates the stock to filter by.",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Get News Test tests the Companies endpoint (/api/News).\n\nGet News Test ensures that the correct number of articles are retrieved, the articles are ordered correctly, and that each of the articles has the proper schema.\n\nGet News Test Default Values ensures that the proper default settings are used when query parameters are omitted."
+					},
+					"response": []
+				},
+				{
+					"name": "Get News Test Custom Values",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var _ = require('lodash');\r",
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Test Custom limit value (5)\", function () {\r",
+									"    pm.expect(responseJson.length).to.be.lessThan(6);\r",
+									"});\r",
+									"\r",
+									"pm.test('News articles are sorted by default setting (ticker, desc)', () => {\r",
+									"    var expectedSortedOrder = _.orderBy(responseJson, ['ticker'],['desc']);\r",
+									"    pm.expect(responseJson).to.eql(expectedSortedOrder);    \r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Validate Schemas of items in news\", function () {\r",
+									"    var i = 0;\r",
+									"    for(;i < responseJson.length;i++){\r",
+									"        article = responseJson[i];\r",
+									"        pm.expect(article.company).to.be.a('string');\r",
+									"        pm.expect(article.datetime).to.be.a('number');\r",
+									"        pm.expect(article.headline).to.be.a('string');\r",
+									"        pm.expect(article.id).to.be.a('number');\r",
+									"        pm.expect(article.image).to.be.a('string');\r",
+									"        pm.expect(article.link).to.be.a('string');\r",
+									"        pm.expect(article.source).to.be.a('string');\r",
+									"        pm.expect(article.summary).to.be.a('string');\r",
+									"        pm.expect(article.ticker).to.be.a('string');\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE}}/api/news?sort=ticker&asc=false&limit=5&symbol=",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"api",
+								"news"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "ticker",
+									"description": "Indicates the Attribute to sort by. Default value is datetime"
+								},
+								{
+									"key": "asc",
+									"value": "false",
+									"description": "Indicates the direction of the sort. Default value is true (ascending)"
+								},
+								{
+									"key": "limit",
+									"value": "5",
+									"description": "Indicates how many articles are retrieved. Default value is 10"
+								},
+								{
+									"key": "symbol",
+									"value": "",
+									"description": "Indicates the stock to filter by."
+								}
+							]
+						},
+						"description": "Get News Test tests the Companies endpoint (/api/News).\n\nGet News Test ensures that the correct number of articles are retrieved, the articles are ordered correctly, and that each of the articles has the proper schema.\n\nGet News Test Custom Values tests each query parameter with a custom input and ensures that the response fits the query"
+					},
+					"response": []
+				},
+				{
+					"name": "Get News Test Custom Limit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var _ = require('lodash');\r",
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Test Custom limit value (3)\", function () {\r",
+									"    pm.expect(responseJson.length).to.be.lessThan(4);\r",
+									"});\r",
+									"\r",
+									"pm.test('News articles are sorted by default setting (datetime, asc)', () => {\r",
+									"    var expectedSortedOrder = _.orderBy(responseJson, ['datetime'],['asc']);\r",
+									"    pm.expect(responseJson).to.eql(expectedSortedOrder);    \r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Validate Schemas of items in news\", function () {\r",
+									"    var i = 0;\r",
+									"    for(;i < responseJson.length;i++){\r",
+									"        article = responseJson[i];\r",
+									"        pm.expect(article.company).to.be.a('string');\r",
+									"        pm.expect(article.datetime).to.be.a('number');\r",
+									"        pm.expect(article.headline).to.be.a('string');\r",
+									"        pm.expect(article.id).to.be.a('number');\r",
+									"        pm.expect(article.image).to.be.a('string');\r",
+									"        pm.expect(article.link).to.be.a('string');\r",
+									"        pm.expect(article.source).to.be.a('string');\r",
+									"        pm.expect(article.summary).to.be.a('string');\r",
+									"        pm.expect(article.ticker).to.be.a('string');\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE}}/api/news?limit=3",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"api",
+								"news"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "",
+									"description": "Indicates the Attribute to sort by. Default value is datetime",
+									"disabled": true
+								},
+								{
+									"key": "asc",
+									"value": "",
+									"description": "Indicates the direction of the sort. Default value is true (ascending)",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "3",
+									"description": "Indicates how many articles are retrieved. Default value is 10"
+								},
+								{
+									"key": "symbol",
+									"value": "",
+									"description": "Indicates the stock to filter by.",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Get News Test tests the Companies endpoint (/api/News).\n\nGet News Test ensures that the correct number of articles are retrieved, the articles are ordered correctly, and that each of the articles has the proper schema.\n\nGet News Test Custom Limit tests the limit query parameter and ensures that the response does not return more than the limit."
+					},
+					"response": []
+				},
+				{
+					"name": "Get News Test Custom Sort- Descending",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var _ = require('lodash');\r",
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Test Default limit value (10)\", function () {\r",
+									"    pm.expect(responseJson.length).to.be.lessThan(11);\r",
+									"});\r",
+									"\r",
+									"pm.test('News Articles are sorted by default setting (datetime, desc)', () => {\r",
+									"    var expectedSortedOrder = _.orderBy(responseJson, ['datetime'],['desc']);\r",
+									"    pm.expect(responseJson).to.eql(expectedSortedOrder);    \r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Validate Schemas of items in news\", function () {\r",
+									"    var i = 0;\r",
+									"    for(;i < responseJson.length;i++){\r",
+									"        article = responseJson[i];\r",
+									"        pm.expect(article.company).to.be.a('string');\r",
+									"        pm.expect(article.datetime).to.be.a('number');\r",
+									"        pm.expect(article.headline).to.be.a('string');\r",
+									"        pm.expect(article.id).to.be.a('number');\r",
+									"        pm.expect(article.image).to.be.a('string');\r",
+									"        pm.expect(article.link).to.be.a('string');\r",
+									"        pm.expect(article.source).to.be.a('string');\r",
+									"        pm.expect(article.summary).to.be.a('string');\r",
+									"        pm.expect(article.ticker).to.be.a('string');\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE}}/api/news?asc=false",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"api",
+								"news"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "",
+									"description": "Indicates the Attribute to sort by. Default value is datetime",
+									"disabled": true
+								},
+								{
+									"key": "asc",
+									"value": "false",
+									"description": "Indicates the direction of the sort. Default value is true (ascending)"
+								},
+								{
+									"key": "limit",
+									"value": "",
+									"description": "Indicates how many articles are retrieved. Default value is 10",
+									"disabled": true
+								},
+								{
+									"key": "symbol",
+									"value": "",
+									"description": "Indicates the stock to filter by.",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Get News Test tests the Companies endpoint (/api/News).\n\nGet News Test ensures that the correct number of articles are retrieved, the articles are ordered correctly, and that each of the articles has the proper schema.\n\nGet News Test Custom Sort- By Descending tests the asc query parameter and ensures that the articles are sorted in descending order"
+					},
+					"response": []
+				},
+				{
+					"name": "Get News Test Custom Sort- By Ticker",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var _ = require('lodash');\r",
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Test Default limit value (10)\", function () {\r",
+									"    pm.expect(responseJson.length).to.be.lessThan(11);\r",
+									"});\r",
+									"\r",
+									"pm.test('News articles are sorted by custom setting (ticker, asc)', () => {\r",
+									"    var expectedSortedOrder = _.orderBy(responseJson, ['ticker'],['asc']);\r",
+									"    pm.expect(responseJson).to.eql(expectedSortedOrder);    \r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Validate Schemas of items in news\", function () {\r",
+									"    var i = 0;\r",
+									"    for(;i < responseJson.length;i++){\r",
+									"        article = responseJson[i];\r",
+									"        pm.expect(article.company).to.be.a('string');\r",
+									"        pm.expect(article.datetime).to.be.a('number');\r",
+									"        pm.expect(article.headline).to.be.a('string');\r",
+									"        pm.expect(article.id).to.be.a('number');\r",
+									"        pm.expect(article.image).to.be.a('string');\r",
+									"        pm.expect(article.link).to.be.a('string');\r",
+									"        pm.expect(article.source).to.be.a('string');\r",
+									"        pm.expect(article.summary).to.be.a('string');\r",
+									"        pm.expect(article.ticker).to.be.a('string');\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE}}/api/news?sort=ticker",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"api",
+								"news"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "ticker",
+									"description": "Indicates the Attribute to sort by. Default value is datetime"
+								},
+								{
+									"key": "asc",
+									"value": "",
+									"description": "Indicates the direction of the sort. Default value is true (ascending)",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "",
+									"description": "Indicates how many articles are retrieved. Default value is 10",
+									"disabled": true
+								},
+								{
+									"key": "symbol",
+									"value": "",
+									"description": "Indicates the stock to filter by.",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Get News Test tests the Companies endpoint (/api/News).\n\nGet News Test ensures that the correct number of articles are retrieved, the articles are ordered correctly, and that each of the articles has the proper schema.\n\nGet News Test Custom Sort-By Ticker tests the sort query parameter and ensures that the articles are sorted by ticker"
+					},
+					"response": []
+				},
+				{
+					"name": "Get News Test Filter by Symbol",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var _ = require('lodash');\r",
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Test Default limit value (10)\", function () {\r",
+									"    pm.expect(responseJson.length).to.be.lessThan(11);\r",
+									"});\r",
+									"\r",
+									"pm.test('News Articles are sorted by default setting (datetime, asc)', () => {\r",
+									"    var expectedSortedOrder = _.orderBy(responseJson, ['datetime'],['asc']);\r",
+									"    pm.expect(responseJson).to.eql(expectedSortedOrder);    \r",
+									"});\r",
+									"\r",
+									"pm.test('Articles retrieved correspond to the filtered symbol',function(){\r",
+									"    for(var i = 0; i < responseJson.length; i++){\r",
+									"        pm.expect(responseJson[i].ticker).to.eql('AMC');\r",
+									"    }\r",
+									"\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Validate Schemas of items in news\", function () {\r",
+									"    var i = 0;\r",
+									"    for(;i < responseJson.length;i++){\r",
+									"        article = responseJson[i];\r",
+									"        pm.expect(article.company).to.be.a('string');\r",
+									"        pm.expect(article.datetime).to.be.a('number');\r",
+									"        pm.expect(article.headline).to.be.a('string');\r",
+									"        pm.expect(article.id).to.be.a('number');\r",
+									"        pm.expect(article.image).to.be.a('string');\r",
+									"        pm.expect(article.link).to.be.a('string');\r",
+									"        pm.expect(article.source).to.be.a('string');\r",
+									"        pm.expect(article.summary).to.be.a('string');\r",
+									"        pm.expect(article.ticker).to.be.a('string');\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE}}/api/news?symbol=AMC",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"api",
+								"news"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "",
+									"description": "Indicates the Attribute to sort by. Default value is datetime",
+									"disabled": true
+								},
+								{
+									"key": "asc",
+									"value": "",
+									"description": "Indicates the direction of the sort. Default value is true (ascending)",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "",
+									"description": "Indicates how many articles are retrieved. Default value is 10",
+									"disabled": true
+								},
+								{
+									"key": "symbol",
+									"value": "AMC",
+									"description": "Indicates the stock to filter by."
+								}
+							]
+						},
+						"description": "Get News Test tests the Companies endpoint (/api/News).\n\nGet News Test ensures that the correct number of articles are retrieved, the articles are ordered correctly, and that each of the articles has the proper schema.\n\nGet News Test Filter by Symbol tests the Symbol query and ensures that the response returns a list of articles corresponding to the symbol. The tests filters for news articles about AMC"
+					},
+					"response": []
+				},
+				{
+					"name": "Get News Test Improper Values",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var _ = require('lodash');\r",
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Test Default limit value (10)\", function () {\r",
+									"    pm.expect(responseJson.length).to.be.lessThan(11);\r",
+									"});\r",
+									"\r",
+									"pm.test('News articles are sorted by default setting (datetime, asc)', () => {\r",
+									"    var expectedSortedOrder = _.orderBy(responseJson, ['datetime'],['asc']);\r",
+									"    pm.expect(responseJson).to.eql(expectedSortedOrder);    \r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Validate Schemas of items in news\", function () {\r",
+									"    var i = 0;\r",
+									"    for(;i < responseJson.length;i++){\r",
+									"        article = responseJson[i];\r",
+									"        pm.expect(article.company).to.be.a('string');\r",
+									"        pm.expect(article.datetime).to.be.a('number');\r",
+									"        pm.expect(article.headline).to.be.a('string');\r",
+									"        pm.expect(article.id).to.be.a('number');\r",
+									"        pm.expect(article.image).to.be.a('string');\r",
+									"        pm.expect(article.link).to.be.a('string');\r",
+									"        pm.expect(article.source).to.be.a('string');\r",
+									"        pm.expect(article.summary).to.be.a('string');\r",
+									"        pm.expect(article.ticker).to.be.a('string');\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE}}/api/news?sort=sort&asc=truefalse",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"api",
+								"news"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "sort",
+									"description": "Indicates the Attribute to sort by. Default value is datetime"
+								},
+								{
+									"key": "asc",
+									"value": "truefalse",
+									"description": "Indicates the direction of the sort. Default value is true (ascending)"
+								},
+								{
+									"key": "limit",
+									"value": "",
+									"description": "Indicates how many articles are retrieved. Default value is 10",
+									"disabled": true
+								},
+								{
+									"key": "symbol",
+									"value": "",
+									"description": "Indicates the stock to filter by.",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Get News Test tests the Companies endpoint (/api/News).\n\nGet News Test ensures that the correct number of articles are retrieved, the articles are ordered correctly, and that each of the articles has the proper schema.\n\nGet News Test Improper Values ensures that the proper default settings are used when improper parameters are passed in"
+					},
+					"response": []
+				},
+				{
+					"name": "Get News Test Improper Limit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var _ = require('lodash');\r",
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Test Size of Response is 0\", function () {\r",
+									"    pm.expect(responseJson.length).to.be.eq(0);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Valid Json Content\", function () {\r",
+									"    pm.expect(responseJson).to.be.eql([])\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Validate Schemas of items in news\", function () {\r",
+									"    var i = 0;\r",
+									"    for(;i < responseJson.length;i++){\r",
+									"        article = responseJson[i];\r",
+									"        pm.expect(article.company).to.be.a('string');\r",
+									"        pm.expect(article.datetime).to.be.a('number');\r",
+									"        pm.expect(article.headline).to.be.a('string');\r",
+									"        pm.expect(article.id).to.be.a('number');\r",
+									"        pm.expect(article.image).to.be.a('string');\r",
+									"        pm.expect(article.link).to.be.a('string');\r",
+									"        pm.expect(article.source).to.be.a('string');\r",
+									"        pm.expect(article.summary).to.be.a('string');\r",
+									"        pm.expect(article.ticker).to.be.a('string');\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE}}/api/news?limit=-3",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"api",
+								"news"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "",
+									"description": "Indicates the Attribute to sort by. Default value is datetime",
+									"disabled": true
+								},
+								{
+									"key": "asc",
+									"value": "",
+									"description": "Indicates the direction of the sort. Default value is true (ascending)",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "-3",
+									"description": "Indicates how many articles are retrieved. Default value is 10"
+								},
+								{
+									"key": "symbol",
+									"value": "",
+									"description": "Indicates the stock to filter by.",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Get News Test tests the Companies endpoint (/api/News).\n\nGet News Test ensures that the correct number of articles are retrieved, the articles are ordered correctly, and that each of the articles has the proper schema.\n\nGet News Test Improper Limit ensures that the limit cannot be a nonnegative number and that it defaults to 0"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "API_BASE",
+			"value": "stonkalert.me"
+		}
+	]
+}
