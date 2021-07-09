@@ -3,8 +3,8 @@ import unittest
 import requests
 import json
 
-api_base = "http://127.0.0.1:5000/api"
-# api_base = "http://stonkalert.me/api"
+#api_base = "http://127.0.0.1:5000/api"
+api_base = "http://stonkalert.me/api"
 
 
 class tests(TestCase):

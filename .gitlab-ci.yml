@@ -1,3 +1,8 @@
+before_script:
+  - uname -a
+  - printenv | sort
+
+
 build-job:
   stage: build
   script:
@@ -41,10 +46,11 @@ database-tests:
     POSTGRES_PASSWORD: ""
     POSTGRES_HOST_AUTH_METHOD: trust
   before_script:
+      - export MODELS_PASS=""
       - cd backend
       - pip install -r requirements.txt
+      
   script:
-      - export MODELS_PASS=''
       - python db_tests.py
       - echo "finished running db_tests"
       - cat db_output.txt
