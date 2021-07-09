@@ -22,4 +22,5 @@ handlers:
     upload: build/index.html
   - url: .*
     script: auto
-    secure: never
+    secure: always
+    redirect_http_response_code: 301
