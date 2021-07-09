@@ -1,0 +1,196 @@
+newman
+
+Stonk Alert Testing
+
+□ Stock Tests
+└ Get Stock Test
+  GET https://www.stonkalert.me/api/stock?symbol=AMC [200 OK, 496B, 275ms]
+  √  Valid Json Schema
+  √  Status code is 200
+
+└ Get Stocks Test Default Values
+  GET https://www.stonkalert.me/api/stocks [200 OK, 2.35KB, 82ms]
+  √  Test Default limit value (10)
+  √  Stocks are sorted by default setting (ticker, asc)
+  √  Validate Schemas of items in stocks
+  √  Status code is 200
+
+└ Get Stocks Test Custom Values
+  GET https://www.stonkalert.me/api/stocks?limit=5&asc=false&sort=investscore [200 OK, 1.33KB, 129ms]
+  √  Test Custom limit value (5)
+  √  Stocks are sorted by Custom setting (investscore, desc)
+  √  Validate Schemas of items in stocks
+  √  Status code is 200
+
+└ Get Stocks Test Custom Limit
+  GET https://www.stonkalert.me/api/stocks?limit=20 [200 OK, 4.42KB, 79ms]
+  √  Test Number of stocks <= 20
+  √  Stocks are sorted by default setting (ticker, asc)
+  √  Validate Schemas of items in stocks
+  √  Status code is 200
+
+└ Get Stocks Test Custom Sort- Descending Order
+  GET https://www.stonkalert.me/api/stocks?asc=false [200 OK, 2.33KB, 73ms]
+  √  Test Default limit value (10)
+  √  Stocks are sorted by custom setting (ticker, desc)
+  √  Validate Schemas of items in stocks
+  √  Status code is 200
+
+└ Get Stocks Test Custom Sort- By Price
+  GET https://www.stonkalert.me/api/stocks?sort=price [200 OK, 2.29KB, 76ms]
+  √  Test Default limit value (10)
+  √  Stocks are sorted by custom setting (price, asc)
+  √  Validate Schemas of items in stocks
+  √  Status code is 200
+
+└ Get Stock Test Improper Values
+  GET https://www.stonkalert.me/api/stocks?asc=truefalse&sort=sort [200 OK, 2.35KB, 154ms]
+  √  Test Default limit value (10)
+  √  Stocks are sorted by default setting (ticker, asc)
+  √  Validate Schemas of items in stocks
+  √  Status code is 200
+
+└ Get Stock Test Improper Limit
+  GET https://www.stonkalert.me/api/stocks?limit=-3 [200 OK, 224B, 77ms]
+  √  Test Size of Response is 0
+  √  Valid Json Content
+  √  Validate Schemas of items in stocks
+  √  Status code is 200
+
+□ Company Test
+└ Get Company Test
+  GET https://www.stonkalert.me/api/company?symbol=AMC [200 OK, 1.19KB, 101ms]
+  √  Valid Json Schema
+  √  Valid Json content
+
+└ Get Companies Test Default Values
+  GET https://www.stonkalert.me/api/companies [200 OK, 7.18KB, 63ms]
+  √  Test Default limit value (10)
+  √  Companies are sorted by default setting (name, asc)
+  √  Validate Schemas of items in companies
+  √  Status code is 200
+
+└ Get Companies  Test Custom Values
+  GET https://www.stonkalert.me/api/companies?sort=stock&asc=false&limit=15 [200 OK, 11.04KB, 134ms]
+  √  Test custom limit value (15)
+  √  Companies are sorted by custom setting (stock, desc)
+  √  Validate Schemas of items in companies
+  √  Status code is 200
+
+└ Get Companies Test Custom Limit
+  GET https://www.stonkalert.me/api/companies?limit=8 [200 OK, 6.13KB, 67ms]
+  √  Test Custom limit value (8)
+  √  Companies are sorted by default setting (name, asc)
+  √  Validate Schemas of items in companies
+  √  Status code is 200
+
+└ Get Companies  Test Custom Sort- Descending
+  GET https://www.stonkalert.me/api/companies?asc=False [200 OK, 7.79KB, 117ms]
+  √  Test Default limit value (10)
+  √  Companies are sorted by custom setting (name, desc)
+  √  Validate Schemas of items in companies
+  √  Status code is 200
+
+└ Get Companies Test Custom Sort- By Industry
+  GET https://www.stonkalert.me/api/companies?sort=industry [200 OK, 8.4KB, 69ms]
+  √  Test Default limit value (10)
+  √  Companies are sorted by custom setting (industry , asc)
+  √  Validate Schemas of items in companies
+  √  Status code is 200
+
+└ Get Companies Test Improper Values
+  GET https://www.stonkalert.me/api/companies?sort=sort&asc=truefalse [200 OK, 7.18KB, 72ms]
+  √  Test Default limit value (10)
+  √  Companies are sorted by default setting (name, asc)
+  √  Validate Schemas of items in companies
+  √  Status code is 200
+
+└ Get Companies Test Improper Limit
+  GET https://www.stonkalert.me/api/companies?limit=0 [200 OK, 224B, 87ms]
+  √  Test Size of Response is 0
+  √  Valid Json Content
+  √  Validate Schemas of items in companies
+  √  Status code is 200
+
+□ Article Test
+└ Get Article Test
+  GET https://www.stonkalert.me/api/article [200 OK, 1.76KB, 73ms]
+  √  Valid Json Schema
+  √  Status code is 200
+
+└ Get News Test Default Values
+  GET https://www.stonkalert.me/api/news [200 OK, 22.1KB, 172ms]
+  √  Test Default limit value (10)
+  √  News articles are sorted by default setting (datetime, asc)
+  √  Validate Schemas of items in news
+  √  Status code is 200
+
+└ Get News Test Custom Values
+  GET https://www.stonkalert.me/api/news?sort=ticker&asc=false&limit=5&symbol= [200 OK, 3.24KB, 79ms]
+  √  Test Custom limit value (5)
+  √  News articles are sorted by default setting (ticker, desc)
+  √  Validate Schemas of items in news
+  √  Status code is 200
+
+└ Get News Test Custom Limit
+  GET https://www.stonkalert.me/api/news?limit=3 [200 OK, 7.27KB, 119ms]
+  √  Test Custom limit value (3)
+  √  News articles are sorted by default setting (datetime, asc)
+  √  Validate Schemas of items in news
+  √  Status code is 200
+
+└ Get News Test Custom Sort- Descending
+  GET https://www.stonkalert.me/api/news?asc=false [200 OK, 9.01KB, 64ms]
+  √  Test Default limit value (10)
+  √  News Articles are sorted by default setting (datetime, desc)
+  √  Validate Schemas of items in news
+  √  Status code is 200
+
+└ Get News Test Custom Sort- By Ticker
+  GET https://www.stonkalert.me/api/news?sort=ticker [200 OK, 10.84KB, 68ms]
+  √  Test Default limit value (10)
+  √  News articles are sorted by custom setting (ticker, asc)
+  √  Validate Schemas of items in news
+  √  Status code is 200
+
+└ Get News Test Filter by Symbol
+  GET https://www.stonkalert.me/api/news?symbol=AMC [200 OK, 4.41KB, 126ms]
+  √  Test Default limit value (10)
+  √  News Articles are sorted by default setting (datetime, asc)
+  √  Articles retrieved correspond to the filtered symbol
+  √  Validate Schemas of items in news
+  √  Status code is 200
+
+└ Get News Test Improper Values
+  GET https://www.stonkalert.me/api/news?sort=sort&asc=truefalse [200 OK, 22.1KB, 63ms]
+  √  Test Default limit value (10)
+  √  News articles are sorted by default setting (datetime, asc)
+  √  Validate Schemas of items in news
+  √  Status code is 200
+
+└ Get News Test Improper Limit
+  GET https://www.stonkalert.me/api/news?limit=-3 [200 OK, 224B, 101ms]
+  √  Test Size of Response is 0
+  √  Valid Json Content
+  √  Validate Schemas of items in news
+  √  Status code is 200
+
+┌─────────────────────────┬────────────────────┬───────────────────┐
+│                         │           executed │            failed │
+├─────────────────────────┼────────────────────┼───────────────────┤
+│              iterations │                  1 │                 0 │
+├─────────────────────────┼────────────────────┼───────────────────┤
+│                requests │                 25 │                 0 │
+├─────────────────────────┼────────────────────┼───────────────────┤
+│            test-scripts │                 50 │                 0 │
+├─────────────────────────┼────────────────────┼───────────────────┤
+│      prerequest-scripts │                 25 │                 0 │
+├─────────────────────────┼────────────────────┼───────────────────┤
+│              assertions │                 95 │                 0 │
+├─────────────────────────┴────────────────────┴───────────────────┤
+│ total run duration: 5s                                           │
+├──────────────────────────────────────────────────────────────────┤
+│ total data received: 138.72KB (approx)                           │
+├──────────────────────────────────────────────────────────────────┤
+│ average response time: 100ms [min: 63ms, max: 275ms, s.d.: 46ms] │
+└──────────────────────────────────────────────────────────────────┘

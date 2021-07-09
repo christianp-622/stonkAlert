@@ -1,6 +1,6 @@
 ......
 ----------------------------------------------------------------------
-Ran 6 tests in 0.060s
+Ran 6 tests in 0.048s
 
 OK
 Name          Stmts   Miss Branch BrPart  Cover   Missing

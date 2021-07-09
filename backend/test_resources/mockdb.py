@@ -9,7 +9,7 @@ CORS(app)
 USER = os.environ.get("MODELS_USER")
 PASSWORD = os.environ.get("MODELS_PASS")
 PUBLIC_IP_ADDRESS = os.environ.get("MODELS_IP")
-DBNAME = os.environ.get("MODELS_DBNAME")
+DBNAME = os.environ.get("MOCK_DBNAME")
 
 # Configuration 
 app.config['SQLALCHEMY_DATABASE_URI'] = \

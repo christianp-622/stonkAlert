@@ -7,4 +7,4 @@ database-tests:
 
 
 postman-tests:
-	npm install -g newman && newman run Postman_Tests.json
+	npm install -g newman && newman run Postman_Tests.json > post_output.txt 2>&1
