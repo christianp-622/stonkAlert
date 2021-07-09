@@ -1,6 +1,6 @@
 from unittest import main, TestCase
 import unittest
-
+import sys
 from test_resources.mockdb import db, Company, Stock, Article
 
 
@@ -128,4 +128,5 @@ if __name__ == '__main__':
     with open(output, 'w') as f:
        runner = unittest.TextTestRunner(f)
        unittest.main(testRunner=runner) # allows to run file as "python ../db_tests.py" """
+    sys.exit(0)
   
