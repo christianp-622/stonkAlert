@@ -19,14 +19,3 @@ deploy-prod:
   script:
     - echo "deploy from $CI_COMMIT_BRANCH branch."
 
-
-postman-tests:
-  image: nikolaik/python-nodejs
-  stage: test
-  before_script:
-    - npm install -g newman
-    - cd backend
-    - pip install -r requirements.txt
-    - gunicorn wsgi:app -w 2 -b 0.0.0.0:8080 -t 60 &
-  script:
-    - newman run postman_tests.json

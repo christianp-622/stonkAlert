@@ -2026,7 +2026,7 @@
 	"variable": [
 		{
 			"key": "API_BASE",
-			"value": "http://localhost:8080"
+			"value": "stonkalert.me"
 		}
 	]
 }
