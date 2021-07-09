@@ -165,10 +165,6 @@
 									"pm.test('Stocks are sorted by Custom setting (investscore, desc)', () => {\r",
 									"    //asc since _.orderBy does the opposite\r",
 									"    var expectedSortedOrder = _.orderBy(responseJson, ['investscore'],['asc']);\r",
-									"\r",
-									"    for (var i  =0; i< expectedSortedOrder.length; i++){\r",
-									"        console.log(expectedSortedOrder[i]);\r",
-									"    }\r",
 									"    pm.expect(responseJson).to.eql(expectedSortedOrder);    \r",
 									"});\r",
 									"\r",
@@ -719,15 +715,6 @@
 									"    var expectedSortedOrder = _.sortBy(responseJson, (e) =>{\r",
 									"        return e['name'].toLowerCase();\r",
 									"    });\r",
-									"    for(var i = 0; i < expectedSortedOrder.length; i++)\r",
-									"    {\r",
-									"        console.log(expectedSortedOrder[i]['name']);\r",
-									"    }\r",
-									"    console.log(\"response:\");\r",
-									"    for(var i = 0; i < expectedSortedOrder.length; i++)\r",
-									"    {\r",
-									"        console.log(responseJson[i]['name']);\r",
-									"    }\r",
 									"\r",
 									"    pm.expect(responseJson).to.eql(expectedSortedOrder);    \r",
 									"});\r",
@@ -2053,7 +2040,7 @@
 	"variable": [
 		{
 			"key": "API_BASE",
-			"value": "https://www.stonkalert.me/"
+			"value": "https://www.stonkalert.me"
 		}
 	]
 }
