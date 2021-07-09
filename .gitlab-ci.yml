@@ -19,3 +19,42 @@ deploy-prod:
   script:
     - echo "deploy from $CI_COMMIT_BRANCH branch."
 
+postman-tests:
+  stage: test
+  image:
+    name: postman/newman_alpine33
+    entrypoint: [""]
+  before_script:
+    - npm install -g newman
+  script:
+    - cd backend
+    - newman run postman.json
+  
+database-tests:
+  stage: test
+  image: python:3.8.3-slim
+  services:
+    - postgres:12.2-alpine
+  variables:
+    POSTGRES_DB: stonkalertdb
+    POSTGRES_USER: runner
+    POSTGRES_PASSWORD: ""
+    POSTGRES_HOST_AUTH_METHOD: trust
+  before_script:
+      - cd backend
+      - pip install -r requirements.txt
+  script:
+      - python db_tests.py
+      - echo db_output.txt
+
+unittests:
+  stage: test
+  image: python:3.8.3-slim
+  before_script:
+      - cd backend
+      - pip install -r requirements.txt
+  script:
+      - cd app
+      - python tests.py
+      - echo output.txt
+  
