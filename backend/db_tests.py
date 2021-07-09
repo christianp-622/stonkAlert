@@ -11,7 +11,6 @@ class tests(TestCase):
     # the 3 insertion tests inserts a dummy row and ensures that elements are inserted correctly.
     # inserts and then checks the attributes
     # one for each model of the table
-
     
     # tests the stock model
     def test_insertion_stock (self):
@@ -125,3 +124,4 @@ class tests(TestCase):
 
 if __name__ == '__main__':
     main()
+    db.drop_all()

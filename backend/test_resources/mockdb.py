@@ -120,3 +120,5 @@ class Article(db.Model):
             "ticker": self.ticker,
             "company": self.company,
         }
+
+db.create_all()
