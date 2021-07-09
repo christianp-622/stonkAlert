@@ -23,7 +23,7 @@ class Company(db.Model):
     """
     __tablename__ = 'company'
     
-    # id = db.Column(db.Integer, primary_key = True, autoincrement = "auto") # use number id instead of ticker symbol for URL
+    id = db.Column(db.Integer, primary_key = True, autoincrement = "auto") # use number id instead of ticker symbol for URL
     name = db.Column(db.String) # covered by iexcloud company https://iexcloud.io/docs/api/#company
     country = db.Column(db.String) # covered by iexcloud company
     industry = db.Column(db.String) # covered by iexcloud company
@@ -32,7 +32,7 @@ class Company(db.Model):
     website = db.Column(db.String) # covered by iexcloud company
     description = db.Column(db.String) # covered by iexcloud company
     
-    stock = db.Column(db.String, db.ForeignKey('stock.ticker'), primary_key = True) # stock to company relationship, also primary key
+    stock = db.Column(db.String, db.ForeignKey('stock.ticker')) # stock to company relationship
 
     # formatting for json dump
     def format(self):
@@ -55,7 +55,8 @@ class Stock(db.Model):
     """
     __tablename__ = 'stock'
 
-    ticker = db.Column(db.String, primary_key = True) # covered by symbol at beginning
+    id = db.Column(db.Integer, primary_key = True, autoincrement = "auto")
+    ticker = db.Column(db.String) # covered by symbol at beginning
     companyName = db.Column(db.String) # covered by iexcloud company
     price = db.Column(db.Float) # covered by iexcloud quote (latestPrice)
     sector = db.Column(db.String) # covered by iexcloud company
