@@ -3,14 +3,12 @@ runtime: python37
 entrypoint: gunicorn -t 0 -b :$PORT run:app
 
 env_variables:
-  COVERAGE_FILE: >-
-    /tmp/.coverage
   DB_ENV: >-
-    prod
+    create
   DB_STRING: >-
     postgresql+psycopg2://postgres:stonkalert@/stonkalertdb?host=/cloudsql/stonk-alert:us-central1:stonkalert
   IEXCLOUD_KEY: >-
-    pk_6563b77bb10d4e7092eb75e37cdeda8a
+    pk_d4c8685c26c843219a2cec0fe6e68cf1
   FINNHUB_KEY: >-
     c3fv6u2ad3if6rt4vdmg
   # MODELS_USER: >-

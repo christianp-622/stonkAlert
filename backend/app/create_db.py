@@ -18,10 +18,10 @@ r = requests.get(FINNHUB_URL + 'stock/symbol?exchange=US&mic=XNYS&token=' + FINN
 stocks = r.json()
 
 def add_all(): # method to add all stocks, companies, and news instances for each stock in finnhub list of stocks
-    num = 0
+    # num = 0
     for stock in stocks:
-        if num == 10:
-            break
+        # if num == 10:
+        #     break
         symbol = stock['symbol']
         company_r = requests.get(IEXCLOUD_URL + 'stable/stock/' + symbol + '/company?token=' + IEXCLOUD_KEY)
         stock_r = requests.get(IEXCLOUD_URL + 'stable/stock/' + symbol + '/quote?token=' + IEXCLOUD_KEY)
@@ -31,7 +31,7 @@ def add_all(): # method to add all stocks, companies, and news instances for eac
             add_stock(company_r, stock_r, styvio_r)
             add_article(company_r, news_r, symbol)
             add_company(company_r, styvio_r)
-        num += 1
+        # num += 1
             
 def add_stock(company_r, stock_r, styvio_r): # method to add stock instance
     # use r.json()['type'] to access company overview elements (ex: r.json()['Description'])
