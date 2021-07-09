@@ -49,11 +49,13 @@ database-tests:
       - export MODELS_PASS=""
       - cd backend
       - pip install -r requirements.txt
+      - uname -a
+      - printenv | sort
+
       
   script:
       - python db_tests.py
       - echo "finished running db_tests"
-      - cat db_output.txt
 
 unittests:
   stage: test
@@ -64,5 +66,4 @@ unittests:
   script:
       - cd app
       - python tests.py
-      - cat output.txt
   
