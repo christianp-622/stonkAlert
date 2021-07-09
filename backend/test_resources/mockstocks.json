@@ -1,0 +1,29 @@
+[
+  {
+    "company": "AMC Entertainment Holdings Inc", 
+    "investscore": "C", 
+    "marketcap": 24055344706, 
+    "price": 47.94, 
+    "sector": "Information", 
+    "ticker": "AMC", 
+    "tradescore": "C"
+  }, 
+    {
+      "company": "Gamestop Corporation", 
+      "investscore": "C", 
+      "marketcap": 13743979771, 
+      "price": 191.38, 
+      "sector": "Retail Trade", 
+      "ticker": "GME", 
+      "tradescore": "C"
+    }, 
+    {
+      "company": "BlackBerry Ltd", 
+      "investscore": "C", 
+      "marketcap": 6540161409, 
+      "price": 11.55, 
+      "sector": "Manufacturing", 
+      "ticker": "BB", 
+      "tradescore": "C"
+    }
+  ]

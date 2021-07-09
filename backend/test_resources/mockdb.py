@@ -29,7 +29,7 @@ class Company(db.Model):
     """
     Company Model
     Attributes: name, country, industry, exchange, logo, website, description, stock
-    Relationships: Stock/Company (One To One)
+    Relationships: Stock/Company (One To One) 
     """
     __tablename__ = 'company'
     

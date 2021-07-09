@@ -1,0 +1,32 @@
+[
+    {
+        "country": "US", 
+        "description": "AMC is the largest movie exhibition company in the United States, the largest in Europe and the largest throughout the world with approximately 1,000 theatres and 11,000 screens across the globe. AMC has propelled innovation in the exhibition industry by: deploying its Signature power-recliner seats; delivering enhanced food and beverage choices; generating greater guest engagement through its loyalty and subscription programs, web site and mobile apps; offering premium large format experiences and playing a wide variety of content including the latest Hollywood releases and independent programming.", 
+        "exchange": "NEW YORK STOCK EXCHANGE, INC.", 
+        "industry": "Motion Picture Theaters (except Drive-Ins) ", 
+        "logo": "https://logo.clearbit.com/amctheatres.com", 
+        "name": "AMC Entertainment Holdings Inc", 
+        "stock": "AMC", 
+        "website": "www.amctheatres.com"
+    },
+    {
+        "country": "US", 
+        "description": "GameStop Corporation, a Fortune 500 company headquartered in Grapevine, Texas, is a leading specialty retailer offering games and entertainment products through its e-commerce properties and thousands of stores.", 
+        "exchange": "NEW YORK STOCK EXCHANGE, INC.", 
+        "industry": "Electronics Stores ", 
+        "logo": "https://logo.clearbit.com/gamestop.com", 
+        "name": "Gamestop Corporation", 
+        "stock": "GME", 
+        "website": "www.gamestop.com"
+    },
+    {
+        "country": "Canada", 
+        "description": "BlackBerry provides intelligent security software and services to enterprises and governments around the world. The company secures more than 500M endpoints including more than 175M cars on the road today. Based in Waterloo, Ontario, the company leverages AI and machine learning to deliver innovative solutions in the areas of cybersecurity, safety and data privacy solutions, and is a leader in the areas of endpoint security management, encryption, and embedded systems. BlackBerry's vision is clear - to secure a connected future you can trust.", 
+        "exchange": "NEW YORK STOCK EXCHANGE, INC.", 
+        "industry": "Computer Storage Device Manufacturing ", 
+        "logo": "https://logo.clearbit.com/blackberry.com", 
+        "name": "BlackBerry Ltd", 
+        "stock": "BB", 
+        "website": "global.blackberry.com"
+      }
+]
