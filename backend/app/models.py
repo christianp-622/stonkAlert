@@ -55,7 +55,7 @@ class Stock(db.Model):
     """
     __tablename__ = 'stock'
 
-    ticker = db.Column(db.String) # covered by symbol at beginning
+    ticker = db.Column(db.String, primary_key = True) # covered by symbol at beginning
     companyName = db.Column(db.String) # covered by iexcloud company
     price = db.Column(db.Float) # covered by iexcloud quote (latestPrice)
     sector = db.Column(db.String) # covered by iexcloud company

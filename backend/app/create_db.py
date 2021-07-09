@@ -28,9 +28,10 @@ def add_all(): # method to add all stocks, companies, and news instances for eac
         styvio_r = requests.get(STYVIO_URL + symbol)
         news_r = requests.get(IEXCLOUD_URL + 'stable/stock/' + symbol + '/news/last/3?token=' + IEXCLOUD_KEY) # arbitrary limit to 3 per stock so we don't burn our api credits -guan
         if company_r and stock_r and styvio_r and news_r: # check if json valid request
-            add_stock(company_r, stock_r, styvio_r)
-            add_article(company_r, news_r, symbol)
-            add_company(company_r, styvio_r)
+            if not Stock.query.filter(Stock.ticker == symbol).first():
+                add_stock(company_r, stock_r, styvio_r)
+                add_article(company_r, news_r, symbol)
+                add_company(company_r, styvio_r)
         # num += 1
             
 def add_stock(company_r, stock_r, styvio_r): # method to add stock instance
