@@ -28,7 +28,7 @@ postman-tests:
     - npm install -g newman
   script:
     - cd backend
-    - newman run postman.json
+    - newman run Postman_Tests.json
   
 database-tests:
   stage: test

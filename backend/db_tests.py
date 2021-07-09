@@ -1,6 +1,7 @@
 from unittest import main, TestCase
 import unittest
-from app.models import db, Company, Stock, Article
+
+from app.test_resources.mockdb import db, Company, Stock, Article
 
 
 
