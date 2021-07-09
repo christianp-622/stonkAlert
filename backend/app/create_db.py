@@ -123,12 +123,26 @@ def add_article(company_r, news_r, symbol): # method to add article instance
     for news in news_r.json():
         article = Article()
         article.headline = news['headline']
+        if article.headline == "" or not article.headline:
+            article.headline = "No headline available."
         article.company = company_r.json()['companyName']
+        if article.company == "" or not article.company:
+            article.company = "Unknown"
         article.datetime = news['datetime']
+        if not article.datetime:
+            article.datetime = 0
         article.image    = news['image']
+        if article.image == "" or not article.image:
+            article.image = "https://i.imgur.com/u4SGaf6.png"
         article.source   = news['source']
+        if article.source == "" or not article.source:
+            article.source = "Unknown"
         article.link     = news['url']
+        if article.link == "" or not article.link:
+            article.link = "https://www.google.com"
         article.summary  = news['summary']
+        if article.summary == "" or not article.summary:
+            article.summary = "No summary available."
 
         # linking: many articles to one stock
         stock.news.append(article)
