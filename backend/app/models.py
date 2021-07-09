@@ -16,6 +16,11 @@ db = SQLAlchemy(app)
 
 # One-To-One relation: stock to company
 class Company(db.Model):
+    """
+    Company Model
+    Attributes: name, country, industry, exchange, logo, website, description, stock
+    Relationships: Stock/Company (One To One)
+    """
     __tablename__ = 'company'
     
     # id = db.Column(db.Integer, primary_key = True, autoincrement = "auto") # use number id instead of ticker symbol for URL
@@ -43,6 +48,11 @@ class Company(db.Model):
         }
 
 class Stock(db.Model):
+    """
+    Stock Model
+    Attributes: ticker, companyName, price, sector, tradescore, investscore, marketcap, company, news
+    Relationships: Stock/Article (One To Many), Stock/Company (One To One)
+    """
     __tablename__ = 'stock'
 
     ticker = db.Column(db.String, primary_key = True) # covered by symbol at beginning
@@ -70,6 +80,11 @@ class Stock(db.Model):
 
 # one to many (stock -> news)
 class Article(db.Model):
+    """
+    Article Model
+    Attributes: id, headline, datetime (unix epoch), image, source, link, summary, ticker, company
+    Relationships: Stock/Article (One To Many)
+    """
     __tablename__ = 'article'
 
     id = db.Column(db.Integer, primary_key = True, autoincrement = "auto") # use number id instead of ticker symbol for URL

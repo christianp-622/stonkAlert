@@ -149,7 +149,7 @@ def image_exists(image_url):
    return False
     
 # uncomment later when db setup
-db.drop_all()
-db.create_all()  
-
-create_stonkdb()
+if not os.environ.get("DB_ENV") == "prod":
+    db.drop_all()
+    db.create_all()  
+    create_stonkdb()
