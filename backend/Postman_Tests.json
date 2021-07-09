@@ -2026,7 +2026,7 @@
 	"variable": [
 		{
 			"key": "API_BASE",
-			"value": "stonkalert.me"
+			"value": "https://stonkalert.me"
 		}
 	]
 }
