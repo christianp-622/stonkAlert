@@ -78,7 +78,7 @@ def add_company(company_r, styvio_r): # method to add instance of a company
     company = Company()
     company.name = company_r.json()['companyName']
     if company.name is None or company.name == "":
-        company.country = "Unknown"
+        company.name = "Unknown"
     company.country = company_r.json()['country']
     if company.country is None or company.country == "United States":
         company.country = "US"
