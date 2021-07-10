@@ -105,7 +105,7 @@ const About = () => {
                                  <Card.Body>
                                     <Card.Title>Albert Cho</Card.Title>
                                     <Card.Text>
-                                       Albert is a mentor, researcher, and 3rd year Computer Science studnet at UT Austin. He works on developing the front end and back end for the website
+                                       Albert is a mentor, researcher, and 3rd year Computer Science student at UT Austin. He works on developing the front end and back end for the website
                                        and is interested in Software Engineering, Machine Learning, and Data Science applications. Currently, Albert works as a computer science instructor
                                        for Juni Learning and is continuing his research on Autonomous Robotics and Learning Agents. 
                                     </Card.Text>
@@ -113,7 +113,7 @@ const About = () => {
                                  <ListGroup className="list-group-flush">
                                     <ListGroupItem>Commits: {commit[1]}</ListGroupItem>
                                     <ListGroupItem>Issues: {issue[1]}</ListGroupItem>
-                                    <ListGroupItem>Tests: 0</ListGroupItem>
+                                    <ListGroupItem>Tests: 3</ListGroupItem>
                                  </ListGroup>
                               </Card>
                               <Card classname = "card" text = "white">
@@ -129,7 +129,7 @@ const About = () => {
                                  <ListGroup className="list-group-flush">
                                     <ListGroupItem>Commits: {commit[0]}</ListGroupItem>
                                     <ListGroupItem>Issues: {issue[0]}</ListGroupItem>
-                                    <ListGroupItem>Tests: 0</ListGroupItem>
+                                    <ListGroupItem>Tests: 3</ListGroupItem>
                                  </ListGroup>
                               </Card>
                               <Card classname = "card" text = "white">
@@ -145,7 +145,7 @@ const About = () => {
                                  <ListGroup className="list-group-flush">
                                     <ListGroupItem>Commits: {commit[4]}</ListGroupItem>
                                     <ListGroupItem>Issues: {issue[4]}</ListGroupItem>
-                                    <ListGroupItem>Tests: 0</ListGroupItem>
+                                    <ListGroupItem>Tests: 30</ListGroupItem>
                                  </ListGroup>
                               </Card>
                               <Card classname = "card" text = "white">
@@ -161,7 +161,7 @@ const About = () => {
                                  <ListGroup className="list-group-flush">
                                        <ListGroupItem>Commits: {commit[2]}</ListGroupItem>
                                        <ListGroupItem>Issues: {issue[2]}</ListGroupItem>
-                                       <ListGroupItem>Tests: 0</ListGroupItem>
+                                       <ListGroupItem>Tests: 3</ListGroupItem>
                                  </ListGroup>
                               </Card>
                               <Card className = "card" text = "white">
@@ -172,12 +172,12 @@ const About = () => {
                                     <Card.Title>Total Issues</Card.Title>
                                     <Card.Text>{issue[5]}</Card.Text>
                                     <Card.Title>Total Tests</Card.Title>
-                                    <Card.Text>0</Card.Text>
+                                    <Card.Text>60</Card.Text>
                                  </Card.Body>
                                  <ListGroup className="list-group-flush">
                                        <ListGroupItem>Unit Tests</ListGroupItem>
-                                       <ListGroupItem><Button href="/api/tests" variant="outline-dark">Run Tests</Button>{' '}</ListGroupItem>
-                                       <ListGroupItem></ListGroupItem>
+                                       <ListGroupItem>Models, DB, API Calls, Postman</ListGroupItem>
+                                       <ListGroupItem><Button href="/api/tests" variant="outline-dark">Run All Tests</Button>{' '}</ListGroupItem>
                                  </ListGroup>
                               </Card>
                               <Card classname = "card" text = "white">
@@ -193,7 +193,7 @@ const About = () => {
                                  <ListGroup className="list-group-flush">
                                     <ListGroupItem>Commits: {commit[3]}</ListGroupItem>
                                     <ListGroupItem>Issues: {issue[3]}</ListGroupItem>
-                                    <ListGroupItem>Tests: 0</ListGroupItem>
+                                    <ListGroupItem>Tests: 21</ListGroupItem>
                                  </ListGroup>
                               </Card>
                            </CardDeck>
