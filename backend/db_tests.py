@@ -214,12 +214,14 @@ class tests(TestCase):
         self.assertEqual(article.datetime, 16257604780000)
 
 
+    @classmethod
+    def tearDownClass(cls):
+        clear_db()
 
 
 if __name__ == '__main__':
-
     clear_db()
     load_db()
     main()
     
-    db.drop_all()
+    
