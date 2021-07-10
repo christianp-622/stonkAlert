@@ -16,17 +16,7 @@ def index():
 
 @app.route('/api/tests', methods=["GET"])
 def run_tests():
-    return render_template('index.html', output=test_output()) # populate template with unit test results
-
-def test_output():
-    file = open("output.txt")
-    p = subprocess.Popen('coverage run --branch app/tests.py > output.txt 2>&1 && coverage report -m >> output.txt', shell=True) # run tests.py, which redirects output to txt file
-    output = file.read()
-    file.close()
-    output = output.replace('\n', '<br />')
-    output = Markup(output)
-    time.sleep(2) # so process finishes to get correct output
-    return output
+    return render_template('index.html', output=test_output()) # populate template with unit tests
 
 @app.route('/api/stock', methods=["GET"])
 def get_stock():
@@ -87,6 +77,21 @@ def trade_cmp(a,b):
     else:
         return 0
 
+def test_output():
+    file = open("output.txt", encoding="utf8")
+    output = file.read()
+    file.close()
+    file = open("db_output.txt", encoding="utf8")
+    output += "\n" + file.read()
+    file.close()
+    file = open("post_output.txt", encoding="utf8")
+    output += "\n" + file.read()
+    file.close()
+    output = output.replace('\n', '<br />')
+    output = Markup(output)
+    time.sleep(2) # so process finishes to get correct output
+    return output
+
 def invest_cmp(a,b):
     mapping = {'A+': 11,'A': 10, 'A-': 9, 'B+': 8, 'B': 7, 'B-': 6, 'C+': 5, 'C': 4, 'C-': 3, 'D+': 2, 'D': 1, 'F': 0}
     A = mapping[a['investscore']]
@@ -97,8 +102,6 @@ def invest_cmp(a,b):
         return -1
     else:
         return 0
-
-
 
 @app.route('/api/company', methods=["GET"])
 def get_company():
