@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Switch } from 'react-router-dom';
 import Home from './pages/Home';
 import About from './pages/About';
+import NBA from './pages/NBA';
 // import {Stocks, Stock_Page, Stock_Table} from './pages/Stocks';
 import Stocks from './pages/Stocks'
 import Stock_Page from './components/Stock_Page'
@@ -27,6 +28,7 @@ function App() {
             <Route path="/news" component={News} exact/>
             <Route path="/news/:id" component={News}/>
             <Route path="/article/:id" component={Article_Page}/>
+            <Route path="/NBA" component={NBA} exact/>
           </Switch>
     </Router>
   );

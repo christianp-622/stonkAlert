@@ -40,6 +40,11 @@ const Sidebar = () => {
                 News
               </CDBSidebarMenuItem>
             </NavLink>
+            <NavLink exact to="/NBA" activeClassName="activeClicked">
+              <CDBSidebarMenuItem icon="basketball-ball">
+                NBA
+              </CDBSidebarMenuItem>
+            </NavLink>
             <NavLink exact to="/about" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="users">
                 About
