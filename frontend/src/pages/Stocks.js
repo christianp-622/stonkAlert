@@ -6,6 +6,7 @@ import '../App.css';
 import '../stock.css';
 import { NavLink, Redirect } from 'react-router-dom';
 import StockCard from '../components/StockCard'
+import Button from 'react-bootstrap/Button'
 
 /*Table components */
 import {BootstrapTable,TableHeaderColumn} from "react-bootstrap-table";
@@ -13,6 +14,24 @@ import "../../node_modules/react-bootstrap-table/css/react-bootstrap-table.css";
 
 //stock display components
 import Stock from '../components/Stock';
+
+const stockScores = {
+   0: 'A+',
+   1: 'A',
+   2: 'A-',
+   3: 'B+',
+   4: 'B',
+   5: 'B-',
+   6: 'C',
+ };
+ 
+function enumFormatter(cell, enumObject) {
+   return enumObject[cell];
+}
+
+function formatFloat(cell) {
+   return parseFloat(cell);
+}
 
 const options = {
    onRowClick: function(row) {
@@ -54,6 +73,15 @@ class Stocks extends React.Component {
           }
         )
    }
+
+   handlerClickCleanFiltered() {
+      this.refs.ticker.cleanFiltered();
+      this.refs.price.cleanFiltered();
+      this.refs.marketcap.cleanFiltered();
+      this.refs.sector.cleanFiltered();
+      this.refs.tradescore.cleanFiltered();
+      this.refs.investscore.cleanFiltered();
+   }
  
    render() {
      return (
@@ -79,14 +107,19 @@ class Stocks extends React.Component {
                           <p className="my-4 text-center text-light"> 
                                        <h4 className="m-0 h1 font-weight-bold text-light">Stocks</h4>
                           </p>
-                          <BootstrapTable data={ this.state.stocks } options={options} striped hover pagination version="4" search multiColumnSearch>
-                             <TableHeaderColumn dataField='ticker' isKey dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } }>Ticker</TableHeaderColumn>
-                             <TableHeaderColumn dataField='price' dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } }>Stock Price</TableHeaderColumn>
-                             <TableHeaderColumn dataField='marketcap' dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } }>Market Cap</TableHeaderColumn>
-                             <TableHeaderColumn dataField='sector' dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } }>Sector</TableHeaderColumn>
-                             <TableHeaderColumn dataField='tradescore' dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } }>Trader Score</TableHeaderColumn>
-                             <TableHeaderColumn dataField='investscore' dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } }>Investor Score</TableHeaderColumn>
+                          <BootstrapTable data={ this.state.stocks } options={options} striped hover pagination version="4" search searchPlaceholder='General Search' multiColumnSearch>
+                             <TableHeaderColumn ref='ticker' dataField='ticker' isKey dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } } filter={ { type: 'TextFilter' } }>Ticker</TableHeaderColumn>
+                             <TableHeaderColumn ref='price' dataField='price' dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } } filter={ { type: 'NumberFilter', defaultValue: { comparator: '=' } } }
+          dataFormat={ formatFloat }
+          filterFormatted>Stock Price</TableHeaderColumn>
+                             <TableHeaderColumn ref='marketcap' dataField='marketcap' dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } } filter={ { type: 'NumberFilter', defaultValue: { comparator: '=' } } }>Market Cap</TableHeaderColumn>
+                             <TableHeaderColumn ref='sector' dataField='sector' dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } } filter={ { type: 'TextFilter' } }>Sector</TableHeaderColumn>
+                             <TableHeaderColumn ref='tradescore' dataField='tradescore' dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } } filterFormatted dataFormat={ enumFormatter } formatExtraData={ stockScores }
+          filter={ { type: 'SelectFilter', options: stockScores } }>Trader Score</TableHeaderColumn>
+                             <TableHeaderColumn ref='investscore' dataField='investscore' dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } } filterFormatted dataFormat={ enumFormatter } formatExtraData={ stockScores }
+          filter={ { type: 'SelectFilter', options: stockScores } }>Investor Score</TableHeaderColumn>
                           </BootstrapTable>
+                          <Button onClick={ this.handlerClickCleanFiltered.bind(this) } variant="outline-light">Clear Filters</Button>{' '}
                           </div>
                        </div>
                     </div>
