@@ -36,7 +36,7 @@ const About = () => {
                commits[1] += 1;
             } else if (name === "ashraydesai") {
                commits[2] += 1;
-            } else if (name === "Christian Pichardo") {
+            } else if (name === "christianp-622") {
                commits[3] += 1;
             } else if (name === "Guan Lin Wee") {
                commits[4] += 1;
