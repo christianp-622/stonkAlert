@@ -15,7 +15,32 @@ import "../../node_modules/react-bootstrap-table/css/react-bootstrap-table.css";
 //stock display components
 import Stock from '../components/Stock';
 
-const stockScores = {
+
+ /* used for the filter dropdown to determine which values to show*/
+ /* the key is displayed while the value is the actual value is used to sort */
+ const displayScores = {
+    'A+': 'A+',
+    'A':'A',
+    'A-':'A-',
+    'B+':'B+',
+    'B':'B',
+    'B-':'B-',
+    'C':'C'};
+
+    
+/* used to compare two scores */
+const stockScore = {
+   'A+': 0,
+   'A': 1,
+   'A-': 2,
+   'B+': 3,
+   'B': 4,
+   'B-': 5,
+   'C': 6,
+
+}
+
+/* const stockScores = {
    0: 'A+',
    1: 'A',
    2: 'A-',
@@ -23,10 +48,21 @@ const stockScores = {
    4: 'B',
    5: 'B-',
    6: 'C',
- };
+ }; */
  
-function enumFormatter(cell, enumObject) {
+/* function enumFormatter(cell,row, enumObject) {
    return enumObject[cell];
+} */
+
+function sortByScore(a, b, order,field){
+  console.log(field);
+  let A = stockScore[a[field]];
+  let B = stockScore[b[field]];
+   if (order == 'desc'){
+      return A-B
+   } else {
+      return B-A
+   }
 }
 
 function formatFloat(cell) {
@@ -55,7 +91,7 @@ class Stocks extends React.Component {
    getStocks() {
       // const localURL = "http://stonkalert.me/api/stocks?limit=15000";
       // const localURL = "http://127.0.0.1:5000/api/stocks?limit=15000";
-      const localURL = window.location.protocol + "//" + window.location.hostname + "/api/stocks?limit=15000";
+      const localURL = window.location.protocol + "//" + window.location.hostname + ":5000/api/stocks?limit=15000";
       const pointerToThis = this;
 
       fetch(localURL)
@@ -84,6 +120,9 @@ class Stocks extends React.Component {
    }
  
    render() {
+      console.log(this.state.stocks);
+      console.log(window.location.protocol);
+      console.log(window.location.hostname);
      return (
        
       <div className="home d-flex">
@@ -114,10 +153,10 @@ class Stocks extends React.Component {
           filterFormatted>Stock Price</TableHeaderColumn>
                              <TableHeaderColumn ref='marketcap' dataField='marketcap' dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } } filter={ { type: 'NumberFilter', defaultValue: { comparator: '=' } } }>Market Cap</TableHeaderColumn>
                              <TableHeaderColumn ref='sector' dataField='sector' dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } } filter={ { type: 'TextFilter' } }>Sector</TableHeaderColumn>
-                             <TableHeaderColumn ref='tradescore' dataField='tradescore' dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } } filterFormatted dataFormat={ enumFormatter } formatExtraData={ stockScores }
-          filter={ { type: 'SelectFilter', options: stockScores } }>Trader Score</TableHeaderColumn>
-                             <TableHeaderColumn ref='investscore' dataField='investscore' dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } } filterFormatted dataFormat={ enumFormatter } formatExtraData={ stockScores }
-          filter={ { type: 'SelectFilter', options: stockScores } }>Investor Score</TableHeaderColumn>
+                             <TableHeaderColumn ref='tradescore' dataField='tradescore' dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } } filterFormatted  sortFunc={sortByScore} formatExtraData={ stockScore }
+          filter={ { type: 'SelectFilter', options: displayScores, condition:'eq' } }>Trader Score</TableHeaderColumn>
+                             <TableHeaderColumn ref='investscore' dataField='investscore' dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } } filterFormatted sortFunc={sortByScore} formatExtraData={ stockScore }
+          filter={ { type: 'SelectFilter', options: displayScores, condition:'eq' } }>Investor Score</TableHeaderColumn>
                           </BootstrapTable>
                           <Button onClick={ this.handlerClickCleanFiltered.bind(this) } variant="outline-light">Clear Filters</Button>{' '}
                           </div>
