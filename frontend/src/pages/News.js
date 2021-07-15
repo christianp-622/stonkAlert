@@ -33,7 +33,7 @@ class News extends React.Component {
    getNews() {
       // let localURL = "http://stonkalert.me/api/news?limit=15000";
       // let localURL = "http://127.0.0.1:5000/api/news?limit=15000";
-      let localURL = window.location.protocol + "//" + window.location.hostname + "/api/news?limit=15000";
+      let localURL = window.location.protocol + "//" + window.location.hostname + ":5000/api/news?limit=15000";
       let ticker = this.props.match.params.id;
       if (ticker != null && ticker != "" && isNaN(ticker)) { // if text put in news link
         localURL += "&symbol=" + ticker;
@@ -76,11 +76,11 @@ class News extends React.Component {
                                        <h4 className="m-0 h1 font-weight-bold text-light">News</h4>
                           </p>
                           <BootstrapTable data={ this.state.news } options={options} striped hover pagination version="4" search multiColumnSearch>
-                             <TableHeaderColumn dataField='headline' isKey dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } }>Title</TableHeaderColumn>
-                             <TableHeaderColumn dataField='datetime' dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } }>Date</TableHeaderColumn>
-                             <TableHeaderColumn dataField='source' dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } }>Source</TableHeaderColumn>
-                             <TableHeaderColumn dataField='ticker' dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } }>Symbol</TableHeaderColumn>
-                             <TableHeaderColumn dataField='company' dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } }>Company</TableHeaderColumn>
+                             <TableHeaderColumn dataField='headline' isKey dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } } filter={ { type: 'TextFilter' } }>Title</TableHeaderColumn>
+                             <TableHeaderColumn dataField='datetime' dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } } filter={ { type: 'TextFilter' } }>Date</TableHeaderColumn>
+                             <TableHeaderColumn dataField='source' dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } } filter={ { type: 'TextFilter' } }>Source</TableHeaderColumn>
+                             <TableHeaderColumn dataField='ticker' dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } } filter={ { type: 'TextFilter' } }>Symbol</TableHeaderColumn>
+                             <TableHeaderColumn dataField='company' dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } } filter={ { type: 'TextFilter' } }>Company</TableHeaderColumn>
                           </BootstrapTable>
                           <Button href="/news/" variant="outline-light">Refresh All News</Button>{' '}
                           </div>

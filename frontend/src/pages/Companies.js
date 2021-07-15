@@ -32,7 +32,7 @@ class Companies extends React.Component {
    getCompanies() {
       // const localURL = "http://stonkalert.me/api/companies?limit=15000";
       // const localURL = "http://127.0.0.1:5000/api/companies?limit=15000";
-      const localURL = window.location.protocol + "//" + window.location.hostname + "/api/companies?limit=15000";
+      const localURL = window.location.protocol + "//" + window.location.hostname + ":5000/api/companies?limit=15000";
       console.log(localURL)
       const pointerToThis = this;
 
@@ -70,11 +70,11 @@ class Companies extends React.Component {
                                        <h4 className="m-0 h1 font-weight-bold text-light">Companies</h4>
                           </p>
                           <BootstrapTable data={ this.state.companies } options={options} striped hover pagination version="4" search multiColumnSearch>
-                             <TableHeaderColumn dataField='name' isKey dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } }>Name</TableHeaderColumn>
-                             <TableHeaderColumn dataField='industry' dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } }>Industry</TableHeaderColumn>
-                             <TableHeaderColumn dataField='country' dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } }>Country</TableHeaderColumn>
-                             <TableHeaderColumn dataField='exchange' dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } }>Exchange</TableHeaderColumn>
-                             <TableHeaderColumn dataField='stock' dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } }>Symbol</TableHeaderColumn>
+                             <TableHeaderColumn dataField='name' isKey dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } } filter={ { type: 'TextFilter' } }>Name</TableHeaderColumn>
+                             <TableHeaderColumn dataField='industry' dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } } filter={ { type: 'TextFilter' } }>Industry</TableHeaderColumn>
+                             <TableHeaderColumn dataField='country' dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } } filter={ { type: 'TextFilter' } }>Country</TableHeaderColumn>
+                             <TableHeaderColumn dataField='exchange' dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } } filter={ { type: 'TextFilter' } }>Exchange</TableHeaderColumn>
+                             <TableHeaderColumn dataField='stock' dataSort={ true } thStyle={ { color: 'white' } } tdStyle={ { color: 'white' } } filter={ { type: 'TextFilter' } }>Symbol</TableHeaderColumn>
                           </BootstrapTable>
                           </div>
                        </div>
