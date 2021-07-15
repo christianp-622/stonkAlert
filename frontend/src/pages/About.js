@@ -223,6 +223,7 @@ const About = () => {
                                     <ListGroupItem className = "listgroup" action href="https://gitlab.com/albertchokor/cs373-idb/-/wikis/Initial-Report" rel="noopener noreferrer" target="_blank">Gitlab Wiki</ListGroupItem>
                                     <ListGroupItem className = "listgroup" action href="https://gitlab.com/albertchokor/cs373-idb/-/issues" rel="noopener noreferrer" target="_blank">Gitlab Issue Tracker</ListGroupItem>
                                     <ListGroupItem className = "listgroup" action href="https://documenter.getpostman.com/view/16352153/TzecCkJB" rel="noopener noreferrer" target="_blank">Postman</ListGroupItem>
+                                    <ListGroupItem className = "listgroup" action href="https://speakerdeck.com/" rel="noopener noreferrer" target="_blank">Speaker Deck Presentation</ListGroupItem>
                                  </ListGroup>
                                  <Card.Body><Card.Title>Tools</Card.Title></Card.Body>
                                  <ListGroup text = "white" className="list-group-flush listgroup">
