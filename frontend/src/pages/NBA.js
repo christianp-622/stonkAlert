@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import Sidebar from '../components/Sidebar';
 import '../App.css';
 import PlayerDistributions from '../components/PlayerDistributions';
+import TeamsGraph from '../components/TeamsGraph'
 
 class NBA extends React.Component {
    render() {
@@ -22,6 +23,7 @@ class NBA extends React.Component {
                               <h4 className="m-0 h1 font-weight-bold text-light">NBA</h4>
                            </p>
                            <PlayerDistributions></PlayerDistributions>
+                           <TeamsGraph></TeamsGraph>
                            </div>
                         </div>
                      </div>
