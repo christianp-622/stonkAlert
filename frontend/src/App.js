@@ -14,6 +14,7 @@ import News from './pages/News'
 import Article_Page from './components/Article_Page'
 import Companies from './pages/Companies'
 import Company_Page from './components/Company_Page'
+import Search from './pages/Search'
 
 function App() {
   return (
@@ -29,6 +30,8 @@ function App() {
             <Route path="/news/:id" component={News}/>
             <Route path="/article/:id" component={Article_Page}/>
             <Route path="/NBA" component={NBA} exact/>
+            <Route path="/search/:input" component={Search} exact/>
+            <Route path="/search" component={Home}/>
           </Switch>
     </Router>
   );
