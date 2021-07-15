@@ -10,9 +10,12 @@ import {
     Legend,
     CartesianGrid,
     Bar,
+    ResponsiveContainer,
+    Cell
 } from 'recharts';
 import Spinner from 'react-bootstrap/Spinner'
-// import playerData from '../players.json'
+
+const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#800080", "#FF0000"];
 
 class PlayerDistributions extends React.Component {
     constructor(props) {
@@ -30,16 +33,6 @@ class PlayerDistributions extends React.Component {
         const pointerToThis = this;
 
         let API_Call = `https://nbatoday.xyz/api/players?page=1&per_page=550`;
-
-        // fetch(API_Call)
-        //     .then(
-        //         function (response) {
-        //             return response.json();
-        //         }
-        //     )
-        //     .then(
-        //         function (data) {
-        // list of dicts of players in average scoring range
 
         fetch(API_Call)
             .then(
@@ -83,8 +76,6 @@ class PlayerDistributions extends React.Component {
                     pointerToThis.setState({
                         distributions: dist
                     });
-                    // }
-                    // )
                 }
             )
     }
@@ -97,46 +88,51 @@ class PlayerDistributions extends React.Component {
         </div>;
         if (typeof dists != "undefined" && dists != null && dists.length != null && dists.length > 0) {
             console.log(dists);
-            graphs = <div style={{ textAlign: "center" }}>
-                <div>
-                    <PieChart width={400} height={400}>
-                        <Pie
-                            dataKey="players"
-                            isAnimationActive={false}
-                            data={dists}
-                            cx={200}
-                            cy={200}
-                            outerRadius={80}
-                            fill="#8884d8"
-                            label
-                        />
-                        <Tooltip />
-                    </PieChart>
-                    <BarChart
-                        width={500}
-                        height={300}
+            graphs = <ResponsiveContainer width="100%" height="100%">
+                <PieChart width={400} height={400}>
+                    <Pie
+                        dataKey="players"
+                        isAnimationActive={false}
                         data={dists}
-                        margin={{
-                            top: 5,
-                            right: 30,
-                            left: 80,
-                            bottom: 5,
-                        }}
-                        barSize={20}
-                    >
-                        <XAxis
-                            dataKey="name"
-                            scale="point"
-                            padding={{ left: 10, right: 10 }}
-                        />
-                        <YAxis />
-                        <Tooltip />
-                        <Legend />
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <Bar dataKey="players" fill="#8884d8" background={{ fill: "#eee" }} />
-                    </BarChart>
-                </div>
-            </div>
+                        cx={200}
+                        cy={200}
+                        outerRadius={80}
+                        fill="#8884d8"
+                        label
+                    />
+                    {dists.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                    <Tooltip />
+                </PieChart>
+                <BarChart
+                    width={500}
+                    height={300}
+                    data={dists}
+                    margin={{
+                        top: 5,
+                        right: 30,
+                        left: 80,
+                        bottom: 5,
+                    }}
+                    barSize={20}
+                >
+                    <XAxis
+                        dataKey="name"
+                        scale="point"
+                        padding={{ left: 10, right: 10 }}
+                    />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <Bar dataKey="players" fill="#8884d8">
+                        {dists.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                        ))}
+                    </Bar>
+                </BarChart>
+            </ResponsiveContainer>
         }
         return (
             graphs
