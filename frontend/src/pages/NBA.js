@@ -21,6 +21,7 @@ class NBA extends React.Component {
                            <p className="my-4 text-center text-light"> 
                               <h4 className="m-0 h1 font-weight-bold text-light">NBA</h4>
                            </p>
+                           <PlayerDistributions></PlayerDistributions>
                            </div>
                         </div>
                      </div>
