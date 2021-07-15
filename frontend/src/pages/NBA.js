@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import Sidebar from '../components/Sidebar';
 import '../App.css';
+import PlayerDistributions from '../components/PlayerDistributions';
 
 class NBA extends React.Component {
    render() {

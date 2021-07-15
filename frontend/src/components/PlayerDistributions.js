@@ -12,6 +12,7 @@ import {
     Bar,
 } from 'recharts';
 import Spinner from 'react-bootstrap/Spinner'
+// import playerData from '../players.json'
 
 class PlayerDistributions extends React.Component {
     constructor(props) {
@@ -19,7 +20,6 @@ class PlayerDistributions extends React.Component {
         this.state = {
             distributions: [],
         }
-        this.getScores = this.getScores.bind(this);
     }
 
     componentDidMount() {
@@ -31,49 +31,60 @@ class PlayerDistributions extends React.Component {
 
         let API_Call = `https://nbatoday.xyz/api/players?page=1&per_page=550`;
 
+        // fetch(API_Call)
+        //     .then(
+        //         function (response) {
+        //             return response.json();
+        //         }
+        //     )
+        //     .then(
+        //         function (data) {
+        // list of dicts of players in average scoring range
+
         fetch(API_Call)
             .then(
                 function (response) {
                     return response.json();
+
                 }
             )
             .then(
                 function (data) {
-                    // list of dicts of players in average scoring range
-                    dist = [{ range: "0 to 5 points", players: 0 }, { range: "5 to 10 points", players: 0 }, { range: "10 to 15 points", players: 0 }, { range: "15 to 20 points", players: 0 }, { range: "20 to 25 points", players: 0 }, { range: "25 to 30 points", players: 0 }];
-
+                    console.log(data);
                     // gets number of players in each scoring range
+                    let dist = [{ name: "0 to 5 points", players: 0 }, { name: "5 to 10 points", players: 0 }, { name: "10 to 15 points", players: 0 }, { name: "15 to 20 points", players: 0 }, { name: "20 to 25 points", players: 0 }, { name: "25 to 30 points", players: 0 }];
                     let i = 0;
-                    for (; i < data.length; i++) {
-                        if (data[i]['average_points_per_game'] < 5) {
+                    for (; i < data['data'].length; i++) {
+                        console.log(i);
+                        if (data['data'][i]['average_points_per_game'] < 5) {
                             dist[0]['players']++;
                         }
 
-                        else if (data[i]['average_points_per_game'] < 10) {
+                        else if (data['data'][i]['average_points_per_game'] < 10) {
                             dist[1]['players']++;
                         }
 
-                        else if (data[i]['average_points_per_game'] < 15) {
+                        else if (data['data'][i]['average_points_per_game'] < 15) {
                             dist[2]['players']++;
                         }
 
-                        else if (data[i]['average_points_per_game'] < 20) {
+                        else if (data['data'][i]['average_points_per_game'] < 20) {
                             dist[3]['players']++;
                         }
 
-                        else if (data[i]['average_points_per_game'] < 25) {
+                        else if (data['data'][i]['average_points_per_game'] < 25) {
                             dist[4]['players']++;
                         }
 
                         else {
                             dist[5]['players']++;
                         }
-
                     }
-
                     pointerToThis.setState({
                         distributions: dist
                     });
+                    // }
+                    // )
                 }
             )
     }
@@ -85,13 +96,14 @@ class PlayerDistributions extends React.Component {
         </Spinner>
         </div>;
         if (typeof dists != "undefined" && dists != null && dists.length != null && dists.length > 0) {
+            console.log(dists);
             graphs = <div style={{ textAlign: "center" }}>
                 <div>
                     <PieChart width={400} height={400}>
                         <Pie
                             dataKey="players"
                             isAnimationActive={false}
-                            data={this.state.distributions}
+                            data={dists}
                             cx={200}
                             cy={200}
                             outerRadius={80}
@@ -103,7 +115,7 @@ class PlayerDistributions extends React.Component {
                     <BarChart
                         width={500}
                         height={300}
-                        data={this.state.distributions}
+                        data={dists}
                         margin={{
                             top: 5,
                             right: 30,
@@ -113,7 +125,7 @@ class PlayerDistributions extends React.Component {
                         barSize={20}
                     >
                         <XAxis
-                            dataKey="range"
+                            dataKey="name"
                             scale="point"
                             padding={{ left: 10, right: 10 }}
                         />
@@ -127,7 +139,7 @@ class PlayerDistributions extends React.Component {
             </div>
         }
         return (
-            {graphs}
+            graphs
         )
     }
 }
