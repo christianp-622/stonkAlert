@@ -39,8 +39,20 @@ class News extends React.Component {
       }	
    }
 
+   componentWillUnmount() {
+      clearInterval(this.interval);
+   }
+
    componentDidMount() {
       this.getNews();
+   }
+
+   doSearch(text) {
+      var instance = new Mark(document.querySelectorAll("tbody"));
+      instance.unmark(text); // clears old text edge case
+      instance.mark(text);
+      console.log(instance);
+      this.state.search = text;
    }
 
    getNews() {
