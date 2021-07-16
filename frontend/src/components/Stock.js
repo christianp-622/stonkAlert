@@ -1,5 +1,6 @@
 import React from 'react';
 import Plot from 'react-plotly.js';
+import Spinner from 'react-bootstrap/Spinner'
 
 class Stock extends React.Component {
   constructor(props) {
@@ -21,7 +22,7 @@ class Stock extends React.Component {
     //get rid of key sometime from code
     let stock = this.props.ticker;
     //http://www.styvio.com/api/${stock}
-    let API_Call  = `https://arcane-springs-49957.herokuapp.com/http://www.styvio.com/api/${stock}`;
+    let API_Call = `https://arcane-springs-49957.herokuapp.com/http://www.styvio.com/api/${stock}`;
     let stockXFunction = [];
     let stockYFunction = [];
 
@@ -36,15 +37,15 @@ class Stock extends React.Component {
           console.log("data");
           console.log(data);
           let yearlyPrices = data['yearlyPrices'];
-          let i =0;
-          for (; i< yearlyPrices.length;i++) {
+          let i = 0;
+          for (; i < yearlyPrices.length; i++) {
             if (yearlyPrices.length - 1 - i == 0) // if statements to put how many days ago since styvio doesn't provide dates
               stockXFunction.push("Today");
             else if (yearlyPrices.length - 1 - i == 1)
               stockXFunction.push("1 Day Ago");
             else
               stockXFunction.push((yearlyPrices.length - 1 - i) + " Days Ago");
-            stockYFunction.push(yearlyPrices[i]); 
+            stockYFunction.push(yearlyPrices[i]);
           }
 
           pointerToThis.setState({
@@ -61,8 +62,13 @@ class Stock extends React.Component {
     let g = Math.floor(Math.random() * 256)
     let b = Math.floor(Math.random() * 256)
     let randomColor = "rgb(" + r + "," + g + "," + b + ")"
-    return (
-      <div>
+    let stockX = this.state.stockX;
+    let stockY = this.state.stockY;
+    let graph = <Spinner animation="border" role="status">
+      <span className="sr-only">Loading...</span>
+    </Spinner>;
+    if (typeof stockX != "undefined" && stockX != null && stockX.length != null && stockX.length > 0 && typeof stockY != "undefined" && stockY != null && stockY.length != null && stockY.length > 0) {
+      graph = <div style={{ margin: "10px auto" }}>
         <Plot
           data={[
             {
@@ -76,13 +82,16 @@ class Stock extends React.Component {
           config={{ responsive: true }}
           layout={{
             width: "1000", height: "440", title: this.props.ticker, plot_bgcolor: "rgba(0,0,0,0)",
-            paper_bgcolor: "rgba(0,0,0,0)",  "yaxis": {"title":'$USD', "gridcolor": "rgba(0,0,0,0)"},
-            "xaxis": { "title":'Days Ago', "gridcolor": "rgba(0,0,0,0)", "tickvals": [ "250 Days Ago", "200 Days Ago", "150 Days Ago", "100 Days Ago", "50 Days Ago", "Today", ]}, font: { color: '#ffffff' }, autosize: true,
+            paper_bgcolor: "rgba(0,0,0,0)", "yaxis": { "title": '$USD', "gridcolor": "rgba(0,0,0,0)" },
+            "xaxis": { "title": 'Days Ago', "gridcolor": "rgba(0,0,0,0)", "tickvals": ["250 Days Ago", "200 Days Ago", "150 Days Ago", "100 Days Ago", "50 Days Ago", "Today",] }, font: { color: '#ffffff' }, autosize: true,
           }}
           useResizeHandler={true}
           style={{ width: "100%", height: "100%" }}
         />
-      </div>
+      </div>;
+    }
+    return (
+      graph
     )
   }
 }

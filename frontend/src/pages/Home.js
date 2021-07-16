@@ -80,7 +80,7 @@ class Home extends React.Component {
                               <div className="ml-auto rounded-circle bg-white py-1 px-2"><i className="fas fa-chart-line"></i></div>
                            </div>
                            <div className="d-flex mt-4">
-
+                           <div style={{ margin: "10px auto" }}>
                               <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                                  <div class="carousel-indicators">
                                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -107,7 +107,7 @@ class Home extends React.Component {
                                     <span class="visually-hidden">Next</span>
                                  </button>
                               </div>
-
+                              </div>
                               <div>
 
                               </div>
