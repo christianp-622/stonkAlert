@@ -7,6 +7,7 @@ import '../stock.css';
 import { NavLink, Redirect } from 'react-router-dom';
 import StockCard from '../components/StockCard'
 import Button from 'react-bootstrap/Button'
+import Mark from 'mark.js'
 
 /*Table components */
 import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
