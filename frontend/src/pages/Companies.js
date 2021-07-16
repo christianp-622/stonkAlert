@@ -12,6 +12,7 @@ import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
 import "../../node_modules/react-bootstrap-table/css/react-bootstrap-table.css";
 import Spinner from 'react-bootstrap/Spinner'
 import Button from 'react-bootstrap/Button'
+import Mark from 'mark.js'
 
 function getCaret(direction) {
    if (direction === 'asc') {
@@ -33,12 +34,24 @@ class Companies extends React.Component {
    constructor(props) {
       super(props);
       this.state = {
-         companies: []
+         companies: [],
+         search: ""
       }
    }
 
    componentDidMount() {
       this.getCompanies();
+   }
+
+   componentWillUnmount() {
+      clearInterval(this.interval);
+   }
+
+   doSearch(text) {
+      var instance = new Mark(document.querySelectorAll("tbody"));
+      instance.unmark(text); // clears old text edge case
+      instance.mark(text);
+      this.state.search = text;
    }
 
    getCompanies() {
@@ -93,7 +106,7 @@ class Companies extends React.Component {
       </Spinner>
       </div>;
       if (typeof companies != "undefined" && companies != null && companies.length != null && companies.length > 0) {
-         companyTable = <BootstrapTable data={companies} options={options} striped hover pagination version="4" search multiColumnSearch>
+         companyTable = <BootstrapTable data={companies} options={options} striped hover pagination version="4" search searchPlaceholder='Multi-Word and Column Search' multiColumnSearch>
             <TableHeaderColumn ref='name' dataField='name' caretRender={getCaret} isKey dataSort={true} thStyle={{ color: 'white', whiteSpace: 'normal' }} tdStyle={{ color: 'white', whiteSpace: 'normal' }} filter={{ type: 'TextFilter', placeholder: "Enter" }}>Name</TableHeaderColumn>
             <TableHeaderColumn ref='industry' dataField='industry' caretRender={getCaret} dataSort={true} thStyle={{ color: 'white', whiteSpace: 'normal' }} tdStyle={{ color: 'white', whiteSpace: 'normal' }} filter={{ type: 'TextFilter', placeholder: "Enter" }}>Industry</TableHeaderColumn>
             <TableHeaderColumn ref='country' dataField='country' caretRender={getCaret} dataSort={true} thStyle={{ color: 'white', whiteSpace: 'normal' }} tdStyle={{ color: 'white', whiteSpace: 'normal' }} filter={{ type: 'TextFilter', placeholder: "Enter" }}>Country</TableHeaderColumn>
