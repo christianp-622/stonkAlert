@@ -98,6 +98,17 @@ class Stocks extends React.Component {
       this.getStocks();
    }
 
+   componentWillUnmount() {	
+      clearInterval(this.interval);	
+   }	
+   doSearch(text) {	
+      var instance = new Mark(document.querySelectorAll("tbody"));	
+      instance.unmark(text); // clears old text edge case	
+      instance.mark(text);	
+      console.log(instance);	
+      this.state.search = text;	
+   }
+
    getStocks() {
       const localURL = "https://stonkalert.me/api/stocks?limit=15000";
       // const localURL = "http://127.0.0.1:5000/api/stocks?limit=15000";
