@@ -25,7 +25,8 @@ class PlayerDistributions extends React.Component {
       super(props);
       this.state = {
          distributions: [],
-         topThree: []
+         topThree: [],
+         total: 0
       }
    }
 
@@ -90,7 +91,8 @@ class PlayerDistributions extends React.Component {
                }
                pointerToThis.setState({
                   distributions: dist,
-                  topThree: top
+                  topThree: top,
+                  total: i
                });
             }
          )
@@ -138,9 +140,12 @@ class PlayerDistributions extends React.Component {
                   </Card>
                </CardDeck>
             </div>
-            <h4 className="m-0 font-weight-bold text-center text-light">Average Scoring Ranges of All Players</h4>
+            <h4 className="m-0 font-weight-bold text-center text-light">Average Scoring Ranges of All {this.state.total} Players</h4>
             <p className="my-4 text-center text-light">
                Displays the distribution of the number of players in each average scoring range per game (from 0 to 30 pts).
+            </p>
+            <p className="my-4 text-center text-light">
+               Hover over graphs for more information!
             </p>
             <div>
                <ResponsiveContainer width="100%" height={400}>

@@ -155,16 +155,16 @@ class Stocks extends React.Component {
       </div>;
       if (typeof stocks != "undefined" && stocks != null && stocks.length != null && stocks.length > 0) {
          stockTable = <BootstrapTable data={this.state.stocks} options={options} striped hover pagination version="4" search searchPlaceholder='General Search' multiColumnSearch>
-            <TableHeaderColumn ref='ticker' dataField='ticker' isKey caretRender={getCaret} dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }} filter={{ type: 'TextFilter' }}>Ticker</TableHeaderColumn>
-            <TableHeaderColumn ref='price' dataField='price' caretRender={getCaret} dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }} filter={{ type: 'NumberFilter', defaultValue: { comparator: '=' } }}
+            <TableHeaderColumn ref='ticker' dataField='ticker' isKey caretRender={getCaret} dataSort={true} thStyle={{ color: 'white', whiteSpace: 'normal' }} tdStyle={{ color: 'white', whiteSpace: 'normal' }} filter={{ type: 'TextFilter', placeholder: "Enter" }}>Ticker</TableHeaderColumn>
+            <TableHeaderColumn ref='price' dataField='price' caretRender={getCaret} dataSort={true} thStyle={{ color: 'white', whiteSpace: 'normal' }} tdStyle={{ color: 'white', whiteSpace: 'normal' }} filter={{ type: 'NumberFilter', defaultValue: { comparator: '=' }, placeholder: "Enter" }}
                dataFormat={formatFloat}
                filterFormatted>Stock Price</TableHeaderColumn>
-            <TableHeaderColumn ref='marketcap' caretRender={getCaret} dataField='marketcap' dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }} filter={{ type: 'NumberFilter', defaultValue: { comparator: '=' } }}>Market Cap</TableHeaderColumn>
-            <TableHeaderColumn ref='sector' caretRender={getCaret} dataField='sector' dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }} filter={{ type: 'TextFilter' }}>Sector</TableHeaderColumn>
-            <TableHeaderColumn ref='tradescore' caretRender={getCaret} dataField='tradescore' dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }} filterFormatted sortFunc={sortByScore} formatExtraData={stockScore}
-               filter={{ type: 'SelectFilter', options: displayScores, condition: 'eq' }}>Trader Score</TableHeaderColumn>
-            <TableHeaderColumn ref='investscore' caretRender={getCaret} dataField='investscore' dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }} filterFormatted sortFunc={sortByScore} formatExtraData={stockScore}
-               filter={{ type: 'SelectFilter', options: displayScores, condition: 'eq' }}>Investor Score</TableHeaderColumn>
+            <TableHeaderColumn ref='marketcap' caretRender={getCaret} dataField='marketcap' dataSort={true} thStyle={{ color: 'white', whiteSpace: 'normal' }} tdStyle={{ color: 'white', whiteSpace: 'normal' }} filter={{ type: 'NumberFilter', defaultValue: { comparator: '=' }, placeholder: "Enter" }}>Market Cap</TableHeaderColumn>
+            <TableHeaderColumn ref='sector' caretRender={getCaret} dataField='sector' dataSort={true} thStyle={{ color: 'white', whiteSpace: 'normal' }} tdStyle={{ color: 'white', whiteSpace: 'normal' }} filter={{ type: 'TextFilter', placeholder: "Enter" }}>Sector</TableHeaderColumn>
+            <TableHeaderColumn ref='tradescore' caretRender={getCaret} dataField='tradescore' dataSort={true} thStyle={{ color: 'white', whiteSpace: 'normal' }} tdStyle={{ color: 'white', whiteSpace: 'normal' }} filterFormatted sortFunc={sortByScore} formatExtraData={stockScore}
+               filter={{ type: 'SelectFilter', options: displayScores, condition: 'eq', placeholder: "Select" }}>Trader Score</TableHeaderColumn>
+            <TableHeaderColumn ref='investscore' caretRender={getCaret} dataField='investscore' dataSort={true} thStyle={{ color: 'white', whiteSpace: 'normal' }} tdStyle={{ color: 'white', whiteSpace: 'normal' }} filterFormatted sortFunc={sortByScore} formatExtraData={stockScore}
+               filter={{ type: 'SelectFilter', options: displayScores, condition: 'eq', placeholder: "Select" }}>Investor Score</TableHeaderColumn>
          </BootstrapTable>;
       }
       return (

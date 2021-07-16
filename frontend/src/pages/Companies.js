@@ -94,11 +94,11 @@ class Companies extends React.Component {
       </div>;
       if (typeof companies != "undefined" && companies != null && companies.length != null && companies.length > 0) {
          companyTable = <BootstrapTable data={companies} options={options} striped hover pagination version="4" search multiColumnSearch>
-            <TableHeaderColumn ref='name' dataField='name' caretRender={getCaret} isKey dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }} filter={{ type: 'TextFilter' }}>Name</TableHeaderColumn>
-            <TableHeaderColumn ref='industry' dataField='industry' caretRender={getCaret} dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }} filter={{ type: 'TextFilter' }}>Industry</TableHeaderColumn>
-            <TableHeaderColumn ref='country' dataField='country' caretRender={getCaret} dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }} filter={{ type: 'TextFilter' }}>Country</TableHeaderColumn>
-            <TableHeaderColumn ref='exchange' dataField='exchange' caretRender={getCaret} dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }} filter={{ type: 'TextFilter' }}>Exchange</TableHeaderColumn>
-            <TableHeaderColumn ref='stock' dataField='stock' caretRender={getCaret} dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }} filter={{ type: 'TextFilter' }}>Symbol</TableHeaderColumn>
+            <TableHeaderColumn ref='name' dataField='name' caretRender={getCaret} isKey dataSort={true} thStyle={{ color: 'white', whiteSpace: 'normal' }} tdStyle={{ color: 'white', whiteSpace: 'normal' }} filter={{ type: 'TextFilter', placeholder: "Enter" }}>Name</TableHeaderColumn>
+            <TableHeaderColumn ref='industry' dataField='industry' caretRender={getCaret} dataSort={true} thStyle={{ color: 'white', whiteSpace: 'normal' }} tdStyle={{ color: 'white', whiteSpace: 'normal' }} filter={{ type: 'TextFilter', placeholder: "Enter" }}>Industry</TableHeaderColumn>
+            <TableHeaderColumn ref='country' dataField='country' caretRender={getCaret} dataSort={true} thStyle={{ color: 'white', whiteSpace: 'normal' }} tdStyle={{ color: 'white', whiteSpace: 'normal' }} filter={{ type: 'TextFilter', placeholder: "Enter" }}>Country</TableHeaderColumn>
+            <TableHeaderColumn ref='exchange' dataField='exchange' caretRender={getCaret} dataSort={true} thStyle={{ color: 'white', whiteSpace: 'normal' }} tdStyle={{ color: 'white', whiteSpace: 'normal' }} filter={{ type: 'TextFilter', placeholder: "Enter" }}>Exchange</TableHeaderColumn>
+            <TableHeaderColumn ref='stock' dataField='stock' caretRender={getCaret} dataSort={true} thStyle={{ color: 'white', whiteSpace: 'normal' }} tdStyle={{ color: 'white', whiteSpace: 'normal' }} filter={{ type: 'TextFilter', placeholder: "Enter" }}>Symbol</TableHeaderColumn>
          </BootstrapTable>;
       }
       return (

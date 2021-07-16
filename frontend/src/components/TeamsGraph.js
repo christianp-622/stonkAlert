@@ -93,6 +93,9 @@ class TeamsGraph extends React.Component {
             <p className="my-4 text-center text-light">
                Displays the the win/loss ratio per team (from 0 to 1).
             </p>
+            <p className="my-4 text-center text-light">
+               Hover over graph for more information!
+            </p>
             <div>
                <ResponsiveContainer width="100%" height={500}>
                   <BarChart width={1500} height={500} data={teams} >
