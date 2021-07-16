@@ -71,12 +71,9 @@ class Search extends React.Component {
         let callback = (mutationsList, observer) => {
             //this.doSearch(this.state.search);
             mutationsList.forEach((mutation) => {
-                console.log("---------");
-                console.log(mutation.target);
                 switch (mutation.type) {
                     case 'childList':
                         this.doSearch(this.state.search);
-                        //mutation.target.style.backgroundColor = 'red';
                         break;
                     case 'attributes':
                         this.doSearch(this.state.search);

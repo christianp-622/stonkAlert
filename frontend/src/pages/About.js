@@ -177,7 +177,7 @@ const About = () => {
                                  <ListGroup className="list-group-flush">
                                        <ListGroupItem>Unit Tests</ListGroupItem>
                                        <ListGroupItem>Models, DB, API Calls, Postman</ListGroupItem>
-                                       <ListGroupItem><Button href="/api/tests" variant="outline-dark">Run All Tests</Button>{' '}</ListGroupItem>
+                                       <ListGroupItem><Button href="/api/tests" variant="outline-dark">Run All Tests (~10 sec)</Button>{' '}</ListGroupItem>
                                  </ListGroup>
                               </Card>
                               <Card classname = "card" text = "white">
