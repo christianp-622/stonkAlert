@@ -39,16 +39,6 @@ class GamesGraph extends React.Component {
 
       let API_Call = `https://nbatoday.xyz/api/games?sort_by=date&sort_order=descending&per_page=45`;
 
-      // fetch(API_Call)
-      //     .then(
-      //         function (response) {
-      //             return response.json();
-      //         }
-      //     )
-      //     .then(
-      //         function (data) {
-      // list of dicts of players in average scoring range
-
       fetch(API_Call)
          .then(
             function (response) {
@@ -67,7 +57,7 @@ class GamesGraph extends React.Component {
                   console.log(data);
                }
 
-               gameData.sort((a, b) => (a.date > b.date) ? 1 : -1);
+               gameData.sort((a, b) => (a.date < b.date) ? 1 : -1);
                pointerToThis.setState({
                   games: gameData
                });

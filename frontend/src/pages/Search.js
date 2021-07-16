@@ -10,6 +10,7 @@ import { NavLink, Redirect } from 'react-router-dom';
 import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
 import "../../node_modules/react-bootstrap-table/css/react-bootstrap-table.css";
 import Spinner from 'react-bootstrap/Spinner'
+import Mark from 'mark.js'
 
 function getCaret(direction) {
     if (direction === 'asc') {
@@ -59,21 +60,45 @@ class Search extends React.Component {
             stocks: [],
             news: []
         }
+        this.results = React.createRef();
     }
 
     componentDidMount() {
-        this.getSearch();
         this.getStocks();
         this.getCompanies();
         this.getNews();
+        this.interval = setInterval(() => this.doSearch(this.state.search), 1000);
+        let callback = (mutationsList, observer) => {
+            //this.doSearch(this.state.search);
+            mutationsList.forEach((mutation) => {
+                console.log("---------");
+                console.log(mutation.target);
+                switch (mutation.type) {
+                    case 'childList':
+                        this.doSearch(this.state.search);
+                        //mutation.target.style.backgroundColor = 'red';
+                        break;
+                    case 'attributes':
+                        this.doSearch(this.state.search);
+                        break;
+                }
+            });
+        };
+        let observer = new MutationObserver(callback);
+        observer.observe(this.results.current, { characterData: true, attributes: true, childList: true, subtree: false });
     }
 
-    getSearch() {
-        const input = this.props.match.params.input;
-        const pointerToThis = this;
-        pointerToThis.setState({
-            search: input
-        });
+    componentWillUnmount() {
+        clearInterval(this.interval);
+    }
+
+    doSearch(text) {
+        console.log(text);
+        //var instance = new Mark(document.querySelectorAll("td"));
+        var instance = new Mark(document.querySelectorAll("tbody"));
+        instance.unmark(text); // clears old text edge case
+        console.log(instance);
+        instance.mark(text);
     }
 
     getNews() {
@@ -89,7 +114,8 @@ class Search extends React.Component {
                 function (data) {
                     console.log(data);
                     pointerToThis.setState({
-                        news: data
+                        news: data,
+                        search: pointerToThis.props.match.params.input
                     });
                 }
             )
@@ -108,7 +134,8 @@ class Search extends React.Component {
                 function (data) {
                     console.log(data);
                     pointerToThis.setState({
-                        stocks: data
+                        stocks: data,
+                        search: pointerToThis.props.match.params.input
                     });
                 }
             )
@@ -127,7 +154,8 @@ class Search extends React.Component {
                 function (data) {
                     console.log(data);
                     pointerToThis.setState({
-                        companies: data
+                        companies: data,
+                        search: pointerToThis.props.match.params.input
                     });
                 }
             )
@@ -141,8 +169,34 @@ class Search extends React.Component {
         );
     }
 
+    onSearchChange = (searchText, colInfos, multiColumnSearch) => {
+        this.doSearch(searchText);
+    }
+
+    afterSearch = (searchText, result) => {
+        this.doSearch(searchText);
+    }
+
+    onSortChange = (sortName, sortOrder) => {
+        if (this.state.search && this.state.search != "") {
+            console.log(this.state.search);
+            this.doSearch(this.state.search);
+        }
+    }
+
+    onPageChange = (page, sizePerPage) => {
+        if (this.state.search && this.state.search != "") {
+            console.log(this.state.search);
+            this.doSearch(this.state.search);
+        }
+    }
+
     render() {
         const optionsStocks = {
+            onSearchChange: this.onSearchChange,
+            afterSearch: this.afterSearch,
+            onSortChange: this.onSortChange,
+            onPageChange: this.onPageChange,
             paginationShowsTotal: this.renderTotal,
             defaultSearch: this.state.search,
             onRowClick: function (row) {
@@ -151,6 +205,10 @@ class Search extends React.Component {
         };
 
         const optionsNews = {
+            onSearchChange: this.onSearchChange,
+            afterSearch: this.afterSearch,
+            onSortChange: this.onSortChange,
+            onPageChange: this.onPageChange,
             paginationShowsTotal: this.renderTotal,
             defaultSearch: this.state.search,
             onRowClick: function (row) {
@@ -159,6 +217,10 @@ class Search extends React.Component {
         };
 
         const optionsCompanies = {
+            onSearchChange: this.onSearchChange,
+            afterSearch: this.afterSearch,
+            onSortChange: this.onSortChange,
+            onPageChange: this.onPageChange,
             paginationShowsTotal: this.renderTotal,
             defaultSearch: this.state.search,
             onRowClick: function (row) {
@@ -183,8 +245,10 @@ class Search extends React.Component {
         </Spinner>
         </div>;
 
+        let input = this.state.search;
+
         if (typeof stocks != "undefined" && stocks != null && stocks.length != null && stocks.length > 0) {
-            stockTable = <BootstrapTable data={stocks} options={optionsStocks} striped hover pagination version="4">
+            stockTable = <BootstrapTable data={stocks} options={optionsStocks} striped hover pagination version="4" multiColumnSearch>
                 <TableHeaderColumn caretRender={getCaret} ref='ticker' dataField='ticker' isKey dataSort={true} thStyle={{ color: 'white', whiteSpace: 'normal' }} tdStyle={{ color: 'white', whiteSpace: 'normal' }}>Ticker</TableHeaderColumn>
                 <TableHeaderColumn caretRender={getCaret} ref='price' dataField='price' dataSort={true} thStyle={{ color: 'white', whiteSpace: 'normal' }} tdStyle={{ color: 'white', whiteSpace: 'normal' }}>Stock Price</TableHeaderColumn>
                 <TableHeaderColumn caretRender={getCaret} ref='marketcap' dataField='marketcap' dataSort={true} thStyle={{ color: 'white', whiteSpace: 'normal' }} tdStyle={{ color: 'white', whiteSpace: 'normal' }}>Market Cap</TableHeaderColumn>
@@ -194,7 +258,7 @@ class Search extends React.Component {
             </BootstrapTable>;
         }
         if (typeof companies != "undefined" && companies != null && companies.length != null && companies.length > 0) {
-            companyTable = <BootstrapTable data={companies} options={optionsCompanies} striped hover pagination version="4">
+            companyTable = <BootstrapTable data={companies} options={optionsCompanies} striped hover pagination version="4" multiColumnSearch>
                 <TableHeaderColumn caretRender={getCaret} dataField='name' isKey dataSort={true} thStyle={{ color: 'white', whiteSpace: 'normal' }} tdStyle={{ color: 'white', whiteSpace: 'normal' }}>Name</TableHeaderColumn>
                 <TableHeaderColumn caretRender={getCaret} dataField='industry' dataSort={true} thStyle={{ color: 'white', whiteSpace: 'normal' }} tdStyle={{ color: 'white', whiteSpace: 'normal' }}>Industry</TableHeaderColumn>
                 <TableHeaderColumn caretRender={getCaret} dataField='country' dataSort={true} thStyle={{ color: 'white', whiteSpace: 'normal' }} tdStyle={{ color: 'white', whiteSpace: 'normal' }}>Country</TableHeaderColumn>
@@ -203,7 +267,7 @@ class Search extends React.Component {
             </BootstrapTable>;
         }
         if (typeof news != "undefined" && news != null && news.length != null && news.length > 0) {
-            articleTable = <BootstrapTable data={news} options={optionsNews} striped hover pagination version="4">
+            articleTable = <BootstrapTable data={news} options={optionsNews} striped hover pagination version="4" multiColumnSearch>
                 <TableHeaderColumn caretRender={getCaret} dataField='headline' isKey dataSort={true} thStyle={{ color: 'white', whiteSpace: 'normal' }} tdStyle={{ color: 'white', whiteSpace: 'normal' }}>Title</TableHeaderColumn>
                 <TableHeaderColumn caretRender={getCaret} dataField='datetime' dataSort={true} thStyle={{ color: 'white', whiteSpace: 'normal' }} tdStyle={{ color: 'white', whiteSpace: 'normal' }}>Date</TableHeaderColumn>
                 <TableHeaderColumn caretRender={getCaret} dataField='source' dataSort={true} thStyle={{ color: 'white', whiteSpace: 'normal' }} tdStyle={{ color: 'white', whiteSpace: 'normal' }}>Source</TableHeaderColumn>
@@ -212,7 +276,6 @@ class Search extends React.Component {
             </BootstrapTable>;
         }
 
-        let input = this.state.search;
         return (
 
             <div className="home d-flex">
@@ -225,7 +288,7 @@ class Search extends React.Component {
                             <div className="d-flex card-section">
                                 <div className="stock-container">
                                     <div className="card-bg w-100 border d-flex flex-column">
-                                        <div className="p-4 d-flex flex-column h-100">
+                                        <div className="p-4 d-flex flex-column h-100" ref={this.results}>
                                             <p className="my-4 text-center text-light">
                                                 <h4 className="m-0 h1 font-weight-bold text-light">Stonk Alert Search</h4>
                                             </p>

@@ -140,6 +140,7 @@ class PlayerDistributions extends React.Component {
                   </Card>
                </CardDeck>
             </div>
+            <hr/>
             <h4 className="m-0 font-weight-bold text-center text-light">Average Scoring Ranges of All {this.state.total} Players</h4>
             <p className="my-4 text-center text-light">
                Displays the distribution of the number of players in each average scoring range per game (from 0 to 30 pts).

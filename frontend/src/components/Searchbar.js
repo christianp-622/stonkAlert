@@ -16,7 +16,7 @@ const Searchbar = () => {
                     onSubmit={(sub) => {
                         sub.preventDefault();
                     }}>
-                    <FormControl type="text" ref={input} placeholder="Search Website"
+                    <FormControl id="searchbox" type="text" ref={input} placeholder="Search Website"
                         onKeyPress={(event) => {
                             if (event.key === "Enter")
                                 if (input.current.value.toString())

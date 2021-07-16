@@ -34,9 +34,7 @@ class NBA extends React.Component {
                            <hr/>
                            <h2 className="m-0 font-weight-bold text-center text-light">Games</h2>
                            <hr/>
-                           <hr/>
                            <GamesGraph></GamesGraph>
-                           <hr/>
                            </div>
                         </div>
                      </div>

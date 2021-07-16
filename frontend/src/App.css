@@ -39,6 +39,12 @@
   }
 }
 
+mark {
+	color: black !important;
+	padding: 0 !important;
+	background-color: lightsalmon !important;
+}
+
 .CDBSidebarMenuItem:hover {
   background-color: rgb(95, 95, 95);
 }
