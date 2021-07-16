@@ -29,7 +29,7 @@ function App() {
             <Route path="/news" component={News} exact/>
             <Route path="/news/:id" component={News}/>
             <Route path="/article/:id" component={Article_Page}/>
-            <Route path="/NBA" component={NBA} exact/>
+            <Route path="/NBAToday" component={NBA} exact/>
             <Route path="/search/:input" component={Search} exact/>
             <Route path="/search" component={Home}/>
           </Switch>

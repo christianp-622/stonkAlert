@@ -43,9 +43,9 @@ const Sidebar = () => {
                 News
               </CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/NBA" activeClassName="activeClicked">
+            <NavLink exact to="/NBAToday" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="basketball-ball">
-                NBA
+                NBAToday
               </CDBSidebarMenuItem>
             </NavLink>
             <NavLink exact to="/about" activeClassName="activeClicked">

@@ -22,6 +22,8 @@
     "case-sensitive-paths-webpack-plugin": "2.3.0",
     "cdbreact": "^1.1.0",
     "css-loader": "4.3.0",
+    "d3-scale": "^4.0.0",
+    "d3-scale-chromatic": "^3.0.0",
     "dotenv": "8.2.0",
     "dotenv-expand": "5.1.0",
     "eslint": "^7.11.0",

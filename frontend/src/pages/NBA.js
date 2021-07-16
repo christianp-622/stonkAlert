@@ -20,10 +20,19 @@ class NBA extends React.Component {
                         <div className="card-bg w-100 border d-flex flex-column">
                            <div className="p-4 d-flex flex-column h-100">
                            <p className="my-4 text-center text-light"> 
-                              <h4 className="m-0 h1 font-weight-bold text-light">NBA</h4>
+                              <h4 className="m-0 h1 font-weight-bold text-light">NBAToday</h4>
                            </p>
+                           <hr/>
+                           <h2 className="m-0 font-weight-bold text-center text-light">Players</h2>
+                           <hr/>
                            <PlayerDistributions></PlayerDistributions>
+                           <hr/>
+                           <h2 className="m-0 font-weight-bold text-center text-light">Teams</h2>
+                           <hr/>
                            <TeamsGraph></TeamsGraph>
+                           <hr/>
+                           <h2 className="m-0 font-weight-bold text-center text-light">Games</h2>
+                           <hr/>
                            </div>
                         </div>
                      </div>
