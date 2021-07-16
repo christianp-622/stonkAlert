@@ -145,7 +145,7 @@ class PlayerDistributions extends React.Component {
                Displays the distribution of the number of players in each average scoring range per game (from 0 to 30 pts).
             </p>
             <p className="my-4 text-center text-light">
-               Hover over graphs for more information!
+               Hover over the graphs for more information!
             </p>
             <div>
                <ResponsiveContainer width="100%" height={400}>

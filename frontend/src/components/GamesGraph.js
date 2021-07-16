@@ -22,22 +22,22 @@ const axisColors = "#FFFFFF";
 const colors = scaleOrdinal(schemeCategory10).range();
 
 
-class TeamsGraph extends React.Component {
+class GamesGraph extends React.Component {
    constructor(props) {
       super(props);
       this.state = {
-         teams: [],
+         games: [],
       }
    }
 
    componentDidMount() {
-      this.getTeams();
+      this.getGames();
    }
 
-   getTeams() {
+   getGames() {
       const pointerToThis = this;
 
-      let API_Call = `https://nbatoday.xyz/api/teams?per_page=30`;
+      let API_Call = `https://nbatoday.xyz/api/games?sort_by=date&sort_order=descending&per_page=45`;
 
       // fetch(API_Call)
       //     .then(
@@ -58,21 +58,18 @@ class TeamsGraph extends React.Component {
          )
          .then(
             function (data) {
-               let teamList = data['data'];
-               let teamData = []
+               let gameList = data['data'];
+               let gameData = []
 
-               for (var i = 0; i < teamList.length; i++) {
-
-
-                  let wl_ratio = teamList[i]['wins'] / teamList[i]['losses'];
-                  let data = { name: teamList[i]['name'], wl: wl_ratio, color: '#' + teamList[i]['color'] }
-                  teamData.push(data);
+               for (var i = 0; i < gameList.length; i++) {
+                  let data = { date: gameList[i]['date'] + ": " + gameList[i]['h_team_name'] + " (Home)" + " vs "  + gameList[i]['v_team_name'] + " (Visiting)", home_team: gameList[i]['h_score'], visiting_team: gameList[i]['v_score'],  h_team: gameList[i]['h_team_name'], v_team: gameList[i]['v_team_name']};
+                  gameData.push(data);
                   console.log(data);
                }
 
-               teamData.sort((a, b) => (a.wl > b.wl) ? 1 : -1);
+               gameData.sort((a, b) => (a.date > b.date) ? 1 : -1);
                pointerToThis.setState({
-                  teams: teamData
+                  games: gameData
                });
             }
 
@@ -81,34 +78,33 @@ class TeamsGraph extends React.Component {
    }
 
    render() {
-      let teams = this.state.teams;
+
+      let games = this.state.games;
       let graphs = <div style={{ margin: "10px auto" }}><Spinner animation="border" role="status">
          <span className="sr-only">Loading...</span>
       </Spinner>
       </div>;
-      if (typeof teams != "undefined" && teams != null && teams.length != null && teams.length > 0) {
-         console.log(teams);
+      if (typeof games != "undefined" && games != null && games.length != null && games.length > 0) {
+         console.log(games);
          graphs = <div style={{ textAlign: "center" }}>
-            <h4 className="m-0 font-weight-bold text-center text-light">Win/Loss Ratio per Team</h4>
+            <h4 className="m-0 font-weight-bold text-center text-light">Game Results</h4>
             <p className="my-4 text-center text-light">
-               Displays the win/loss ratio per team.
+               Displays the game results for the 45 most recent games from NBAToday.
             </p>
             <p className="my-4 text-center text-light">
                Hover over the graph for more information!
             </p>
             <div>
                <ResponsiveContainer width="100%" height={500}>
-                  <BarChart width={1500} height={500} data={teams} >
-
+                  <BarChart width={1500} height={500} data={games} >
                      <CartesianGrid strokeDasharray="3 3" />
-                     <XAxis dataKey="name" stroke={axisColors} tick={false} />
+                     <XAxis dataKey="date"  stroke={axisColors} tick={false} />
                      <YAxis stroke={axisColors} />
                      <Tooltip />
-                     <Bar dataKey="wl" fill="#000000" name="Win/Loss Ratio">
-                        {teams.map((entry, index) => (
-                           <Cell key={`cell-${index}`} fill={colors[index % 5]} />
-                        ))}
-                     </Bar>
+                     <Legend />
+                     <Bar dataKey="home_team" fill="#8884d8" name = "Home Team Score"/>
+                     <Bar dataKey="visiting_team" fill="#82ca9d" name = "Visiting Team Score"/>
+
                   </BarChart>
                </ResponsiveContainer>
             </div>
@@ -120,4 +116,4 @@ class TeamsGraph extends React.Component {
    }
 }
 
-export default TeamsGraph;
+export default GamesGraph;

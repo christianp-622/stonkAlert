@@ -3,6 +3,7 @@ import Sidebar from '../components/Sidebar';
 import '../App.css';
 import PlayerDistributions from '../components/PlayerDistributions';
 import TeamsGraph from '../components/TeamsGraph'
+import GamesGraph from "../components/GamesGraph"
 
 class NBA extends React.Component {
    render() {
@@ -32,6 +33,9 @@ class NBA extends React.Component {
                            <TeamsGraph></TeamsGraph>
                            <hr/>
                            <h2 className="m-0 font-weight-bold text-center text-light">Games</h2>
+                           <hr/>
+                           <hr/>
+                           <GamesGraph></GamesGraph>
                            <hr/>
                            </div>
                         </div>
