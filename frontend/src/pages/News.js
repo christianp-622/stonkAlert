@@ -30,12 +30,13 @@ function getCaret(direction) {
    );
 }
 
-class News extends React.Component {
-   constructor(props) {
-      super(props);
-      this.state = {
-         news: []
-      }
+class News extends React.Component {	
+   constructor(props) {	
+      super(props);	
+      this.state = {	
+         news: [],	
+         search: ""	
+      }	
    }
 
    componentDidMount() {
