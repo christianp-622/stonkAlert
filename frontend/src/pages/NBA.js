@@ -21,7 +21,12 @@ class NBA extends React.Component {
                         <div className="card-bg w-100 border d-flex flex-column">
                            <div className="p-4 d-flex flex-column h-100">
                            <p className="my-4 text-center text-light"> 
-                              <h4 className="m-0 h1 font-weight-bold text-light">NBAToday</h4>
+                              <h4 className="m-0 h1 text-center font-weight-bold text-light">NBAToday</h4>
+                              <p className="my-4 text-center text-light"> 
+                                 The NBAToday API provides many filtering/sorting query parameters and robust features in order to retrieve its many games, players, and teams.
+                                 <br/>After making multiple requests, we were able to make interesting observations about the returned attributes of each model.<br/>We decided
+                                 to showcase our findings through a series of visuals.
+                              </p>
                            </p>
                            <hr/>
                            <h2 className="m-0 font-weight-bold text-center text-light">Players</h2>
