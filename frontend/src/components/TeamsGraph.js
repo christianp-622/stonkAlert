@@ -91,7 +91,7 @@ class TeamsGraph extends React.Component {
          graphs = <div style={{ textAlign: "center" }}>
             <h4 className="m-0 font-weight-bold text-center text-light">Win/Loss Ratio per Team</h4>
             <p className="my-4 text-center text-light">
-               Displays the the win/loss ratio per team (from 0 to 1).
+               Displays the the win/loss ratio per team.
             </p>
             <p className="my-4 text-center text-light">
                Hover over graph for more information!
