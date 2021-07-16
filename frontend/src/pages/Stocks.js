@@ -108,6 +108,11 @@ class Stocks extends React.Component {
       console.log(instance);	
       this.state.search = text;	
    }
+   onSearchChange = (searchText, colInfos, multiColumnSearch) => {	
+      console.log(searchText);	
+      this.doSearch(searchText);	
+      this.interval = setInterval(() => this.doSearch(this.state.search), 1000);	
+   }
 
    getStocks() {
       const localURL = "https://stonkalert.me/api/stocks?limit=15000";
