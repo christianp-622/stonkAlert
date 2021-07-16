@@ -54,6 +54,11 @@ class Companies extends React.Component {
       this.state.search = text;
    }
 
+   onSearchChange = (searchText, colInfos, multiColumnSearch) => {
+      this.doSearch(searchText);
+      this.interval = setInterval(() => this.doSearch(this.state.search), 1000);
+   }
+
    getCompanies() {
       const localURL = "https://stonkalert.me/api/companies?limit=15000";
       // const localURL = "http://127.0.0.1:5000/api/companies?limit=15000";
@@ -95,6 +100,7 @@ class Companies extends React.Component {
 
    render() {
       const options = {
+         onSearchChange: this.onSearchChange,
          paginationShowsTotal: this.renderTotal,
          onRowClick: function (row) {
             window.location.href = "/companies/" + row.stock;
