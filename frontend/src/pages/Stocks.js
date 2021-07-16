@@ -15,6 +15,7 @@ import "../../node_modules/react-bootstrap-table/css/react-bootstrap-table.css";
 //stock display components
 import Stock from '../components/Stock';
 import Spinner from 'react-bootstrap/Spinner'
+import Mark from 'mark.js'
 
 function getCaret(direction) {
    if (direction === 'asc') {
@@ -90,7 +91,8 @@ class Stocks extends React.Component {
    constructor(props) {
       super(props);
       this.state = {
-         stocks: []
+         stocks: [],
+         search: ""
       }
    }
 
@@ -98,20 +100,22 @@ class Stocks extends React.Component {
       this.getStocks();
    }
 
-   componentWillUnmount() {	
-      clearInterval(this.interval);	
-   }	
-   doSearch(text) {	
-      var instance = new Mark(document.querySelectorAll("tbody"));	
-      instance.unmark(text); // clears old text edge case	
-      instance.mark(text);	
-      console.log(instance);	
-      this.state.search = text;	
+   componentWillUnmount() {
+      clearInterval(this.interval);
    }
-   onSearchChange = (searchText, colInfos, multiColumnSearch) => {	
-      console.log(searchText);	
-      this.doSearch(searchText);	
-      this.interval = setInterval(() => this.doSearch(this.state.search), 1000);	
+
+   doSearch(text) {
+      var instance = new Mark(document.querySelectorAll("tbody"));
+      instance.unmark(text); // clears old text edge case
+      instance.mark(text);
+      console.log(instance);
+      this.state.search = text;
+   }
+
+   onSearchChange = (searchText, colInfos, multiColumnSearch) => {
+      console.log(searchText);
+      this.doSearch(searchText);
+      this.interval = setInterval(() => this.doSearch(this.state.search), 1000);
    }
 
    getStocks() {
@@ -155,12 +159,13 @@ class Stocks extends React.Component {
 
    render() {
       const options = {
+         onSearchChange: this.onSearchChange,
          paginationShowsTotal: this.renderTotal,
          onRowClick: function (row) {
             // window.location.href = `/stocks/${row.ticker}`;
             window.location.href = "/stocks/" + row.ticker;
          }
-      };      
+      };
       let stocks = this.state.stocks;
       console.log(this.state.stocks);
       console.log(window.location.protocol);
@@ -170,7 +175,7 @@ class Stocks extends React.Component {
       </Spinner>
       </div>;
       if (typeof stocks != "undefined" && stocks != null && stocks.length != null && stocks.length > 0) {
-         stockTable = <BootstrapTable data={this.state.stocks} options={options} striped hover pagination version="4" search searchPlaceholder='General Search' multiColumnSearch>
+         stockTable = <BootstrapTable data={this.state.stocks} options={options} striped hover pagination version="4" search searchPlaceholder='Multi-Word and Column Search' multiColumnSearch>
             <TableHeaderColumn ref='ticker' dataField='ticker' isKey caretRender={getCaret} dataSort={true} thStyle={{ color: 'white', whiteSpace: 'normal' }} tdStyle={{ color: 'white', whiteSpace: 'normal' }} filter={{ type: 'TextFilter', placeholder: "Enter" }}>Ticker</TableHeaderColumn>
             <TableHeaderColumn ref='price' dataField='price' caretRender={getCaret} dataSort={true} thStyle={{ color: 'white', whiteSpace: 'normal' }} tdStyle={{ color: 'white', whiteSpace: 'normal' }} filter={{ type: 'NumberFilter', defaultValue: { comparator: '=' }, placeholder: "Enter" }}
                dataFormat={formatFloat}
