@@ -52,6 +52,31 @@ def get_stocks():
     if limit < 0:
         limit = 0
 
+
+    # handles the tradescore and investscore
+    # ascending => C -> A+
+    # descending => A+ -> C
+    if sort == 'tradescore':
+        sort = case(
+                    (Stock.tradescore == "A+", 7),
+                    (Stock.tradescore == "A", 6),
+                    (Stock.tradescore == "A-", 5),
+                    (Stock.tradescore == "B+", 4),
+                    (Stock.tradescore == "B", 3),
+                    (Stock.tradescore == "B-", 2),
+                    (Stock.tradescore == "C", 1)
+                    )
+    elif sort == 'investscore':
+        sort = case(
+                    (Stock.investscore == "A+", 7),
+                    (Stock.investscore == "A", 6),
+                    (Stock.investscore == "A-", 5),
+                    (Stock.investscore == "B+", 4),
+                    (Stock.investscore == "B", 3),
+                    (Stock.investscore == "B-", 2),
+                    (Stock.investscore == "C", 1)
+                    )
+
     # have to set stocklist to empty list in order to get a list of stocks
     # doing a direct equals to the query will assign it to the actual sql query format
     stockList =[]
@@ -60,31 +85,11 @@ def get_stocks():
     elif asc.lower() == 'false':
         stockList += db.session.query(Stock).order_by(desc(sort)).limit(limit)
 
+
+  
     result = map(lambda x: x.format(), stockList)
 
-    if sort == 'tradescore':
-        result=list(result)
-        result_sort_grade =sorted(result, key=functools.cmp_to_key(trade_cmp), reverse = asc.lower()== 'false')
-        return jsonify(result_sort_grade)
-
-    if sort == 'investscore':
-        result=list(result)
-        result_sort_grade =sorted(result, key=functools.cmp_to_key(invest_cmp), reverse = asc.lower()== 'false')
-        return jsonify(result_sort_grade)
-    
     return jsonify(list(result))
-
-# helper functions to ensure that grades a properly sorted A+ > A-
-def trade_cmp(a,b):
-    mapping = {'A+': 11,'A': 10, 'A-': 9, 'B+': 8, 'B': 7, 'B-': 6, 'C+': 5, 'C': 4, 'C-': 3, 'D+': 2, 'D': 1, 'F': 0}
-    A = mapping[a['tradescore']]
-    B = mapping[b['tradescore']]
-    if A > B:
-        return 1
-    elif A < B:
-        return -1
-    else:
-        return 0
 
 def get_db_post_tests():
     file = open("db_output.txt", encoding="utf8")
@@ -96,16 +101,6 @@ def get_db_post_tests():
     time.sleep(4) # so process finishes to get correct output
     return output
 
-def invest_cmp(a,b):
-    mapping = {'A+': 11,'A': 10, 'A-': 9, 'B+': 8, 'B': 7, 'B-': 6, 'C+': 5, 'C': 4, 'C-': 3, 'D+': 2, 'D': 1, 'F': 0}
-    A = mapping[a['investscore']]
-    B = mapping[b['investscore']]
-    if A > B:
-        return 1
-    elif A < B:
-        return -1
-    else:
-        return 0
 
 @app.route('/api/company', methods=["GET"])
 def get_company():
