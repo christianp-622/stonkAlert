@@ -7,12 +7,12 @@ import '../stock.css';
 import { NavLink, Redirect } from 'react-router-dom';
 import StockCard from '../components/StockCard'
 import Button from 'react-bootstrap/Button'
-import Mark from 'mark.js'
 
 /*Table components */
 import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
 import "../../node_modules/react-bootstrap-table/css/react-bootstrap-table.css";
 import Spinner from 'react-bootstrap/Spinner'
+import Mark from 'mark.js'
 
 function getCaret(direction) {
    if (direction === 'asc') {
@@ -30,21 +30,21 @@ function getCaret(direction) {
    );
 }
 
-class News extends React.Component {	
-   constructor(props) {	
-      super(props);	
-      this.state = {	
-         news: [],	
-         search: ""	
-      }	
-   }
-
-   componentWillUnmount() {
-      clearInterval(this.interval);
+class News extends React.Component {
+   constructor(props) {
+      super(props);
+      this.state = {
+         news: [],
+         search: ""
+      }
    }
 
    componentDidMount() {
       this.getNews();
+   }
+
+   componentWillUnmount() {
+      clearInterval(this.interval);
    }
 
    doSearch(text) {
@@ -53,6 +53,12 @@ class News extends React.Component {
       instance.mark(text);
       console.log(instance);
       this.state.search = text;
+   }
+
+   onSearchChange = (searchText, colInfos, multiColumnSearch) => {
+      console.log(searchText);
+      this.doSearch(searchText);
+      this.interval = setInterval(() => this.doSearch(this.state.search), 1000);
    }
 
    getNews() {
@@ -101,6 +107,7 @@ class News extends React.Component {
 
    render() {
       const options = {
+         onSearchChange: this.onSearchChange,
          paginationShowsTotal: this.renderTotal,
          onRowClick: function (row) {
             window.location.href = "/article/" + row.id;
@@ -112,7 +119,7 @@ class News extends React.Component {
       </Spinner>
       </div>;
       if (typeof news != "undefined" && news != null && news.length != null && news.length > 0) {
-         articleTable = <BootstrapTable data={news} options={options} striped hover pagination version='4' search multiColumnSearch>
+         articleTable = <BootstrapTable data={news} options={options} striped hover pagination version='4' search searchPlaceholder='Multi-Word and Column Search' multiColumnSearch>
             <TableHeaderColumn ref='headline' dataField='headline' isKey caretRender={getCaret} dataSort={true} thStyle={{ color: 'white', whiteSpace: 'normal' }} tdStyle={{ color: 'white', whiteSpace: 'normal' }} filter={{ type: 'TextFilter', placeholder: "Enter" }}>Title</TableHeaderColumn>
             <TableHeaderColumn ref='datetime' dataField='datetime' caretRender={getCaret} dataSort={true} thStyle={{ color: 'white', whiteSpace: 'normal' }} tdStyle={{ color: 'white', whiteSpace: 'normal' }} filter={{ type: 'TextFilter', placeholder: "Enter" }}>Date</TableHeaderColumn>
             <TableHeaderColumn ref='source' dataField='source' caretRender={getCaret} dataSort={true} thStyle={{ color: 'white', whiteSpace: 'normal' }} tdStyle={{ color: 'white', whiteSpace: 'normal' }} filter={{ type: 'TextFilter', placeholder: "Enter" }}>Source</TableHeaderColumn>
