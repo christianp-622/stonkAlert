@@ -13,11 +13,21 @@ import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
 import "../../node_modules/react-bootstrap-table/css/react-bootstrap-table.css";
 import Spinner from 'react-bootstrap/Spinner'
 
-const options = {
-   onRowClick: function (row) {
-      window.location.href = "/article/" + row.id;
+function getCaret(direction) {
+   if (direction === 'asc') {
+      return (
+         <span>      <i className="fas fa-arrow-up"></i></span>
+      );
    }
-};
+   if (direction === 'desc') {
+      return (
+         <span>      <i className="fas fa-arrow-down"></i></span>
+      );
+   }
+   return (
+      <span>      <i className="fas fa-arrow-up"></i><i className="fas fa-arrow-down"></i></span>
+   );
+}
 
 class News extends React.Component {
    constructor(props) {
@@ -67,19 +77,33 @@ class News extends React.Component {
       this.refs.company.cleanFiltered();
    }
 
+   renderTotal(start, to, total) {
+      return (
+         <p style={{ color: 'white' }}>
+            Showing rows {start} to {to} of {total} instances
+         </p>
+      );
+   }
+
    render() {
+      const options = {
+         paginationShowsTotal: this.renderTotal,
+         onRowClick: function (row) {
+            window.location.href = "/article/" + row.id;
+         }
+      };
       let news = this.state.news;
       let articleTable = <div style={{ margin: "10px auto" }}><Spinner animation="border" role="status">
-      <span className="sr-only">Loading...</span>
-   </Spinner>
-   </div>;
+         <span className="sr-only">Loading...</span>
+      </Spinner>
+      </div>;
       if (typeof news != "undefined" && news != null && news.length != null && news.length > 0) {
-         articleTable = <BootstrapTable data={news} options={options} striped hover pagination version="4" search multiColumnSearch>
-            <TableHeaderColumn ref='headline' dataField='headline' isKey dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }} filter={{ type: 'TextFilter' }}>Title</TableHeaderColumn>
-            <TableHeaderColumn ref='datetime' dataField='datetime' dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }} filter={{ type: 'TextFilter' }}>Date</TableHeaderColumn>
-            <TableHeaderColumn ref='source' dataField='source' dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }} filter={{ type: 'TextFilter' }}>Source</TableHeaderColumn>
-            <TableHeaderColumn ref='ticker' dataField='ticker' dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }} filter={{ type: 'TextFilter' }}>Symbol</TableHeaderColumn>
-            <TableHeaderColumn ref='company' dataField='company' dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }} filter={{ type: 'TextFilter' }}>Company</TableHeaderColumn>
+         articleTable = <BootstrapTable data={news} options={options} striped hover pagination version='4' search multiColumnSearch>
+            <TableHeaderColumn ref='headline' dataField='headline' isKey caretRender={getCaret} dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }} filter={{ type: 'TextFilter' }}>Title</TableHeaderColumn>
+            <TableHeaderColumn ref='datetime' dataField='datetime' caretRender={getCaret} dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }} filter={{ type: 'TextFilter' }}>Date</TableHeaderColumn>
+            <TableHeaderColumn ref='source' dataField='source' caretRender={getCaret} dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }} filter={{ type: 'TextFilter' }}>Source</TableHeaderColumn>
+            <TableHeaderColumn ref='ticker' dataField='ticker' caretRender={getCaret} dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }} filter={{ type: 'TextFilter' }}>Symbol</TableHeaderColumn>
+            <TableHeaderColumn ref='company' dataField='company' caretRender={getCaret} dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }} filter={{ type: 'TextFilter' }}>Company</TableHeaderColumn>
          </BootstrapTable>;
       }
       return (

@@ -204,7 +204,7 @@ const About = () => {
                                     <Card.Title>IEX Cloud API</Card.Title>
                                     <ListGroup text = "white" className="list-group-flush listgroup">
                                        <ListGroupItem className = "listgroup" action href="https://iexcloud.io/" rel="noopener noreferrer" target="_blank">Provides financial data. 
-                                       To scrape data for our stocks, news, and companies in create_db.py, we sent timed (for rate limit) stock quote, stock news, and company overview requests using the Python requests HTTP library and json() conversion method to get information on attributes for all of our models in json dictionary and list formats. From the data fetched, we then accessed attributes like stock price, sector, and volume for the stock model;
+                                       <hr/>To scrape data for our stocks, news, and companies in create_db.py, we sent timed (for rate limit) stock quote, stock news, and company overview requests using the Python requests HTTP library and json() conversion method to get information on attributes for all of our models in json dictionary and list formats. From the data fetched, we then accessed attributes like stock price, sector, and volume for the stock model;
                                        company name, ceo, number of employees, industry, website, and company description for the company model; and headline, datetime, source, link, and summary for each article model. </ListGroupItem>
                                     </ListGroup>
                                  </Card.Body>
@@ -214,7 +214,7 @@ const About = () => {
                                  <Card.Body>
                                     <Card.Title>Finnhub API</Card.Title>
                                     <ListGroup text = "white" className="list-group-flush listgroup">
-                                       <ListGroupItem className = "listgroup" action href="https://finnhub.io/" rel="noopener noreferrer" target="_blank">Provides real time data on stocks, currencies, and crypto. To scrape the tickers of many stocks in create_db.py, we sent timed (for rate limit) requests using the Python requests HTTP library and json() conversion method 
+                                       <ListGroupItem className = "listgroup" action href="https://finnhub.io/" rel="noopener noreferrer" target="_blank">Provides real time data on stocks, currencies, and crypto. <hr/>To scrape the tickers of many stocks in create_db.py, we sent timed (for rate limit) requests using the Python requests HTTP library and json() conversion method 
                                        to get a json list of ticker symbols for stocks in the NYSE, where all the meme stocks come from. We then accessed this json list and iterated through each stock symbol to provide our models the ticker symbol attribute. We also use this attribute as the
                                        primary key for the stock and company models.</ListGroupItem>
                                     </ListGroup>
@@ -225,8 +225,8 @@ const About = () => {
                                  <Card.Body>
                                     <Card.Title>Styvio API</Card.Title>
                                     <ListGroup text = "white" className="list-group-flush listgroup">
-                                       <ListGroupItem className = "listgroup" action href="https://www.styvio.com/" rel="noopener noreferrer" target="_blank">Provides real time information on stock chat, fundamental and technical data, and social sentiment. Since
-                                       To scrape data for our stocks in create_db.py, we sent timed (for rate limit) requests using the Python requests HTTP library and json() conversion method to get information for each stock in terms of a json dictionary of labeled data, and accessed its tradescores and investscores to add to our stock models. This provided our users with information
+                                       <ListGroupItem className = "listgroup" action href="https://www.styvio.com/" rel="noopener noreferrer" target="_blank">Provides real time information on stock chat, fundamental and technical data, and social sentiment.
+                                       <hr/>To scrape data for our stocks in create_db.py, we sent timed (for rate limit) requests using the Python requests HTTP library and json() conversion method to get information for each stock in terms of a json dictionary of labeled data, and accessed its tradescores and investscores to add to our stock models. This provided our users with information
                                        on social sentiment for each instance of our stock model. In the same manner, we accessed its yearly prices that was stored in an array of the json dictionary to populate our stock graph data coordinates.</ListGroupItem>
                                     </ListGroup>
                                  </Card.Body>

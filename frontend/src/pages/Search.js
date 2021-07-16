@@ -11,6 +11,45 @@ import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
 import "../../node_modules/react-bootstrap-table/css/react-bootstrap-table.css";
 import Spinner from 'react-bootstrap/Spinner'
 
+function getCaret(direction) {
+    if (direction === 'asc') {
+        return (
+            <span>      <i className="fas fa-arrow-up"></i></span>
+        );
+    }
+    if (direction === 'desc') {
+        return (
+            <span>      <i className="fas fa-arrow-down"></i></span>
+        );
+    }
+    return (
+        <span>      <i className="fas fa-arrow-up"></i><i className="fas fa-arrow-down"></i></span>
+    );
+}
+
+/* used to compare two scores */
+const stockScore = {
+    'A+': 0,
+    'A': 1,
+    'A-': 2,
+    'B+': 3,
+    'B': 4,
+    'B-': 5,
+    'C': 6,
+
+}
+
+function sortByScore(a, b, order, field) {
+    console.log(field);
+    let A = stockScore[a[field]];
+    let B = stockScore[b[field]];
+    if (order == 'desc') {
+        return A - B
+    } else {
+        return B - A
+    }
+}
+
 class Search extends React.Component {
     constructor(props) {
         super(props);
@@ -94,8 +133,17 @@ class Search extends React.Component {
             )
     }
 
+    renderTotal(start, to, total) {
+        return (
+            <p style={{ color: 'white' }}>
+                Showing rows {start} to {to} of {total} instances
+            </p>
+        );
+    }
+
     render() {
         const optionsStocks = {
+            paginationShowsTotal: this.renderTotal,
             defaultSearch: this.state.search,
             onRowClick: function (row) {
                 window.location.href = "/stocks/" + row.ticker;
@@ -103,6 +151,7 @@ class Search extends React.Component {
         };
 
         const optionsNews = {
+            paginationShowsTotal: this.renderTotal,
             defaultSearch: this.state.search,
             onRowClick: function (row) {
                 window.location.href = "/article/" + row.id;
@@ -110,6 +159,7 @@ class Search extends React.Component {
         };
 
         const optionsCompanies = {
+            paginationShowsTotal: this.renderTotal,
             defaultSearch: this.state.search,
             onRowClick: function (row) {
                 window.location.href = "/companies/" + row.stock;
@@ -135,30 +185,30 @@ class Search extends React.Component {
 
         if (typeof stocks != "undefined" && stocks != null && stocks.length != null && stocks.length > 0) {
             stockTable = <BootstrapTable data={stocks} options={optionsStocks} striped hover pagination version="4">
-                <TableHeaderColumn ref='ticker' dataField='ticker' isKey dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }}>Ticker</TableHeaderColumn>
-                <TableHeaderColumn ref='price' dataField='price' dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }}>Stock Price</TableHeaderColumn>
-                <TableHeaderColumn ref='marketcap' dataField='marketcap' dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }}>Market Cap</TableHeaderColumn>
-                <TableHeaderColumn ref='sector' dataField='sector' dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }}>Sector</TableHeaderColumn>
-                <TableHeaderColumn ref='tradescore' dataField='tradescore' dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }}>Trader Score</TableHeaderColumn>
-                <TableHeaderColumn ref='investscore' dataField='investscore' dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }}>Investor Score</TableHeaderColumn>
+                <TableHeaderColumn caretRender={getCaret} ref='ticker' dataField='ticker' isKey dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }}>Ticker</TableHeaderColumn>
+                <TableHeaderColumn caretRender={getCaret} ref='price' dataField='price' dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }}>Stock Price</TableHeaderColumn>
+                <TableHeaderColumn caretRender={getCaret} ref='marketcap' dataField='marketcap' dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }}>Market Cap</TableHeaderColumn>
+                <TableHeaderColumn caretRender={getCaret} ref='sector' dataField='sector' dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }}>Sector</TableHeaderColumn>
+                <TableHeaderColumn caretRender={getCaret} ref='tradescore' dataField='tradescore' dataSort={true} sortFunc={sortByScore} formatExtraData={stockScore} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }}>Trader Score</TableHeaderColumn>
+                <TableHeaderColumn caretRender={getCaret} ref='investscore' dataField='investscore' dataSort={true} sortFunc={sortByScore} formatExtraData={stockScore} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }}>Investor Score</TableHeaderColumn>
             </BootstrapTable>;
         }
         if (typeof companies != "undefined" && companies != null && companies.length != null && companies.length > 0) {
             companyTable = <BootstrapTable data={companies} options={optionsCompanies} striped hover pagination version="4">
-                <TableHeaderColumn dataField='name' isKey dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }}>Name</TableHeaderColumn>
-                <TableHeaderColumn dataField='industry' dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }}>Industry</TableHeaderColumn>
-                <TableHeaderColumn dataField='country' dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }}>Country</TableHeaderColumn>
-                <TableHeaderColumn dataField='exchange' dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }}>Exchange</TableHeaderColumn>
-                <TableHeaderColumn dataField='stock' dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }}>Symbol</TableHeaderColumn>
+                <TableHeaderColumn caretRender={getCaret} dataField='name' isKey dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }}>Name</TableHeaderColumn>
+                <TableHeaderColumn caretRender={getCaret} dataField='industry' dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }}>Industry</TableHeaderColumn>
+                <TableHeaderColumn caretRender={getCaret} dataField='country' dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }}>Country</TableHeaderColumn>
+                <TableHeaderColumn caretRender={getCaret} dataField='exchange' dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }}>Exchange</TableHeaderColumn>
+                <TableHeaderColumn caretRender={getCaret} dataField='stock' dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }}>Symbol</TableHeaderColumn>
             </BootstrapTable>;
         }
         if (typeof news != "undefined" && news != null && news.length != null && news.length > 0) {
             articleTable = <BootstrapTable data={news} options={optionsNews} striped hover pagination version="4">
-                <TableHeaderColumn dataField='headline' isKey dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }}>Title</TableHeaderColumn>
-                <TableHeaderColumn dataField='datetime' dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }}>Date</TableHeaderColumn>
-                <TableHeaderColumn dataField='source' dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }}>Source</TableHeaderColumn>
-                <TableHeaderColumn dataField='ticker' dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }}>Symbol</TableHeaderColumn>
-                <TableHeaderColumn dataField='company' dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }}>Company</TableHeaderColumn>
+                <TableHeaderColumn caretRender={getCaret} dataField='headline' isKey dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }}>Title</TableHeaderColumn>
+                <TableHeaderColumn caretRender={getCaret} dataField='datetime' dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }}>Date</TableHeaderColumn>
+                <TableHeaderColumn caretRender={getCaret} dataField='source' dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }}>Source</TableHeaderColumn>
+                <TableHeaderColumn caretRender={getCaret} dataField='ticker' dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }}>Symbol</TableHeaderColumn>
+                <TableHeaderColumn caretRender={getCaret} dataField='company' dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }}>Company</TableHeaderColumn>
             </BootstrapTable>;
         }
 

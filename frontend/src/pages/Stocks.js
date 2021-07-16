@@ -16,6 +16,22 @@ import "../../node_modules/react-bootstrap-table/css/react-bootstrap-table.css";
 import Stock from '../components/Stock';
 import Spinner from 'react-bootstrap/Spinner'
 
+function getCaret(direction) {
+   if (direction === 'asc') {
+      return (
+         <span>      <i className="fas fa-arrow-up"></i></span>
+      );
+   }
+   if (direction === 'desc') {
+      return (
+         <span>      <i className="fas fa-arrow-down"></i></span>
+      );
+   }
+   return (
+      <span>      <i className="fas fa-arrow-up"></i><i className="fas fa-arrow-down"></i></span>
+   );
+}
+
 /* used for the filter dropdown to determine which values to show*/
 /* the key is displayed while the value is the actual value is used to sort */
 const displayScores = {
@@ -70,13 +86,6 @@ function formatFloat(cell) {
    return parseFloat(cell);
 }
 
-const options = {
-   onRowClick: function (row) {
-      // window.location.href = `/stocks/${row.ticker}`;
-      window.location.href = "/stocks/" + row.ticker;
-   }
-};
-
 class Stocks extends React.Component {
    constructor(props) {
       super(props);
@@ -120,7 +129,22 @@ class Stocks extends React.Component {
       this.refs.investscore.cleanFiltered();
    }
 
+   renderTotal(start, to, total) {
+      return (
+         <p style={{ color: 'white' }}>
+            Showing rows {start} to {to} of {total} instances
+         </p>
+      );
+   }
+
    render() {
+      const options = {
+         paginationShowsTotal: this.renderTotal,
+         onRowClick: function (row) {
+            // window.location.href = `/stocks/${row.ticker}`;
+            window.location.href = "/stocks/" + row.ticker;
+         }
+      };      
       let stocks = this.state.stocks;
       console.log(this.state.stocks);
       console.log(window.location.protocol);
@@ -131,15 +155,15 @@ class Stocks extends React.Component {
       </div>;
       if (typeof stocks != "undefined" && stocks != null && stocks.length != null && stocks.length > 0) {
          stockTable = <BootstrapTable data={this.state.stocks} options={options} striped hover pagination version="4" search searchPlaceholder='General Search' multiColumnSearch>
-            <TableHeaderColumn ref='ticker' dataField='ticker' isKey dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }} filter={{ type: 'TextFilter' }}>Ticker</TableHeaderColumn>
-            <TableHeaderColumn ref='price' dataField='price' dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }} filter={{ type: 'NumberFilter', defaultValue: { comparator: '=' } }}
+            <TableHeaderColumn ref='ticker' dataField='ticker' isKey caretRender={getCaret} dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }} filter={{ type: 'TextFilter' }}>Ticker</TableHeaderColumn>
+            <TableHeaderColumn ref='price' dataField='price' caretRender={getCaret} dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }} filter={{ type: 'NumberFilter', defaultValue: { comparator: '=' } }}
                dataFormat={formatFloat}
                filterFormatted>Stock Price</TableHeaderColumn>
-            <TableHeaderColumn ref='marketcap' dataField='marketcap' dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }} filter={{ type: 'NumberFilter', defaultValue: { comparator: '=' } }}>Market Cap</TableHeaderColumn>
-            <TableHeaderColumn ref='sector' dataField='sector' dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }} filter={{ type: 'TextFilter' }}>Sector</TableHeaderColumn>
-            <TableHeaderColumn ref='tradescore' dataField='tradescore' dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }} filterFormatted sortFunc={sortByScore} formatExtraData={stockScore}
+            <TableHeaderColumn ref='marketcap' caretRender={getCaret} dataField='marketcap' dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }} filter={{ type: 'NumberFilter', defaultValue: { comparator: '=' } }}>Market Cap</TableHeaderColumn>
+            <TableHeaderColumn ref='sector' caretRender={getCaret} dataField='sector' dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }} filter={{ type: 'TextFilter' }}>Sector</TableHeaderColumn>
+            <TableHeaderColumn ref='tradescore' caretRender={getCaret} dataField='tradescore' dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }} filterFormatted sortFunc={sortByScore} formatExtraData={stockScore}
                filter={{ type: 'SelectFilter', options: displayScores, condition: 'eq' }}>Trader Score</TableHeaderColumn>
-            <TableHeaderColumn ref='investscore' dataField='investscore' dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }} filterFormatted sortFunc={sortByScore} formatExtraData={stockScore}
+            <TableHeaderColumn ref='investscore' caretRender={getCaret} dataField='investscore' dataSort={true} thStyle={{ color: 'white' }} tdStyle={{ color: 'white' }} filterFormatted sortFunc={sortByScore} formatExtraData={stockScore}
                filter={{ type: 'SelectFilter', options: displayScores, condition: 'eq' }}>Investor Score</TableHeaderColumn>
          </BootstrapTable>;
       }
