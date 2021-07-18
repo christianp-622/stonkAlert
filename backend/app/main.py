@@ -16,16 +16,7 @@ def index():
 
 @app.route('/api/tests', methods=["GET"])
 def run_tests():
-    # run backend tests
-    p1 = subprocess.Popen(['coverage', 'run', '--branch', 'app/tests.py'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    output = p1.communicate()[0].decode("utf-8")
-    p2 = subprocess.Popen(['coverage', 'report'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    output += p2.communicate()[0].decode("utf-8")
-    output += get_db_post_tests()
-
-    output = output.replace('\n', '<br />')
-    output = Markup(output)
-    return render_template('index.html', output=output) # populate template with unit tests
+    return render_template('index.html', output=test_output()) # populate template with unit tests
 
 @app.route('/api/stock', methods=["GET"])
 def get_stock():
@@ -91,16 +82,20 @@ def get_stocks():
 
     return jsonify(list(result))
 
-def get_db_post_tests():
+def test_output():
+    file = open("output.txt", encoding="utf8")
+    output = file.read()
+    file.close()
     file = open("db_output.txt", encoding="utf8")
-    output = "\n" + file.read()
+    output += "\n" + file.read()
     file.close()
     file = open("post_output.txt", encoding="utf8")
     output += "\n" + file.read()
     file.close()
-    time.sleep(4) # so process finishes to get correct output
+    output = output.replace('\n', '<br />')
+    output = Markup(output)
+    time.sleep(9) # so process finishes to get correct output
     return output
-
 
 @app.route('/api/company', methods=["GET"])
 def get_company():
